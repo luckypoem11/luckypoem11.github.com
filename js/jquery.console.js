@@ -123,7 +123,7 @@
                             }
                             if (!path) {
                                  $this.console('createMessage',
-                                        'No directory specified',
+                                        'cd: no directory specified',
                                         data.errorClass);
                                  return;
                             }
@@ -134,7 +134,7 @@
                                             'Working directory changed.');
                                 } else {
                                     $this.console('createMessage',
-                                            'Couldn\'t resolve path \'' +
+                                            'cd: couldn\'t resolve path \'' +
                                             path + '\'',
                                             data.errorClass);
                                 }
@@ -178,6 +178,7 @@
                     },
                     'ls': {
                         '_call': function (args) {
+                            // TODO: Support more options and maybe file arguments?
                             var $this = this,
                                 arr = [],
                                 data = $this.data('console'),
@@ -199,8 +200,11 @@
                                 }
                                 if (invalidArg) {
                                     $this.console('createMessage',
-                                            'Invalid argument \'' + arg + '\'',
+                                            'ls: illegal option ' + arg,
                                             data.errorClass);
+                                    $this.console('createMessage',
+                                            'usage: ls -a',
+                                            data.errorClassh);
                                     return;
                                 }
                             }
@@ -222,9 +226,8 @@
                                         }
                                     }
                                 } else {
-                                    $this.console('createMessage',
-                                            'Couldn\'t resolve path \'' +
-                                            path + '\'',
+                                    $this.console('createMessage', path +
+                                            ': No such file or directory',
                                             data.errorClass);
                                 }
                             });
@@ -233,8 +236,61 @@
                     },
                     'open': {
                         '_call': function (args) {
-                            var data = this.data('console');
-                            this.console('createMessage', 'open', data.warningClass);
+                            var $this = this,
+                                data = $this.data('console'),
+                                fileName,
+                                path,
+                                rootIndex = -1,
+                                rootPath = '';
+                            if (args.length) {
+                                path = args[0];
+                            }
+                            if (!path) {
+                                 $this.console('createMessage',
+                                        'open: no directory specified',
+                                        data.errorClass);
+                                 return;
+                            }
+                            rootIndex = path.lastIndexOf('/');
+                            if (rootIndex !== -1) {
+                                fileName = path.substring(rootIndex + 1);
+                                rootPath = path.substring(0, rootIndex);
+                            } else {
+                                fileName = path;
+                            }
+                            if (!fileName) {
+                                $this.console('createMessage',
+                                        'open: must be valid file',
+                                        data.errorClass);
+                                return;
+                            }
+                            $this.console('lookupManifest', rootPath, function (manifest) {
+                                if (manifest) {
+                                    var fileExists = false,
+                                        files = manifest.files;
+                                    for (var i = 0; i < files.length; i++) {
+                                        if (files[i] === fileName) {
+                                            fileExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if (fileExists) {
+                                        $.get(manifest.path + '/' + fileName, function (content) {
+                                            $this.console('createMessage', content);
+                                        });
+                                    } else {
+                                        $this.console('createMessage',
+                                                'open: couldn\'t resolve path \'' +
+                                                path + '\'',
+                                                data.errorClass);
+                                    }
+                                } else {
+                                    $this.console('createMessage',
+                                            'open: couldn\'t resolve path \'' +
+                                            path + '\'',
+                                            data.errorClass);
+                                }
+                            });
                         },
                         '_help': 'open a file to view'
                     },

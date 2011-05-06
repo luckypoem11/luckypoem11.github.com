@@ -12,6 +12,8 @@ $(function () {
             scroller.reinitialise();
             if (obj) scroller.scrollToElement(obj, true);
         },
-        'output': '.output .jspPane'
+        'output': '.output .jspPane',
+        'welcomeMessage': 'Welcome to neocotic @ GitHub!<br/>' +
+                'Type \'help\' for a list of available commands'
     }).data('console').input.focus();
 });
