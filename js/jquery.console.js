@@ -92,7 +92,7 @@
             var data = this.data('console'),
                 prefix = data.prefixName;
             prefix += data.prefixSeperator;
-            prefix += data.vfsCd || 'root';
+            prefix += data.vfsCd;
             prefix += data.prefixSymbol;
             return prefix;
         },
@@ -115,7 +115,30 @@
                 'cmd': {
                     'cd': {
                         '_call': function (args) {
-                            alert('cd');
+                            var $this = this,
+                                data = $this.data('console'),
+                                path;
+                            if (args.length) {
+                                path = args[0];
+                            }
+                            if (!path) {
+                                 $this.console('createMessage',
+                                        'No directory specified',
+                                        data.errorClass);
+                                 return;
+                            }
+                            $this.console('lookupManifest', path, function (manifest) {
+                                if (manifest) {
+                                    data.vfsCd = manifest.path;
+                                    $this.console('createMessage',
+                                            'Working directory changed.');
+                                } else {
+                                    $this.console('createMessage',
+                                            'Couldn\'t resolve path \'' +
+                                            path + '\'',
+                                            data.errorClass);
+                                }
+                            });
                         },
                         '_help': 'change working directory'
                     },
@@ -158,6 +181,7 @@
                             var $this = this,
                                 arr = [],
                                 data = $this.data('console'),
+                                invalidArg = false,
                                 path,
                                 showHidden = false;
                             for (var i = 0; i < args.length; i++) {
@@ -168,9 +192,16 @@
                                             showHidden = true;
                                             break;
                                         default:
+                                            invalidArg = true;
                                     }
                                 } else if (!path) {
                                     path = arg;
+                                }
+                                if (invalidArg) {
+                                    $this.console('createMessage',
+                                            'Invalid argument \'' + arg + '\'',
+                                            data.errorClass);
+                                    return;
                                 }
                             }
                             path = path || '';
@@ -178,19 +209,41 @@
                                 if (manifest) {
                                     arr = Array.prototype.concat.call(manifest.directories, manifest.files);
                                     arr.sort();
+                                    if (arr.length === 0) {
+                                        $this.console('createMessage', '.');
+                                        $this.console('createMessage', '..');
+                                        return;
+                                    }
                                     for (var j = 0; j < arr.length; j++) {
-                                        if (!showHidden || arr[j].indexOf('.') !== 0) {
-                                            $this.console('createMessage', arr[j]);
+                                        if (!showHidden ||
+                                                arr[j].indexOf('.') !== 0) {
+                                            $this.console('createMessage',
+                                                    arr[j]);
                                         }
                                     }
                                 } else {
                                     $this.console('createMessage',
-                                            'No such directory \'' + path + '\'',
+                                            'Couldn\'t resolve path \'' +
+                                            path + '\'',
                                             data.errorClass);
                                 }
                             });
                         },
                         '_help': 'list directory contents'
+                    },
+                    'open': {
+                        '_call': function (args) {
+                            var data = this.data('console');
+                            this.console('createMessage', 'open', data.warningClass);
+                        },
+                        '_help': 'open a file to view'
+                    },
+                    'pwd': {
+                        '_call': function (args) {
+                            var data = this.data('console');
+                            this.console('createMessage', data.vfsCd);
+                        },
+                        '_help': 'return working directory name'
                     }
                 },
                 'commandClass': 'command',
@@ -207,8 +260,7 @@
                 'prefixName': 'guest',
                 'prefixSeperator': ':',
                 'prefixSymbol': '$',
-                'vfs': {},
-                'vfsCd': '',
+                'vfsCd': 'root',
                 'vfsDescriptor': 'manifest.json',
                 'warningClass': 'warning',
                 'welcomeMessage': 'Welcome to jQuery.console!'
@@ -231,11 +283,6 @@
                         $this.console('createMessage', data.welcomeMessage,
                                 data.infoClass);
                     }
-                    $this.console('lookupManifest', data.vfsCd, function (manifest) {
-                        if (manifest) {
-                            data.vfs = manifest;
-                        }
-                    });
                 }
             });
         },
@@ -332,14 +379,14 @@
             return hints.sort();
         },
         lookupManifest: function (path, callback) {
-            // TODO: Fix to consider current directory
             var $this = this,
                 data = $this.data('console'),
                 manifest;
-            if (path && path.lastIndexOf('/') !== path.length - 2) {
+            if (path && (path.lastIndexOf('/') !== path.length - 2 ||
+                    path === '.')) {
                 path += '/';
             }
-            path += data.vfsDescriptor;
+            path = data.vfsCd + '/' + path + data.vfsDescriptor;
             $.getJSON(path, function (descriptor) {
                 manifest = descriptor;
             }).complete(function () {

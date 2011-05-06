@@ -3,5 +3,6 @@
         "lib",
         "test"
     ],
-    "files": []
+    "files": [],
+    "path": "root/etc"
 }
