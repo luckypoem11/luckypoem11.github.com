@@ -1,0 +1,9 @@
+{
+    "directories": [
+        "etc"
+    ],
+    "files": [
+        "contact.txt",
+        "projects.txt"
+    ]
+}

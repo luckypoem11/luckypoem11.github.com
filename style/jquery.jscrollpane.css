@@ -1,181 +1,121 @@
-/*
- * CSS Styles that are needed by jScrollPane for it to operate correctly.
- *
- * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
- * may not operate correctly without them.
- */
-
-.jspContainer
-{
-	overflow: hidden;
-	position: relative;
+.jspContainer {
+    overflow: hidden;
+    position: relative;
 }
-
-.jspPane
-{
-	position: absolute;
+.jspPane {
+    position: absolute;
 }
-
-.jspVerticalBar
-{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 18px;
-	height: 100%;
+.jspVerticalBar {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 18px;
 }
-
-.jspHorizontalBar
-{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 18px;
+.jspHorizontalBar {
+    bottom: 0;
+    height: 18px;
+    left: 0;
+    position: absolute;
+    width: 100%;
 }
-
 .jspVerticalBar *,
-.jspHorizontalBar *
-{
-	margin: 0;
-	padding: 0;
+.jspHorizontalBar * {
+    margin: 0;
+    padding: 0;
 }
-
-.jspCap
-{
-	display: none;
+.jspCap {
+    display: none;
 }
-
-.jspHorizontalBar .jspCap
-{
-	float: left;
+.jspHorizontalBar .jspCap {
+    float: left;
 }
-
-.jspTrack
-{
-	background-color: rgba(42, 42, 42, 0.6);
-	position: relative;
+.jspTrack {
+    background-color: rgba(42, 42, 42, 0.6);
+    position: relative;
 }
-
-.jspDrag
-{
-	position: relative;
-	top: 0;
-	left: 0;
+.jspDrag {
+    left: 0;
+    position: relative;
+    top: 0;
 }
-
 .jspHorizontalBar .jspDragLeft,
 .jspHorizontalBar .jspDragMiddle,
-.jspHorizontalBar .jspDragRight
-{
-	background-repeat: no-repeat;
-	display: inline-block;
-	height: 18px;
-	width: 3px;
+.jspHorizontalBar .jspDragRight {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 18px;
+    width: 3px;
 }
-
 .jspHorizontalBar .jspActive .jspDragLeft,
 .jspHorizontalBar .jspActive .jspDragMiddle,
-.jspHorizontalBar .jspActive .jspDragRight
-{
-	background-position: 0 -18px;
+.jspHorizontalBar .jspActive .jspDragRight {
+    background-position: 0 -18px;
 }
-
-.jspHorizontalBar .jspDragLeft
-{
-	background-image: url(../images/hl-grabber.png);
+.jspHorizontalBar .jspDragLeft {
+    background-image: url(../images/hl-grabber.png);
 }
-
-.jspHorizontalBar .jspDragMiddle
-{
-	background-image: url(../images/hm-grabber.png);
-	background-repeat: repeat-x;
+.jspHorizontalBar .jspDragMiddle {
+    background-image: url(../images/hm-grabber.png);
+    background-repeat: repeat-x;
 }
-
-.jspHorizontalBar .jspDragRight
-{
-	background-image: url(../images/hr-grabber.png);
+.jspHorizontalBar .jspDragRight {
+    background-image: url(../images/hr-grabber.png);
 }
-
 .jspVerticalBar .jspDragTop,
 .jspVerticalBar .jspDragMiddle,
-.jspVerticalBar .jspDragBottom
-{
-	background-repeat: no-repeat;
-	height: 3px;
-	width: 18px;
+.jspVerticalBar .jspDragBottom {
+    background-repeat: no-repeat;
+    height: 3px;
+    width: 18px;
 }
-
 .jspVerticalBar .jspActive .jspDragTop,
 .jspVerticalBar .jspActive .jspDragMiddle,
-.jspVerticalBar .jspActive .jspDragBottom
-{
-	background-position: -18px 0;
+.jspVerticalBar .jspActive .jspDragBottom {
+    background-position: -18px 0;
 }
-
-.jspVerticalBar .jspDragTop
-{
-	background-image: url(../images/vt-grabber.png);
+.jspVerticalBar .jspDragTop {
+    background-image: url(../images/vt-grabber.png);
 }
-
-.jspVerticalBar .jspDragMiddle
-{
-	background-image: url(../images/vm-grabber.png);
-	background-repeat: repeat-y;
+.jspVerticalBar .jspDragMiddle {
+    background-image: url(../images/vm-grabber.png);
+    background-repeat: repeat-y;
 }
-
-.jspVerticalBar .jspDragBottom
-{
-	background-image: url(../images/vb-grabber.png);
+.jspVerticalBar .jspDragBottom {
+    background-image: url(../images/vb-grabber.png);
 }
-
 .jspHorizontalBar .jspTrack,
-.jspHorizontalBar .jspDrag
-{
-	float: left;
-	height: 100%;
+.jspHorizontalBar .jspDrag {
+    float: left;
+    height: 100%;
 }
-
-.jspArrow
-{
-	background: #50506d;
-	text-indent: -20000px;
-	display: block;
-	cursor: pointer;
+.jspArrow {
+    background-color: #50506D;
+    cursor: pointer;
+    display: block;
+    text-indent: -20000px;
 }
-
-.jspArrow.jspDisabled
-{
-	cursor: default;
-	background: #80808d;
+.jspArrow.jspDisabled {
+    background-color: #80808D;
+    cursor: default;
 }
-
-.jspVerticalBar .jspArrow
-{
-	height: 18px;
+.jspVerticalBar .jspArrow {
+    height: 18px;
 }
-
-.jspHorizontalBar .jspArrow
-{
-	width: 18px;
-	float: left;
-	height: 100%;
+.jspHorizontalBar .jspArrow {
+    float: left;
+    height: 100%;
+    width: 18px;
 }
-
-.jspVerticalBar .jspArrow:focus
-{
-	outline: none;
+.jspVerticalBar .jspArrow:focus {
+    outline: none;
 }
-
-.jspCorner
-{
-	background-color: rgba(42, 42, 42, 0.8);
-	float: left;
-	height: 100%;
+.jspCorner {
+    background-color: rgba(42, 42, 42, 0.8);
+    float: left;
+    height: 100%;
 }
-
-/* Yuk! CSS Hack for IE6 3 pixel bug :( */
-* html .jspCorner
-{
-	margin: 0 -3px 0 0;
+/* IE6 Hack: Pixel bug */
+* html .jspCorner {
+    margin: 0 -3px 0 0;
 }
