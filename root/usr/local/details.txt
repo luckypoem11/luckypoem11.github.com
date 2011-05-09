@@ -1,0 +1,35 @@
+<!-- TODO: Dynamically populate content using github API -->
+<table>
+    <tr>
+        <td style="font-weight: bold">ID:</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Username:</td>
+        <td><a href="http://github.com/neocotic" tabindex="-1" target="_blank">neocotic</a></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Forename:</td>
+        <td>Alasdair</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Surname:</td>
+        <td>Mercer</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">D.O.B:</td>
+        <td>12/01/1987</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Gender:</td>
+        <td>Male</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Email:</td>
+        <td><a href="mailto:mercer.alasdair@gmail.com" tabindex="-1">mercer.alasdair@gmail.com</a></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Website:</td>
+        <td><a href="http://mercer.so/alasdair" tabindex="-1" target="_blank">http://mercer.so/alasdair</a></td>
+    </tr>
+<table>

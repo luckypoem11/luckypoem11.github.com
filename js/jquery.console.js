@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, undefined) {
     var methods = {
         addHistory: function (str) {
             return this.each(function () {
@@ -8,22 +8,15 @@
                 data.historyIndex = -1;
             });
         },
-        appendDivider: function () {
-            var data = this.data('console');
-            var obj = $('<div/>', {
-                'class': data.messageClass + ' ' + data.dividerClass
-            }).append($('<span/>'));
-            data.output.append(obj.target);
-            data.callback(obj.target);
-            return obj;
-        },
         callCommand: function (args) {
             var data = this.data('console'),
+                found = false,
                 i = 0,
-                obj = data.cmd;
+                obj = data.cmd,
+                prop = '';
             for (; i < args.length; i++) {
-                var found = false;
-                for (var prop in obj) {
+                found = false;
+                for (prop in obj) {
                     if (obj.hasOwnProperty(prop)) {
                         if (prop === args[i] && prop.charAt(0) !== '_') {
                             obj = obj[prop];
@@ -32,15 +25,17 @@
                         }
                     }
                 }
-                if (!found) break;
+                if (!found) {
+                    break;
+                }
             }
             if (obj !== data.cmd) {
                 if (obj.hasOwnProperty('_call')) {
                     obj._call.apply(this, [Array.prototype.slice.call(args, i)]);
+                } else if (obj.hasOwnProperty('_usage')) {
+                    this.console('createMessage', obj._usage, data.errorClass);
                 } else {
-                    // TODO: Improve description
-                    this.console('createMessage',
-                            'Command not valid! Try using a sub-command...',
+                    this.console('createMessage', 'Command not valid!',
                             data.errorClass);
                 }
             } else {
@@ -48,23 +43,48 @@
                         data.errorClass);
             }
         },
-        createMessage: function (str, style) {
+        createMessage: function (str, style, group) {
             var data = this.data('console');
             str = str || '';
             style = style || '';
             var obj = {
                 'append': function (content) {
                     obj.target.append(content || '');
-                    data.output.append(obj.target);
                     data.callback(obj.target);
+                    return obj;
+                },
+                'replace': function (content) {
+                    obj.target.html(content || '');
+                    data.callback(obj.target);
+                    return obj;
                 },
                 'target': $('<div/>', {
                     'class': data.messageClass + ' ' + style,
                     'html': str
                 })
             };
-            data.output.append(obj.target);
+            if (group) {
+                group.append(obj.target);
+            } else {
+                data.output.append(obj.target);
+            }
             data.callback(obj.target);
+            return obj;
+        },
+        createMessageGroup: function (str, style) {
+            var data = this.data('console'),
+                obj = $('<div/>', {
+                    'class': data.messageGroupClass
+                });
+            if (str) {
+                style = style || '';
+                obj.append($('<div/>', {
+                    'class': data.messageClass + ' ' + style,
+                    'html': str
+                }));
+            }
+            data.output.append(obj);
+            data.callback(obj);
             return obj;
         },
         destroy: function () {
@@ -90,7 +110,7 @@
         },
         getPrefix: function () {
             var data = this.data('console'),
-                prefix = data.prefixName;
+                prefix = (data.username) ? data.username : 'guest';
             prefix += data.prefixSeperator;
             prefix += data.vfsCd;
             prefix += data.prefixSymbol;
@@ -117,30 +137,33 @@
                         '_call': function (args) {
                             var $this = this,
                                 data = $this.data('console'),
+                                msgGroup = $this.console('createMessageGroup'),
                                 path;
                             if (args.length) {
                                 path = args[0];
                             }
                             if (!path) {
                                  $this.console('createMessage',
-                                        'cd: no directory specified',
-                                        data.errorClass);
+                                        data.cmd.cd._usage, data.errorClass,
+                                        msgGroup);
                                  return;
                             }
                             $this.console('lookupManifest', path, function (manifest) {
                                 if (manifest) {
                                     data.vfsCd = manifest.path;
                                     $this.console('createMessage',
-                                            'Working directory changed.');
+                                            'Working directory changed.', '',
+                                            msgGroup);
                                 } else {
                                     $this.console('createMessage',
                                             'cd: couldn\'t resolve path \'' +
-                                            path + '\'',
-                                            data.errorClass);
+                                            path + '\'', data.errorClass,
+                                            msgGroup);
                                 }
                             });
                         },
-                        '_help': 'change working directory'
+                        '_help': 'change working directory',
+                        '_usage': 'usage: cd directory'
                     },
                     'clear': {
                         '_call': function (args) {
@@ -148,15 +171,19 @@
                             data.output.find('.message').remove();
                             data.callback();
                         },
-                        '_help': 'clear all the messages from the console'
+                        '_help': 'clear all the messages from the console',
+                        '_usage': 'usage: clear'
                     },
                     'help': {
                         '_call': function (args) {
+                            // TODO: Add support for 'help [command]' usage
                             var arr = [],
                                 data = this.data('console'),
                                 i = 0,
-                                obj = data.cmd;
-                            for (var prop in obj) {
+                                msgGroup = this.console('createMessageGroup'),
+                                obj = data.cmd,
+                                prop = '';
+                            for (prop in obj) {
                                 if (obj.hasOwnProperty(prop)) {
                                     if (prop.charAt(0) !== '_') {
                                         arr.push({
@@ -171,10 +198,11 @@
                                 this.console('createMessage', $('<span/>', {
                                     'html': arr[i].name + ' &nbsp;&nbsp; ' +
                                             arr[i].tip
-                                }));
+                                }), '', msgGroup);
                             }
                         },
-                        '_help': 'show general help information and a list of available commands'
+                        '_help': 'show general help information and a list of available commands',
+                        '_usage': 'usage: help'
                     },
                     'ls': {
                         '_call': function (args) {
@@ -182,10 +210,12 @@
                             var $this = this,
                                 arr = [],
                                 data = $this.data('console'),
+                                i = 0,
                                 invalidArg = false,
+                                msgGroup = $this.console('createMessageGroup'),
                                 path,
                                 showHidden = false;
-                            for (var i = 0; i < args.length; i++) {
+                            for (; i < args.length; i++) {
                                 var arg = args[i];
                                 if (arg.indexOf('-') === 0) {
                                     switch (arg.substring(1)) {
@@ -201,44 +231,47 @@
                                 if (invalidArg) {
                                     $this.console('createMessage',
                                             'ls: illegal option ' + arg,
-                                            data.errorClass);
+                                            data.errorClass, msgGroup);
                                     $this.console('createMessage',
-                                            'usage: ls -a',
-                                            data.errorClassh);
+                                            data.cmd.ls._usage,
+                                            data.errorClass, msgGroup);
                                     return;
                                 }
                             }
                             path = path || '';
                             $this.console('lookupManifest', path, function (manifest) {
+                                var j = 0;
                                 if (manifest) {
                                     arr = Array.prototype.concat.call(manifest.directories, manifest.files);
                                     arr.sort();
                                     if (arr.length === 0) {
-                                        $this.console('createMessage', '.');
-                                        $this.console('createMessage', '..');
+                                        $this.console('createMessage',
+                                                '.<br/>..', '',  msgGroup);
                                         return;
                                     }
-                                    for (var j = 0; j < arr.length; j++) {
-                                        if (!showHidden ||
-                                                arr[j].indexOf('.') !== 0) {
+                                    for (; j < arr.length; j++) {
+                                        if (arr[j].indexOf('.') !== 0 ||
+                                                showHidden) {
                                             $this.console('createMessage',
-                                                    arr[j]);
+                                                    arr[j], '', msgGroup);
                                         }
                                     }
                                 } else {
                                     $this.console('createMessage', path +
                                             ': No such file or directory',
-                                            data.errorClass);
+                                            data.errorClass, msgGroup);
                                 }
                             });
                         },
-                        '_help': 'list directory contents'
+                        '_help': 'list directory contents',
+                        '_usage': 'usage: ls -a'
                     },
                     'open': {
                         '_call': function (args) {
                             var $this = this,
                                 data = $this.data('console'),
                                 fileName,
+                                msgGroup = $this.console('createMessageGroup'),
                                 path,
                                 rootIndex = -1,
                                 rootPath = '';
@@ -247,8 +280,8 @@
                             }
                             if (!path) {
                                  $this.console('createMessage',
-                                        'open: no directory specified',
-                                        data.errorClass);
+                                        data.cmd.open._usage, data.errorClass,
+                                        msgGroup);
                                  return;
                             }
                             rootIndex = path.lastIndexOf('/');
@@ -261,45 +294,51 @@
                             if (!fileName) {
                                 $this.console('createMessage',
                                         'open: must be valid file',
-                                        data.errorClass);
+                                        data.errorClass, msgGroup);
                                 return;
                             }
                             $this.console('lookupManifest', rootPath, function (manifest) {
+                                var i = 0;
                                 if (manifest) {
                                     var fileExists = false,
-                                        files = manifest.files;
-                                    for (var i = 0; i < files.length; i++) {
+                                        files = manifest.files,
+                                        message = {};
+                                    for (; i < files.length; i++) {
                                         if (files[i] === fileName) {
                                             fileExists = true;
                                             break;
                                         }
                                     }
                                     if (fileExists) {
+                                        message = $this.console('createMessage',
+                                                'Loading...', '', msgGroup);
                                         $.get(manifest.path + '/' + fileName, function (content) {
-                                            $this.console('createMessage', content);
+                                            message.replace(content);
                                         });
                                     } else {
                                         $this.console('createMessage',
                                                 'open: couldn\'t resolve path \'' +
-                                                path + '\'',
-                                                data.errorClass);
+                                                path + '\'', data.errorClass,
+                                                msgGroup);
                                     }
                                 } else {
                                     $this.console('createMessage',
                                             'open: couldn\'t resolve path \'' +
-                                            path + '\'',
-                                            data.errorClass);
+                                            path + '\'', data.errorClass,
+                                            msgGroup);
                                 }
                             });
                         },
-                        '_help': 'open a file to view'
+                        '_help': 'open a file to view',
+                        '_usage': 'usage: open file'
                     },
                     'pwd': {
                         '_call': function (args) {
                             var data = this.data('console');
-                            this.console('createMessage', data.vfsCd);
+                            this.console('createMessageGroup', data.vfsCd);
                         },
-                        '_help': 'return working directory name'
+                        '_help': 'return working directory name',
+                        '_usage': 'usage: pwd'
                     }
                 },
                 'commandClass': 'command',
@@ -312,10 +351,11 @@
                 'input': 'input[type="text"]',
                 'maxHints': 10,
                 'messageClass': 'message',
+                'messageGroupClass': 'message-group',
                 'output': '.output',
-                'prefixName': 'guest',
                 'prefixSeperator': ':',
                 'prefixSymbol': '$',
+                'username': '',
                 'vfsCd': 'root',
                 'vfsDescriptor': 'manifest.json',
                 'warningClass': 'warning',
@@ -352,10 +392,11 @@
             }
         },
         keyUpHandler: function (event) {
-            var $this = $(this);
+            var $this = $(this),
+                console = $this.console('findConsole'),
+                data = console.data('console');
             switch (event.keyCode) {
                 case 13: // Enter
-                    var data = $this.console('findData');
                     if (data.hints.is(':visible') &&
                             data.hints.find('.selected').length) {
                         var hint = data.hints.find('.selected')
@@ -363,30 +404,27 @@
                         data.input.val(hint + ' ');
                         data.hints.hide();
                     } else {
-                        $this.console('send');
+                        $this.console('send', console, data);
                     }
                     break;
-                case 27:
-                    var data = $this.console('findData');
+                case 27: // Escape
                     if (data.hints.is(':visible')) {
                         data.hints.hide();
                     } else {
-                        $this.console('showHints');
+                        $this.console('showHints', console, data);
                     }
                     break;
                 case 38: // Up
                 case 40: // Down
-                    var console = $this.console('findConsole'),
-                        data = console.data('console'),
-                        moveUp = event.keyCode === 38;
+                    var moveUp = event.keyCode === 38;
                     if (data.hints.is(':visible')) {
-                        console.console('navigateHints', moveUp);
+                        console.console('navigateHints', moveUp, data);
                     } else {
-                        console.console('searchHistory', moveUp);
+                        console.console('searchHistory', moveUp, data);
                     }
                     break;
                 default:
-                    $this.console('showHints');
+                    $this.console('showHints', console, data);
             }
         },
         lookupHints: function (args) {
@@ -395,9 +433,10 @@
                 hints = [],
                 i = 0,
                 lastCommandFound = -1,
-                obj = data.cmd;
+                obj = data.cmd,
+                prop = '';
             for (; i < args.length; i++) {
-                for (var prop in obj) {
+                for (prop in obj) {
                     if (obj.hasOwnProperty(prop) && prop.charAt(0) !== '_') {
                         if (prop === args[i]) {
                             arr.push(obj[prop]);
@@ -407,7 +446,9 @@
                         }
                     }
                 }
-                if (lastCommandFound !== i) break;
+                if (lastCommandFound !== i) {
+                    break;
+                }
             }
             if (arr.length === args.length) {
                 hints.push({
@@ -416,7 +457,7 @@
                     'tip': obj._help
                 });
             } else if (arr.length === args.length - 1) {
-                for (var prop in obj) {
+                for (prop in obj) {
                     if (obj.hasOwnProperty(prop) && prop.charAt(0) !== '_') {
                         if (prop.indexOf(args[args.length - 1]) === 0 &&
                                 obj[prop].hasOwnProperty('_help')) {
@@ -449,10 +490,12 @@
                 callback.apply($this, [manifest]);
             });
         },
-        navigateHints: function (moveUp) {
-            var data = this.data('console'),
-                hintItems = data.hints.find('a'),
+        navigateHints: function (moveUp, data) {
+            var hintItems = data.hints.find('a'),
                 selectedItem = hintItems.filter('.selected');
+            if (!data) {
+                data = this.data('console');
+            }
             if (moveUp) {
                 if (selectedItem.length) {
                     var prev = selectedItem.removeClass('selected').prev();
@@ -479,13 +522,13 @@
         },
         resetHistorySearch: function () {
             return this.each(function () {
-                var $this = $(this),
-                    data = $this.data('console');
-                data.historyIndex = -1;
+                $(this).data('console').historyIndex = -1;
             });
         },
-        searchHistory: function (moveUp) {
-            var data = this.data('console');
+        searchHistory: function (moveUp, data) {
+            if (!data) {
+                data = this.data('console');
+            }
             if (data.history.length === 0) {
                 data.input.val('');
                 return;
@@ -515,13 +558,17 @@
                 data.input.val(data.history[data.historyIndex]);
             }
         },
-        send: function () {
+        send: function (console, data) {
             var str = (this.val()) ? this.val().trim() : '';
-            if (!str.length) return;
+            if (!console) {
+                console = this.console('findConsole');
+                data = console.data('console');
+            }
+            if (!str.length) {
+                return;
+            }
             this.val('');
             var args = str.split(/\s+/),
-                console = this.console('findConsole'),
-                data = console.data('console'),
                 input = args.join(' ');
             data.hints.hide();
             console.console('createMessage', console.console('getPrefix') +
@@ -529,22 +576,26 @@
             console.console('addHistory', input);
             console.console('callCommand', args);
         },
-        showHints: function () {
-            var str = (this.val()) ? this.val().trim() : '',
-                console = methods.findConsole.apply(this),
+        showHints: function (console, data) {
+            var str = (this.val()) ? this.val().trim() : '';
+            if (!console) {
+                console = this.console('findConsole');
                 data = console.data('console');
+            }
             if (!str.length) {
                 data.hints.hide();
                 return;
             }
             var args = str.split(/\s+/);
             console.console('resetHistorySearch');
-            var hints = console.console('lookupHints', args);
+            var anchor = {},
+                hints = console.console('lookupHints', args),
+                i = 0;
             if (hints.length) {
                 data.hints.find('a').remove();
                 data.hints.show();
-                for (var i = 0; i < hints.length; i++) {
-                    var anchor = $('<a/>', {
+                for (; i < hints.length; i++) {
+                    anchor = $('<a/>', {
                         'data-hint': hints[i].command.trim(),
                         'href': 'javascript:void(0);',
                         'text': hints[i].name

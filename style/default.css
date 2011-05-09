@@ -123,6 +123,13 @@ body {
     padding: 3px 0;
     width: auto;
 }
+#console .output a {
+    color: #EEE;
+    outline: none;
+}
+#console .output a:hover {
+    text-decoration: none;
+}
 #console .output .main {
     overflow: auto;
     width: auto;
@@ -130,20 +137,34 @@ body {
 #console .output .message {
     padding: 2px 10px;
 }
-#console .output .message.command {
+#console .output .message table {
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+}
+#console .output .message table td,
+#console .output .message table th {
+    padding-right: 10px;
+}
+#console .output .message.command,
+#console .output .message.command a {
     color: #86C2F6;
 }
-#console .output .message.divider span {
-    border-top: 1px solid #444;
-    display: block;
-    margin: 6px 0;
-}
-#console .output .message.error {
+#console .output .message.error,
+#console .output .message.error a {
     color: #CD5C5C;
 }
-#console .output .message.info {
+#console .output .message.info,
+#console .output .message.info a {
     color: #90EE90;
 }
-#console .output .message.warning {
+#console .output .message.warning,
+#console .output .message.warning a {
     color: #FFD700;
+}
+#console .output .message-group {
+    border-bottom: 1px solid #444;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
 }

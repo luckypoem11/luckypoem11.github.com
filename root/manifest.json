@@ -1,9 +1,8 @@
 {
     "directories": [
-        "etc"
+        "usr"
     ],
     "files": [
-        "contact.txt",
         "projects.txt"
     ],
     "path": "root"
