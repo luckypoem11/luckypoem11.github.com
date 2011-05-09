@@ -177,6 +177,7 @@
                     'help': {
                         '_call': function (args) {
                             // TODO: Add support for 'help [command]' usage
+                            // TODO: Ensure commands are sorted alphabetically
                             var arr = [],
                                 data = this.data('console'),
                                 i = 0,
@@ -473,6 +474,7 @@
                     }
                 }
             }
+            // TODO: Ensure hints are sorted alphabetically (on command name)
             return hints.sort();
         },
         lookupManifest: function (path, callback) {
