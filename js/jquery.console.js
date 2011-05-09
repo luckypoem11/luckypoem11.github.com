@@ -71,6 +71,7 @@
             data.callback(obj.target);
             return obj;
         },
+        // TODO: Remove css for bottom border so command methods must add divider class (e.g. once completed) to message-group to see it
         createMessageGroup: function (str, style) {
             var data = this.data('console'),
                 obj = $('<div/>', {
@@ -168,7 +169,8 @@
                     'clear': {
                         '_call': function (args) {
                             var data = this.data('console');
-                            data.output.find('.message').remove();
+                            data.output.find('.' + data.messageGroupClass +
+                                    ', .' + data.messageClass).remove();
                             data.callback();
                         },
                         '_help': 'clear all the messages from the console',
