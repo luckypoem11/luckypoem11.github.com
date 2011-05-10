@@ -1,4 +1,262 @@
 (function ($, undefined) {
+    var commands = {
+        'cd': {
+            '_call': function (args) {
+                var $this = this,
+                    data = $this.data('console'),
+                    msgGroup = $this.console('createMessageGroup'),
+                    path;
+                if (args.length) {
+                    path = args[0];
+                }
+                if (!path) {
+                    $this.console('createMessage', data.cmd.cd._usage,
+                            data.errorClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+                $this.console('lookupManifest', path, function (manifest) {
+                    if (manifest) {
+                        data.vfsCd = manifest.path;
+                        $this.console('createMessage',
+                                'Working directory changed.', '', msgGroup);
+                    } else {
+                        $this.console('createMessage',
+                                'cd: couldn\'t resolve path \'' + path + '\'',
+                                data.errorClass, msgGroup);
+                    }
+                    msgGroup.addClass(data.completedClass);
+                });
+            },
+            '_help': 'change working directory',
+            '_usage': 'usage: cd DIRECTORY'
+        },
+        'clear': {
+            '_call': function (args) {
+                var data = this.data('console'),
+                    clearHistory = false,
+                    i = 0,
+                    invalidArg = false,
+                    msgGroup = this.console('createMessageGroup');
+                for (; i < args.length; i++) {
+                    if (args[i].indexOf('-') === 0) {
+                        switch (args[i].substring(1)) {
+                            case 'h':
+                                clearHistory = true;
+                                break;
+                            default:
+                                invalidArg = true;
+                        }
+                    }
+                    if (invalidArg) {
+                        this.console('createMessage', 'clear: illegal option ' +
+                                args[i], data.errorClass, msgGroup);
+                        this.console('createMessage', data.cmd.clear._usage,
+                                data.errorClass, msgGroup);
+                        msgGroup.addClass(data.completedClass);
+                        return;
+                    }
+                }
+                data.output.find('*').remove();
+                data.callback();
+                if (clearHistory) {
+                    data.history = [];
+                    data.historyIndex = -1;
+                }
+            },
+            '_help': 'clear all the messages from the console',
+            '_usage': 'usage: clear -h'
+        },
+        'help': {
+            '_call': function (args) {
+                var arr = [],
+                    data = this.data('console'),
+                    hints = [],
+                    i = 0,
+                    msgGroup = this.console('createMessageGroup'),
+                    obj = data.cmd,
+                    prop = '';
+                if (args.length) {
+                    hints = this.console('lookupHints', args);
+                    if (hints.length === 1) {
+                        this.console('createMessage', $('<span/>', {
+                            'html': hints[0].name + ' &nbsp;&nbsp; ' +
+                                    hints[0].tip
+                        }), '', msgGroup);
+                        if (hints[0].usage) {
+                            this.console('createMessage', hints[0].usage, '',
+                                    msgGroup);
+                        }
+                    } else if (!hints.length) {
+                        this.console('createMessage', 'help: command not found',
+                                data.errorClass, msgGroup);
+                    } else {
+                        this.console('createMessage', 'help: ambiguous command',
+                                data.errorClass, msgGroup);
+                    }
+                } else {
+                    for (prop in obj) {
+                        if (obj.hasOwnProperty(prop)) {
+                            if (prop.charAt(0) !== '_') {
+                                arr.push({
+                                    'name': prop,
+                                    'tip': obj[prop]._help
+                                });
+                            }
+                        }
+                    }
+                    arr.sort(function (a, b) {
+                        return a.name.localeCompare(b.name);
+                    });
+                    for (; i < arr.length; i++) {
+                        this.console('createMessage', $('<span/>', {
+                            'html': arr[i].name + ' &nbsp;&nbsp; ' + arr[i].tip
+                        }), '', msgGroup);
+                    }
+                }
+                msgGroup.addClass(data.completedClass);
+            },
+            '_help': 'show general help information and a list of available commands',
+            '_usage': 'usage: help [COMMAND]'
+        },
+        'ls': {
+            '_call': function (args) {
+                // TODO: Support more options and maybe file arguments?
+                var $this = this,
+                    arr = [],
+                    data = $this.data('console'),
+                    i = 0,
+                    invalidArg = false,
+                    msgGroup = $this.console('createMessageGroup'),
+                    path,
+                    showHidden = false;
+                for (; i < args.length; i++) {
+                    if (args[i].indexOf('-') === 0) {
+                        switch (args[i].substring(1)) {
+                            case 'a':
+                                showHidden = true;
+                                break;
+                            default:
+                                invalidArg = true;
+                        }
+                    } else if (!path) {
+                        path = args[i];
+                    }
+                    if (invalidArg) {
+                        $this.console('createMessage', 'ls: illegal option ' +
+                                args[i], data.errorClass, msgGroup);
+                        $this.console('createMessage', data.cmd.ls._usage,
+                                data.errorClass, msgGroup);
+                        msgGroup.addClass(data.completedClass);
+                        return;
+                    }
+                }
+                path = path || '';
+                $this.console('lookupManifest', path, function (manifest) {
+                    var j = 0;
+                    if (manifest) {
+                        arr = Array.prototype.concat.call(manifest.directories, manifest.files);
+                        arr.sort();
+                        if (!arr.length) {
+                            $this.console('createMessage', '.<br/>..', '',
+                                    msgGroup);
+                            msgGroup.addClass(data.completedClass);
+                            return;
+                        }
+                        for (; j < arr.length; j++) {
+                            if (arr[j].indexOf('.') !== 0 || showHidden) {
+                                $this.console('createMessage', arr[j], '',
+                                        msgGroup);
+                            }
+                        }
+                    } else {
+                        $this.console('createMessage', path +
+                                ': No such file or directory', data.errorClass,
+                                msgGroup);
+                    }
+                    msgGroup.addClass(data.completedClass);
+                });
+            },
+            '_help': 'list directory contents',
+            '_usage': 'usage: ls -a [PATH]'
+        },
+        'open': {
+            '_call': function (args) {
+                var $this = this,
+                    data = $this.data('console'),
+                    fileName,
+                    msgGroup = $this.console('createMessageGroup'),
+                    path,
+                    rootIndex = -1,
+                    rootPath = '';
+                if (args.length) {
+                    path = args[0];
+                }
+                if (!path) {
+                    $this.console('createMessage', data.cmd.open._usage,
+                            data.errorClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+                rootIndex = path.lastIndexOf('/');
+                if (rootIndex !== -1) {
+                    fileName = path.substring(rootIndex + 1);
+                    rootPath = path.substring(0, rootIndex);
+                } else {
+                    fileName = path;
+                }
+                if (!fileName) {
+                    $this.console('createMessage', 'open: must be valid file',
+                            data.errorClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+                $this.console('lookupManifest', rootPath, function (manifest) {
+                    var i = 0;
+                    if (manifest) {
+                        var fileExists = false,
+                            files = manifest.files,
+                            message = {};
+                        for (; i < files.length; i++) {
+                            if (files[i] === fileName) {
+                                fileExists = true;
+                                break;
+                            }
+                        }
+                        if (fileExists) {
+                            message = $this.console('createMessage',
+                                    'Loading...', '', msgGroup);
+                            $.get(manifest.path + '/' + fileName, function (content) {
+                                message.replace(content);
+                                msgGroup.addClass(data.completedClass);
+                            });
+                        } else {
+                            $this.console('createMessage',
+                                    'open: couldn\'t resolve path \'' + path +
+                                    '\'', data.errorClass, msgGroup);
+                            msgGroup.addClass(data.completedClass);
+                        }
+                    } else {
+                        $this.console('createMessage',
+                                'open: couldn\'t resolve path \'' + path + '\'',
+                                data.errorClass, msgGroup);
+                        msgGroup.addClass(data.completedClass);
+                    }
+                });
+            },
+            '_help': 'open a file to view',
+            '_usage': 'usage: open FILE'
+        },
+        'pwd': {
+            '_call': function (args) {
+                var data = this.data('console');
+                this.console('createMessageGroup', data.vfsCd)
+                        .addClass(data.completedClass);
+            },
+            '_help': 'return working directory name',
+            '_usage': 'usage: pwd'
+        }
+    };
     var methods = {
         addHistory: function (str) {
             return this.each(function () {
@@ -132,278 +390,7 @@
         init: function (options) {
             var settings = {
                 'callback': function (obj) {},
-                'cmd': {
-                    'cd': {
-                        '_call': function (args) {
-                            var $this = this,
-                                data = $this.data('console'),
-                                msgGroup = $this.console('createMessageGroup'),
-                                path;
-                            if (args.length) {
-                                path = args[0];
-                            }
-                            if (!path) {
-                                $this.console('createMessage',
-                                        data.cmd.cd._usage, data.errorClass,
-                                        msgGroup);
-                                msgGroup.addClass(data.completedClass);
-                                return;
-                            }
-                            $this.console('lookupManifest', path, function (manifest) {
-                                if (manifest) {
-                                    data.vfsCd = manifest.path;
-                                    $this.console('createMessage',
-                                            'Working directory changed.', '',
-                                            msgGroup);
-                                } else {
-                                    $this.console('createMessage',
-                                            'cd: couldn\'t resolve path \'' +
-                                            path + '\'', data.errorClass,
-                                            msgGroup);
-                                }
-                                msgGroup.addClass(data.completedClass);
-                            });
-                        },
-                        '_help': 'change working directory',
-                        '_usage': 'usage: cd DIRECTORY'
-                    },
-                    'clear': {
-                        '_call': function (args) {
-                            var data = this.data('console'),
-                                clearHistory = false,
-                                i = 0,
-                                invalidArg = false;
-                            for (; i < args.length; i++) {
-                                if (args[i].indexOf('-') === 0) {
-                                    switch (args[i].substring(1)) {
-                                        case 'h':
-                                            clearHistory = true;
-                                            break;
-                                        default:
-                                            invalidArg = true;
-                                    }
-                                }
-                                if (invalidArg) {
-                                    $this.console('createMessage',
-                                            'clear: illegal option ' + args[i],
-                                            data.errorClass, msgGroup);
-                                    $this.console('createMessage',
-                                            data.cmd.clear._usage,
-                                            data.errorClass, msgGroup);
-                                    msgGroup.addClass(data.completedClass);
-                                    return;
-                                }
-                            }
-                            data.output.find('*').remove();
-                            data.callback();
-                            if (clearHistory) {
-                                data.history = [];
-                                data.historyIndex = -1;
-                            }
-                        },
-                        '_help': 'clear all the messages from the console',
-                        '_usage': 'usage: clear -h'
-                    },
-                    'help': {
-                        '_call': function (args) {
-                            var arr = [],
-                                data = this.data('console'),
-                                hints = [],
-                                i = 0,
-                                msgGroup = this.console('createMessageGroup'),
-                                obj = data.cmd,
-                                prop = '';
-                            if (args.length) {
-                                hints = this.console('lookupHints', args);
-                                if (hints.length === 1) {
-                                    this.console('createMessage', $('<span/>', {
-                                        'html': hints[0].name +
-                                                ' &nbsp;&nbsp; ' + hints[0].tip
-                                    }), '', msgGroup);
-                                    if (hints[0].usage) {
-                                        this.console('createMessage',
-                                                hints[0].usage, '', msgGroup);
-                                    }
-                                } else if (!hints.length) {
-                                    this.console('createMessage',
-                                            'help: command not found',
-                                            data.errorClass, msgGroup);
-                                } else {
-                                    this.console('createMessage',
-                                            'help: ambiguous command',
-                                            data.errorClass, msgGroup);
-                                }
-                            } else {
-                                for (prop in obj) {
-                                    if (obj.hasOwnProperty(prop)) {
-                                        if (prop.charAt(0) !== '_') {
-                                            arr.push({
-                                                'name': prop,
-                                                'tip': obj[prop]._help
-                                            });
-                                        }
-                                    }
-                                }
-                                arr.sort(function (a, b) {
-                                    return a.name.localeCompare(b.name);
-                                });
-                                for (; i < arr.length; i++) {
-                                    this.console('createMessage', $('<span/>', {
-                                        'html': arr[i].name + ' &nbsp;&nbsp; ' +
-                                                arr[i].tip
-                                    }), '', msgGroup);
-                                }
-                            }
-                            msgGroup.addClass(data.completedClass);
-                        },
-                        '_help': 'show general help information and a list of available commands',
-                        '_usage': 'usage: help [COMMAND]'
-                    },
-                    'ls': {
-                        '_call': function (args) {
-                            // TODO: Support more options and maybe file arguments?
-                            var $this = this,
-                                arr = [],
-                                data = $this.data('console'),
-                                i = 0,
-                                invalidArg = false,
-                                msgGroup = $this.console('createMessageGroup'),
-                                path,
-                                showHidden = false;
-                            for (; i < args.length; i++) {
-                                if (args[i].indexOf('-') === 0) {
-                                    switch (args[i].substring(1)) {
-                                        case 'a':
-                                            showHidden = true;
-                                            break;
-                                        default:
-                                            invalidArg = true;
-                                    }
-                                } else if (!path) {
-                                    path = args[i];
-                                }
-                                if (invalidArg) {
-                                    $this.console('createMessage',
-                                            'ls: illegal option ' + args[i],
-                                            data.errorClass, msgGroup);
-                                    $this.console('createMessage',
-                                            data.cmd.ls._usage,
-                                            data.errorClass, msgGroup);
-                                    msgGroup.addClass(data.completedClass);
-                                    return;
-                                }
-                            }
-                            path = path || '';
-                            $this.console('lookupManifest', path, function (manifest) {
-                                var j = 0;
-                                if (manifest) {
-                                    arr = Array.prototype.concat.call(manifest.directories, manifest.files);
-                                    arr.sort();
-                                    if (!arr.length) {
-                                        $this.console('createMessage',
-                                                '.<br/>..', '',  msgGroup);
-                                        msgGroup.addClass(data.completedClass);
-                                        return;
-                                    }
-                                    for (; j < arr.length; j++) {
-                                        if (arr[j].indexOf('.') !== 0 ||
-                                                showHidden) {
-                                            $this.console('createMessage',
-                                                    arr[j], '', msgGroup);
-                                        }
-                                    }
-                                } else {
-                                    $this.console('createMessage', path +
-                                            ': No such file or directory',
-                                            data.errorClass, msgGroup);
-                                }
-                                msgGroup.addClass(data.completedClass);
-                            });
-                        },
-                        '_help': 'list directory contents',
-                        '_usage': 'usage: ls -a [PATH]'
-                    },
-                    'open': {
-                        '_call': function (args) {
-                            var $this = this,
-                                data = $this.data('console'),
-                                fileName,
-                                msgGroup = $this.console('createMessageGroup'),
-                                path,
-                                rootIndex = -1,
-                                rootPath = '';
-                            if (args.length) {
-                                path = args[0];
-                            }
-                            if (!path) {
-                                $this.console('createMessage',
-                                        data.cmd.open._usage, data.errorClass,
-                                        msgGroup);
-                                msgGroup.addClass(data.completedClass);
-                                return;
-                            }
-                            rootIndex = path.lastIndexOf('/');
-                            if (rootIndex !== -1) {
-                                fileName = path.substring(rootIndex + 1);
-                                rootPath = path.substring(0, rootIndex);
-                            } else {
-                                fileName = path;
-                            }
-                            if (!fileName) {
-                                $this.console('createMessage',
-                                        'open: must be valid file',
-                                        data.errorClass, msgGroup);
-                                msgGroup.addClass(data.completedClass);
-                                return;
-                            }
-                            $this.console('lookupManifest', rootPath, function (manifest) {
-                                var i = 0;
-                                if (manifest) {
-                                    var fileExists = false,
-                                        files = manifest.files,
-                                        message = {};
-                                    for (; i < files.length; i++) {
-                                        if (files[i] === fileName) {
-                                            fileExists = true;
-                                            break;
-                                        }
-                                    }
-                                    if (fileExists) {
-                                        message = $this.console('createMessage',
-                                                'Loading...', '', msgGroup);
-                                        $.get(manifest.path + '/' + fileName, function (content) {
-                                            message.replace(content);
-                                            msgGroup.addClass(data.completedClass);
-                                        });
-                                    } else {
-                                        $this.console('createMessage',
-                                                'open: couldn\'t resolve path \'' +
-                                                path + '\'', data.errorClass,
-                                                msgGroup);
-                                        msgGroup.addClass(data.completedClass);
-                                    }
-                                } else {
-                                    $this.console('createMessage',
-                                            'open: couldn\'t resolve path \'' +
-                                            path + '\'', data.errorClass,
-                                            msgGroup);
-                                    msgGroup.addClass(data.completedClass);
-                                }
-                            });
-                        },
-                        '_help': 'open a file to view',
-                        '_usage': 'usage: open FILE'
-                    },
-                    'pwd': {
-                        '_call': function (args) {
-                            var data = this.data('console');
-                            this.console('createMessageGroup',
-                                    data.vfsCd).addClass(data.completedClass);
-                        },
-                        '_help': 'return working directory name',
-                        '_usage': 'usage: pwd'
-                    }
-                },
+                'cmd': commands,
                 'commandClass': 'command',
                 'completedClass': 'completed',
                 'dividerClass': 'divider',

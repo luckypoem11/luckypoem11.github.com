@@ -120,7 +120,7 @@ $(function () {
                     message = args[0];
                 }
                 if (!message) {
-                    $this.console('createMessage', data.cmd.sha._usage,
+                    this.console('createMessage', data.cmd.sha._usage,
                             data.errorClass, msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
