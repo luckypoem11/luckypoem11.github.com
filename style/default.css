@@ -163,7 +163,7 @@ body {
 #console .output .message.warning a {
     color: #FFD700;
 }
-#console .output .message-group {
+#console .output .message-group.completed {
     border-bottom: 1px solid #444;
     margin-bottom: 6px;
     padding-bottom: 6px;

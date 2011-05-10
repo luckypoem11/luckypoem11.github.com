@@ -39,6 +39,7 @@ $(function () {
                 if (!username) {
                     console.console('createMessage',
                             data.cmd.login._usage, data.errorClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
                     return;
                 }
                 if (data.username) {
@@ -46,6 +47,7 @@ $(function () {
                             'You are already logged in as ' + data.username +
                             '.<br/>You must first log out in order to log in as another user.',
                             data.warningClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
                     return;
                 }
                 console.console('createMessage', 'Enter password:', '',
@@ -62,6 +64,7 @@ $(function () {
                                 'login: invalid password', data.errorClass,
                                 msgGroup);
                         interceptor(console);
+                        msgGroup.addClass(data.completedClass);
                         return;
                     }
                     msg = console.console('createMessage', 'Authenticating...',
@@ -81,6 +84,7 @@ $(function () {
                                     'login: invalid username/password combination',
                                     data.errorClass, msgGroup);
                         }
+                        msgGroup.addClass(data.completedClass);
                         interceptor(console);
                     });
                 });
@@ -101,6 +105,7 @@ $(function () {
                     this.console('createMessage', 'You are already logged out.',
                             data.warningClass, msgGroup);
                 }
+                msgGroup.addClass(data.completedClass);
             },
             '_help': 'log out of current user account',
             '_usage': 'usage: logout'
@@ -117,10 +122,12 @@ $(function () {
                 if (!message) {
                     $this.console('createMessage', data.cmd.sha._usage,
                             data.errorClass, msgGroup);
+                    msgGroup.addClass(data.completedClass);
                     return;
                 }
                 digest = Crypto.SHA256(message);
                 this.console('createMessage', digest, '', msgGroup);
+                msgGroup.addClass(data.completedClass);
             },
             '_help': 'return SHA-256 message digest',
             '_usage': 'usage: sha MESSAGE'
