@@ -1,3 +1,7 @@
+# Exceptions         #
+######################
+!root/usr/local/.security
+
 # OS generated files #
 ######################
 .DS_Store?
