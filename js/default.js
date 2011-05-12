@@ -101,6 +101,7 @@ $(function () {
                     msg = console.console('createMessage', 'Authenticating...',
                             '', msgGroup);
                     digest = Crypto.SHA256(message);
+                    // TODO: Fix for live version (.security seems to be ignored on deploy even though exists in repo)
                     $.getJSON('root/usr/local/.security', function (json) {
                         if (json[username] &&
                                 json[username].password === digest) {
