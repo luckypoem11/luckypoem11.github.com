@@ -225,7 +225,7 @@
                         }
                         if (fileExists) {
                             message = $this.console('createMessage',
-                                    'Loading...', '', msgGroup);
+                                    data.loading, '', msgGroup);
                             $.get(manifest.path + '/' + fileName, function (content) {
                                 message.replace(content);
                                 msgGroup.addClass(data.completedClass);
@@ -400,14 +400,18 @@
                 'historyIndex': -1,
                 'infoClass': 'info',
                 'input': 'input[type="text"]',
+                'inputStash': '',
+                'loading': 'Loading...',
                 'maxHints': 10,
                 'messageClass': 'message',
                 'messageGroupClass': 'message-group',
                 'output': '.output',
                 'prefixSeperator': ':',
                 'prefixSymbol': '$',
+                'runCmdLinksOnClick': true,
                 'username': '',
-                'vfsCd': 'root',
+                'vfsBase': 'root',
+                'vfsCd': '',
                 'vfsDescriptor': 'manifest.json',
                 'warningClass': 'warning',
                 'welcomeMessage': 'Welcome to jQuery.console!'
@@ -424,12 +428,28 @@
                     settings.output = $this.find(settings.output);
                     $this.data('console', settings);
                     data = $this.data('console');
+                    if (!data.vfsCd) {
+                        data.vfsCd = data.vfsBase;
+                    }
                     data.input.bind('keydown.console', methods.keyDownHandler);
                     data.input.bind('keyup.console', methods.keyUpHandler);
                     if (data.welcomeMessage) {
                         $this.console('createMessage', data.welcomeMessage,
                                 data.infoClass);
                     }
+                    data.output.find('a[data-cmd]').live('click', function () {
+                        data.inputStash = '';
+                        data.input.focus();
+                        if (data.runCmdLinksOnClick) {
+                            data.input.console('send', $this, data);
+                        }
+                    }).live('mouseenter', function () {
+                        data.inputStash = data.input.val();
+                        data.input.val($(this).attr('data-cmd'));
+                    }).live('mouseleave', function () {
+                        data.input.val(data.inputStash);
+                        data.inputStash = '';
+                    });
                 }
             });
         },
@@ -533,13 +553,22 @@
         },
         lookupManifest: function (path, callback) {
             var $this = this,
+                baseLookup = false,
                 data = $this.data('console'),
                 manifest;
-            if (path && (path.lastIndexOf('/') !== path.length - 2 ||
-                    path === '.')) {
-                path += '/';
+            if (path) {
+                if (path.lastIndexOf('/') !== path.length - 2 || path === '.') {
+                    path += '/';
+                }
+                if (path.indexOf('~/') === 0) {
+                    baseLookup = true;
+                }
             }
-            path = data.vfsCd + '/' + path + data.vfsDescriptor;
+            if (baseLookup) {
+                path = data.vfsBase + '/' + path.substring(2) + data.vfsDescriptor;
+            } else {
+                path = data.vfsCd + '/' + path + data.vfsDescriptor;
+            }
             $.getJSON(path, function (descriptor) {
                 manifest = descriptor;
             }).complete(function () {

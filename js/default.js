@@ -1,5 +1,11 @@
 $(function () {
     var output = $('#console .output'),
+        loading = $('<img/>', {
+            'alt': 'Loading...',
+            'height': 15,
+            'src': 'https://d3nwyuy0nl342s.cloudfront.net/images/modules/wiki/loading_indicator.gif',
+            'width': 128
+        }),
         scroller = output.jScrollPane({ 'hideFocus': true }).data('jsp'),
         scrollerPane = output.find('.jspPane');
     $(window).resize(function () {
@@ -7,6 +13,31 @@ $(function () {
                 $('#console .input').outerHeight());
         scroller.reinitialise();
     }).resize();
+    // Global: gph (Git Page Helper)
+    gph = {
+        formatDateTime: function (dateTime) {
+            if (dateTime.indexOf('T') !== -1) {
+                return dateTime;
+            }
+            var parts = dateTime.split(' ');
+            parts[0] = parts[0].replace(/\//g, '-');
+            parts[2] = parts[2].substring(0, 3) + ':' + parts[2].substring(3);
+            parts.splice(1, 0, 'T');
+            return parts.join('');
+        },
+        loadingImg: loading,
+        random: function (min, max) {
+            min = (min === undefined) ? 10000000 : min;
+            max = (max === undefined) ? 99999999 : max;
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        scrollTo: function (ele) {
+            scroller.reinitialise();
+            if (ele) {
+                scroller.scrollToElement(ele, true);
+            }
+        }
+    };
     function interceptor(console, callback) {
         var data = console.data('console'),
             input = console.find('input[type="password"]');
@@ -134,13 +165,9 @@ $(function () {
         }
     };
     var console = $('#console').console({
-        'callback': function (obj) {
-            scroller.reinitialise();
-            if (obj) {
-                scroller.scrollToElement(obj, true);
-            }
-        },
+        'callback': gph.scrollTo,
         'cmd': commands,
+        'loading': loading,
         'output': '.output .jspPane',
         'welcomeMessage': 'Welcome to neocotic @ GitHub!<br/>' +
                 'Type \'help\' for a list of available commands'

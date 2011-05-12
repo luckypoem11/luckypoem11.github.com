@@ -1,0 +1,87 @@
+<div id="vhs-sys-log">
+    <div class="loader"></div>
+    <table style="display: none">
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.15 11:47:36.947 BST</td>
+            <td class="log-message">Connection established from <a class="mock-ip"></a> to <a href="http://127.0.0.0" tabindex="-1" target="_blank">127.0.0.0</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:47:45.026 BST</td>
+            <td class="log-message">Authentication accepted from <a class="mock-ip"></a> [<a data-cmd="login"></a>]<td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:48:45.866 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> accessed file: <a data-cmd="open">~/usr/local/projects.txt</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:49:00.009 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> accessed file: <a data-cmd="open">~/usr/local/details.txt</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:49:59.926 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> updated file: <a data-cmd="open">~/usr/local/details.txt</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:49:59.989 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> updated authentication details: <a data-cmd="open">~/usr/local/.security</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:52:23.969 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> created file: <a data-cmd="open">~/usr/local/snippets.txt</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:54:02.972 BST</td>
+            <td class="log-message"><a data-cmd="login"></a> updated file: <a data-cmd="open">~/usr/local/snippets.txt</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:54:16.068 BST</td>
+            <td class="log-message"><a class="mock-ip"></a> disconnected from <a href="http://127.0.0.0" tabindex="-1" target="_blank">127.0.0.0</a><td/>
+        </tr>
+        <tr>
+            <td class="log-date"><span class="year"></span>.04.1511:24:16.976 BST</td>
+            <td class="log-message">Authentication expired after 1800 secs inactive [<a data-cmd="login"></a>]<td/>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var container = $('#vhs-sys-log'),
+            loader = container.find('div.loader'),
+            mockIpAddress = '',
+            table = container.find('table'),
+            username = 'neocotic',
+            year = new Date().getFullYear(),
+            yearOffset = -1;
+        container.attr('id', container.attr('id') + '-' + gph.random());
+        loader.append(gph.loadingImg);
+        table.find('.log-date .year').text((year + yearOffset));
+        mockIpAddress += gph.random(0, 999) + '.' + gph.random(0, 999) + '.';
+        mockIpAddress += gph.random(0, 999) + '.' + gph.random(0, 999);
+        table.find('a.file').each(function () {
+            var $this = $(this);
+            $this.attr({
+                'data-cmd': 'open ' + $this.text(),
+                'tabindex': -1
+            });
+        });
+        table.find('a.mock-ip').text(mockIpAddress).attr({
+            'href': 'http://' + mockIpAddress,
+            'tabindex': -1,
+            'target': '_blank'
+        });
+        table.find('a[data-cmd="login"]').text(username).attr({
+            'data-cmd': 'login ' + username,
+            'tabindex': -1
+        });
+        table.find('a[data-cmd="open"]').each(function () {
+            var $this = $(this);
+            $this.attr({
+                'data-cmd': 'open ' + $this.text(),
+                'tabindex': -1
+            });
+        });
+        loader.hide();
+        table.show();
+        gph.scrollTo(container);
+    });
+</script>

@@ -2,7 +2,9 @@
     "directories": [],
     "files": [
         ".security",
-        "details.txt"
+        "details.txt",
+        "projects.txt",
+        "snippets.txt"
     ],
     "path": "root/usr/local"
 }

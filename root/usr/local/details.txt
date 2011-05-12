@@ -1,35 +1,72 @@
-<!-- TODO: Dynamically populate content using github API -->
-<table>
-    <tr>
-        <td style="font-weight: bold">ID:</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Username:</td>
-        <td><a href="http://github.com/neocotic" tabindex="-1" target="_blank">neocotic</a></td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Forename:</td>
-        <td>Alasdair</td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Surname:</td>
-        <td>Mercer</td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">D.O.B:</td>
-        <td>12/01/1987</td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Gender:</td>
-        <td>Male</td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Email:</td>
-        <td><a href="mailto:mercer.alasdair@gmail.com" tabindex="-1">mercer.alasdair@gmail.com</a></td>
-    </tr>
-    <tr>
-        <td style="font-weight: bold">Website:</td>
-        <td><a href="http://mercer.so/alasdair" tabindex="-1" target="_blank">http://mercer.so/alasdair</a></td>
-    </tr>
-<table>
+<div id="vhs-details">
+    <div class="loader"></div>
+    <table style="display: none"></table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var container = $('#vhs-details'),
+            loader = container.find('div.loader'),
+            table = container.find('table'),
+            username = 'neocotic';
+        container.attr('id', container.attr('id') + '-' + gph.random());
+        loader.append(gph.loadingImg);
+        function addRow(c1, c2) {
+            return $('<tr/>').append($('<td/>', {
+                'style': 'font-weight: bold'
+            }).append(c1)).append($('<td/>').append(c2)).appendTo(table);
+        }
+        gh.user(username).show(function (json) {
+            var data = json.user,
+                names = (data.name) ? data.name.split(' ') : [];
+            addRow('ID:', data.id);
+            addRow('Username:', $('<a/>', {
+                'href': 'https://github.com/' + data.login,
+                'tabindex': -1,
+                'target': '_blank',
+                'text': data.login
+            }));
+            if (names.length === 1) {
+                addRow('Name:', names[0]);
+            } else if (names.length > 1) {
+                addRow('Forename:', names[0]);
+                addRow('Surname:', names[names.length - 1]);
+            }
+            if (data.location) {
+                // TODO: Google maps integration?
+                addRow('Location:', data.location);
+            }
+            if (data.email) {
+                addRow('Email:', $('<a/>', {
+                    'href': 'mailto:' + data.email,
+                    'tabindex': -1,
+                    'text': data.email
+                }));
+            }
+            if (data.blog) {
+                addRow('Website:', $('<a/>', {
+                    'href': data.blog,
+                    'tabindex': -1,
+                    'target': '_blank',
+                    'text': data.blog
+                }));
+            }
+            if (data.company) {
+                addRow('Company:', data.company);
+            }
+            addRow('Created:', $('<abbr/>', {
+                'class': 'relatize',
+                'title': gph.formatDateTime(data.created_at)
+            }));
+            table.find('tr:first-child').prepend($('<td/>', {
+                'rowspan': table.find('tr').length,
+                'style': 'vertical-align: top'
+            }).append($('<img/>', {
+                'src': 'http://0.gravatar.com/avatar/' + data.gravatar_id
+            })));
+            $('abbr.relatize').timeago();
+            loader.hide();
+            table.show();
+            gph.scrollTo(container);
+        });
+    });
+</script>

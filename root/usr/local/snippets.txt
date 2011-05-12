@@ -1,0 +1,92 @@
+<div id="vhs-snippets">
+    <div class="loader"></div>
+    <table style="display: none">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Files</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <td style="font-weight: bold; text-align: right">Total:</td>
+                <td colspan="3" style="font-style: italic">0</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var container = $('#vhs-snippets'),
+            loader = container.find('div.loader'),
+            table = container.find('table'),
+            tableBody = table.find('tbody'),
+            username = 'neocotic';
+        container.attr('id', container.attr('id') + '-' + gph.random());
+        loader.append(gph.loadingImg);
+        function addCell(row, contents) {
+            return $('<td/>').append(contents).appendTo(row);
+        }
+        gh.user(username).publicGists(function (json) {
+            var data = {}, fileDiv = {}, i = 0, j = 0, row = {};
+            if (json.gists.length) {
+                json.gists.sort(function (a, b) {
+                    return a.repo - b.repo;
+                });
+                for (; i < json.gists.length; i++) {
+                    data = json.gists[i];
+                    j = 0;
+                    row = $('<tr/>').appendTo(tableBody);
+                    addCell(row, $('<a/>', {
+                        'href': 'https://gist.github.com/' + data.repo,
+                        'tabindex': -1,
+                        'target': '_blank',
+                        'text': data.repo
+                    }));
+                    addCell(row, data.description);
+                    if (data.files.length) {
+                        fileDiv = $('<div/>');
+                        for (; j < data.files.length; j++) {
+                            /*
+                             * TODO: Add way of linking to raw file and/or showing/hiding/exposing(overlay) syntax highlighted file
+                             *
+                             * 'https://gist.github.com/' + data.repo + '.js?file=' + data.files[j]
+                             */
+                            fileDiv.append($('<a/>', {
+                                'href': 'https://gist.github.com/' + data.repo + '#file_' + data.files[j], // TODO: Requires another ajax call to determine url to raw file?
+                                'tabindex': -1,
+                                'target': '_blank',
+                                'text': data.files[j]
+                            }));
+                        }
+                        addCell(row, fileDiv);
+                    } else {
+                        addCell(row, 'none');
+                    }
+                    if (data.created_at) {
+                        addCell(row, $('<abbr/>', {
+                            'class': 'relatize',
+                            'title': gph.formatDateTime(data.created_at)
+                        }));
+                    } else {
+                        addCell(row, 'never');
+                    }
+                }
+                table.find('tfoot tr td:last-child').text(json.gists.length);
+            } else {
+                tableBody.append($('<tr/>').append($('<td/>', {
+                    'colspan': 4,
+                    'style': 'font-style: italic',
+                    'text': 'No snippets found!'
+                })));
+            }
+            $('abbr.relatize').timeago();
+            loader.hide();
+            table.show();
+            gph.scrollTo(container);
+        });
+    });
+</script>

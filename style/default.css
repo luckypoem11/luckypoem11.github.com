@@ -9,6 +9,59 @@ body {
     font-size: 12px;
     overflow: hidden;
 }
+.gh-icon-admin,
+.gh-icon-back,
+.gh-icon-compare,
+.gh-icon-download,
+.gh-icon-fork,
+.gh-icon-forward,
+.gh-icon-leave,
+.gh-icon-pull-request,
+.gh-icon-reply,
+.gh-icon-watch {
+    background: url(https://d3nwyuy0nl342s.cloudfront.net/images/modules/buttons/minibutton_icons.png?v20100306) 0 0 no-repeat;
+    height: 22px;
+    margin-left: 4px;
+    width: 18px;
+}
+.gh-icon-admin {
+    background-position: 0 -25px;
+    width: 16px;
+}
+.gh-icon-back {
+    background-position: -160px -25px;
+    width: 16px;
+}
+.gh-icon-compare {
+    background-position: -100px -25px;
+    width: 17px;
+}
+.gh-icon-download {
+    background-position: -40px -25px;
+}
+.gh-icon-fork {
+    background-position: -80px -25px;
+    width: 17px;
+}
+.gh-icon-forward {
+    background-position: -180px -25px;
+    width: 16px;
+}
+.gh-icon-leave {
+    background-position: -120px -25px;
+    width: 15px;
+}
+.gh-icon-pull-request {
+    background-position: -60px -25px;
+    width: 17px;
+}
+.gh-icon-reply {
+    background-position: -140px -25px;
+    width: 16px;
+}
+.gh-icon-watch {
+    background-position: -20px -25px;
+}
 #console {
     overflow: hidden;
     width: 100%;
@@ -136,6 +189,13 @@ body {
 }
 #console .output .message {
     padding: 2px 10px;
+}
+#console .output .message a[data-cmd] {
+    cursor: pointer;
+    text-decoration: underline;
+}
+#console .output .message a[data-cmd]:hover {
+    text-decoration: none;
 }
 #console .output .message table {
     border: 0;
