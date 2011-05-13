@@ -337,7 +337,7 @@ $(function () {
     var console = $('#console').console({
         'callback': gph.scrollTo,
         'cmd': commands,
-        'hiddenFilePrefix': '_',
+        'hiddenFilePrefix': 'hidden.',
         'hiddenFilePrefixMask': '.',
         'loading': loading,
         'output': '.output .jspPane',

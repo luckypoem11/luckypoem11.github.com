@@ -110,24 +110,17 @@
             '_call': function (args, opts) {
                 // TODO: Support more options and maybe file arguments?
                 var $this = this,
-                    arr = [],
                     data = $this.data('console'),
                     msgGroup = $this.console('createMessageGroup'),
                     path = '';
                 if (args.length) {
                     path = args[0];
                 }
-                if (!path) {
-                    $this.console('printUsage', data.cmd.ls, 'ls', msgGroup);
-                    msgGroup.addClass(data.completedClass);
-                    return;
-                }
                 $this.console('lookupManifest', path, function (manifest) {
-                    var i = 0, name = '';
+                    var arr = [], arr2 = [], i = 0, name = '';
                     if (manifest) {
                         arr = Array.prototype.concat.call(manifest.directories,
                                 manifest.files);
-                        arr.sort();
                         if (!arr.length) {
                             $this.console('createMessage', '.<br/>..', '',
                                     msgGroup);
@@ -142,13 +135,16 @@
                                         name = data.hiddenFilePrefixMask +
                                                 name.substring(data.hiddenFilePrefix.length);
                                     }
-                                    $this.console('createMessage', name, '',
-                                            msgGroup);
+                                    arr2.push(name);
                                 }
                             } else {
-                                $this.console('createMessage', name, '',
-                                        msgGroup);
+                                arr2.push(name);
                             }
+                        }
+                        arr2.sort();
+                        for (i = 0; i < arr2.length; i++) {
+                            $this.console('createMessage', arr2[i], '',
+                                    msgGroup);
                         }
                     } else {
                         $this.console('createMessage', path +
@@ -472,8 +468,7 @@
                 options = command._options,
                 optName = '',
                 table = $('<table/>').css({
-                    'border-spacing': 10,
-                    'margin-left': 20
+                    'margin-left': 30
                 });
             if (options) {
                 body.append('options:');
@@ -498,7 +493,8 @@
                         $('<tr/>').append($('<td/>', {
                             'html': '-' + optName + ' ' + optArgs
                         })).append($('<td/>', {
-                            'html': opt.description
+                            'html': opt.description,
+                            'style': 'padding-left: 20px'
                         })).appendTo(table);
                     }
                 }

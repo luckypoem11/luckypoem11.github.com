@@ -1,7 +1,7 @@
 {
     "directories": [],
     "files": [
-        "_security",
+        "hidden.security",
         "details.txt",
         "projects.txt",
         "snippets.txt"
