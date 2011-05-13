@@ -293,7 +293,8 @@
                         obj._call.apply(this, [input.args, input.options]);
                     }
                 } else if (obj.hasOwnProperty('_usage')) {
-                    this.console('createMessage', obj._usage, data.errorClass);
+                    this.console('createMessage', obj._usage.apply(obj),
+                            data.errorClass);
                 } else {
                     this.console('printUsage', obj, prop);
                 }
@@ -467,9 +468,7 @@
                 optArgs = '',
                 options = command._options,
                 optName = '',
-                table = $('<table/>').css({
-                    'margin-left': 30
-                });
+                table = $('<table/>').css('margin-left', 30);
             if (options) {
                 body.append('options:');
                 for (optName in options) {

@@ -178,21 +178,39 @@ $(function () {
             }],
             '_call': function (args, opts) {
                 var $this = this,
-                    count = 4,
+                    count = opts.n.args[0].value,
                     data = $this.data('console'),
-                    delay = 1.5,
+                    errorMsg = '',
                     hostName = '',
                     hostNameRegex = /^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/,
                     i = 0,
                     ipv4Regex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/,
                     ipv4 = '',
                     msgGroup = $this.console('createMessageGroup'),
-                    target = '';
+                    size = opts.l.args[0].value,
+                    target = '',
+                    timeout = opts.w.args[0].value,
+                    ttl = opts.i.args[0].value;
                 if (args.length) {
                     target = args[0];
                 }
                 if (!target) {
                     $this.console('printUsage', data.cmd.ping, 'ping', msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+                if (count < 1) {
+                    errorMsg = 'invalid count ' + count + '[min=0]';
+                } else if (size < 1 || size > 65527) {
+                    errorMsg = 'invalid size ' + size + ' [min=1,max=65527]';
+                } else if (timeout < 1) {
+                    errorMsg = 'invalid timeout ' + timeout + ' [min=1]';
+                } else if (ttl < 1 || ttl > 255) {
+                    errorMsg = 'invalid TTL ' + ttl + ' [min=1,max=255]';
+                }
+                if (errorMsg) {
+                    $this.console('createMessage', 'ping: ' + errorMsg,
+                            data.errorClass, msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -212,16 +230,21 @@ $(function () {
                     }
                 }
                 if (hostName && ipv4) {
-                    $this.console('createMessage', 'Pinging ' + hostName + ' [' +
-                            ipv4 + '] with 32 bytes of data:<br/><br/>', '',
-                            msgGroup);
+                    var initialMsg = 'Pinging ';
+                    if (opts.a.declared) {
+                        initialMsg += hostName + ' [' + ipv4 + ']';
+                    } else {
+                        initialMsg += ipv4;
+                    }
+                    initialMsg += ' with ' + size + ' bytes of data:<br/><br/>';
+                    $this.console('createMessage', initialMsg, '', msgGroup);
                     if (hostName === 'localhost') {
                         (function printResponse() {
                             setTimeout(function () {
                                 if (i++ < count) {
                                     $this.console('createMessage',
-                                            'Reply from ' + ipv4 +
-                                            ': bytes=32 time<1ms TTL=128', '',
+                                            'Reply from ' + ipv4 + ': bytes=' +
+                                            size + ' time<1ms TTL=' + ttl, '',
                                             msgGroup);
                                     printResponse();
                                 } else {
@@ -229,8 +252,9 @@ $(function () {
                                             '<br/>Ping statistics for ' + ipv4 +
                                             ':', '', msgGroup);
                                     $this.console('createMessage',
-                                            'Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),',
-                                            '',
+                                            'Packets: Sent = ' + count +
+                                            ', Received = ' + count +
+                                            ', Lost = 0 (0% loss),', '',
                                             msgGroup).target.css('margin-left',
                                             '20px');
                                     $this.console('createMessage',
@@ -242,7 +266,7 @@ $(function () {
                                             msgGroup).target.css('margin-left',
                                             '20px');
                                 }
-                            }, delay * 1000);
+                            }, 1000);
                         })();
                     } else {
                         (function printResponse() {
@@ -256,12 +280,13 @@ $(function () {
                                             '<br/>Ping statistics for ' + ipv4 +
                                             ':', '', msgGroup);
                                     $this.console('createMessage',
-                                            'Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),',
-                                            '',
+                                            'Packets: Sent = ' + count +
+                                            ', Received = 0, Lost = ' + count +
+                                            ' (100% loss),', '',
                                             msgGroup).target.css('margin-left',
                                             '20px');
                                 }
-                            }, delay * 1000);
+                            }, timeout);
                         })();
                     }
                     msgGroup.addClass(data.completedClass);
@@ -274,7 +299,6 @@ $(function () {
                 }
             },
             '_help': 'check connectivity to another computer',
-            // TODO: Implement below options
             '_options': {
                 'a': {
                     'description': 'resolve addresses to host names'
@@ -282,28 +306,28 @@ $(function () {
                 'i': {
                     'args': [{
                         'name': 'TTL',
-                        'value': 128 // TODO: Validate: 1...255
+                        'value': 128
                     }],
                     'description': 'time to live'
                 },
                 'l': {
                     'args': [{
                         'name': 'size',
-                        'value': 32 // TODO: Validate: 1...65527
+                        'value': 32
                     }],
                     'description': 'send buffer size'
                 },
                 'n': {
                     'args': [{
                         'name': 'count',
-                        'value': 4 // TODO: Validate: > 0
+                        'value': 4
                     }],
                     'description': 'number of echo requests to send'
                 },
                 'w': {
                     'args': [{
                         'name': 'timeout',
-                        'value': 4000 // TODO: Validate: > 0
+                        'value': 4000
                     }],
                     'description': 'timeout in milliseconds to wait for each reply'
                 }
