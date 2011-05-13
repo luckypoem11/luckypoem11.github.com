@@ -1,6 +1,10 @@
 (function ($, undefined) {
     var commands = {
         'cd': {
+            '_args': [{
+                'name': 'directory',
+                'optional': false
+            }],
             '_call': function (args) {
                 var $this = this,
                     data = $this.data('console'),
@@ -10,8 +14,7 @@
                     path = args[0];
                 }
                 if (!path) {
-                    $this.console('createMessage', data.cmd.cd._usage,
-                            data.errorClass, msgGroup);
+                    $this.console('printUsage', data.cmd.cd, 'cd', msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -28,46 +31,31 @@
                     msgGroup.addClass(data.completedClass);
                 });
             },
-            '_help': 'change working directory',
-            '_usage': 'usage: cd DIRECTORY'
+            '_help': 'change working directory'
         },
         'clear': {
-            '_call': function (args) {
+            '_call': function (args, opts) {
                 var data = this.data('console'),
-                    clearHistory = false,
-                    i = 0,
-                    invalidArg = false,
                     msgGroup = this.console('createMessageGroup');
-                for (; i < args.length; i++) {
-                    if (args[i].indexOf('-') === 0) {
-                        switch (args[i].substring(1)) {
-                            case 'h':
-                                clearHistory = true;
-                                break;
-                            default:
-                                invalidArg = true;
-                        }
-                    }
-                    if (invalidArg) {
-                        this.console('createMessage', 'clear: illegal option ' +
-                                args[i], data.errorClass, msgGroup);
-                        this.console('createMessage', data.cmd.clear._usage,
-                                data.errorClass, msgGroup);
-                        msgGroup.addClass(data.completedClass);
-                        return;
-                    }
-                }
                 data.output.find('*').remove();
                 data.callback();
-                if (clearHistory) {
+                if (opts.h.declared) {
                     data.history = [];
                     data.historyIndex = -1;
                 }
             },
             '_help': 'clear all the messages from the console',
-            '_usage': 'usage: clear -h'
+            '_options': {
+                'h': {
+                    'description': 'clear command history'
+                }
+            }
         },
         'help': {
+            '_args': [{
+                'name': 'command',
+                'optional': true
+            }],
             '_call': function (args) {
                 var arr = [],
                     data = this.data('console'),
@@ -79,10 +67,6 @@
                 if (args.length) {
                     hints = this.console('lookupHints', args);
                     if (hints.length === 1) {
-                        this.console('createMessage', $('<span/>', {
-                            'html': hints[0].name + ' &nbsp;&nbsp; ' +
-                                    hints[0].tip
-                        }), '', msgGroup);
                         if (hints[0].usage) {
                             this.console('createMessage', hints[0].usage, '',
                                     msgGroup);
@@ -116,46 +100,33 @@
                 }
                 msgGroup.addClass(data.completedClass);
             },
-            '_help': 'show general help information and a list of available commands',
-            '_usage': 'usage: help [COMMAND]'
+            '_help': 'show general help information and a list of available commands'
         },
         'ls': {
-            '_call': function (args) {
+            '_args': [{
+                'name': 'path',
+                'optional': true
+            }],
+            '_call': function (args, opts) {
                 // TODO: Support more options and maybe file arguments?
                 var $this = this,
                     arr = [],
                     data = $this.data('console'),
-                    i = 0,
-                    invalidArg = false,
                     msgGroup = $this.console('createMessageGroup'),
-                    path,
-                    showHidden = false;
-                for (; i < args.length; i++) {
-                    if (args[i].indexOf('-') === 0) {
-                        switch (args[i].substring(1)) {
-                            case 'a':
-                                showHidden = true;
-                                break;
-                            default:
-                                invalidArg = true;
-                        }
-                    } else if (!path) {
-                        path = args[i];
-                    }
-                    if (invalidArg) {
-                        $this.console('createMessage', 'ls: illegal option ' +
-                                args[i], data.errorClass, msgGroup);
-                        $this.console('createMessage', data.cmd.ls._usage,
-                                data.errorClass, msgGroup);
-                        msgGroup.addClass(data.completedClass);
-                        return;
-                    }
+                    path = '';
+                if (args.length) {
+                    path = args[0];
                 }
-                path = path || '';
+                if (!path) {
+                    $this.console('printUsage', data.cmd.ls, 'ls', msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
                 $this.console('lookupManifest', path, function (manifest) {
-                    var j = 0;
+                    var i = 0, name = '';
                     if (manifest) {
-                        arr = Array.prototype.concat.call(manifest.directories, manifest.files);
+                        arr = Array.prototype.concat.call(manifest.directories,
+                                manifest.files);
                         arr.sort();
                         if (!arr.length) {
                             $this.console('createMessage', '.<br/>..', '',
@@ -163,9 +134,19 @@
                             msgGroup.addClass(data.completedClass);
                             return;
                         }
-                        for (; j < arr.length; j++) {
-                            if (arr[j].indexOf('.') !== 0 || showHidden) {
-                                $this.console('createMessage', arr[j], '',
+                        for (; i < arr.length; i++) {
+                            name = arr[i];
+                            if (name.indexOf(data.hiddenFilePrefix) === 0) {
+                                if (opts.a.declared) {
+                                    if (data.hiddenFilePrefixMask) {
+                                        name = data.hiddenFilePrefixMask +
+                                                name.substring(data.hiddenFilePrefix.length);
+                                    }
+                                    $this.console('createMessage', name, '',
+                                            msgGroup);
+                                }
+                            } else {
+                                $this.console('createMessage', name, '',
                                         msgGroup);
                             }
                         }
@@ -178,9 +159,17 @@
                 });
             },
             '_help': 'list directory contents',
-            '_usage': 'usage: ls -a [PATH]'
+            '_options': {
+                'a': {
+                    'description': 'include hidden files'
+                }
+            }
         },
         'open': {
+            '_args': [{
+                'name': 'file',
+                'optional': false
+            }],
             '_call': function (args) {
                 var $this = this,
                     data = $this.data('console'),
@@ -193,8 +182,7 @@
                     path = args[0];
                 }
                 if (!path) {
-                    $this.console('createMessage', data.cmd.open._usage,
-                            data.errorClass, msgGroup);
+                    $this.console('printUsage', data.cmd.open, 'open', msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -217,6 +205,17 @@
                         var fileExists = false,
                             files = manifest.files,
                             message = {};
+                        if (fileName.indexOf(data.hiddenFilePrefix) === 0) {
+                            $this.console('createMessage',
+                                    'open: couldn\'t resolve path \'' + path +
+                                    '\'', data.errorClass, msgGroup);
+                            msgGroup.addClass(data.completedClass);
+                            return;
+                        }
+                        if (fileName.indexOf(data.hiddenFilePrefixMask) === 0) {
+                            fileName = data.hiddenFilePrefix +
+                                fileName.substring(data.hiddenFilePrefixMask.length);
+                        }
                         for (; i < files.length; i++) {
                             if (files[i] === fileName) {
                                 fileExists = true;
@@ -244,17 +243,15 @@
                     }
                 });
             },
-            '_help': 'open a file to view',
-            '_usage': 'usage: open FILE'
+            '_help': 'open a file to view'
         },
         'pwd': {
-            '_call': function (args) {
+            '_call': function () {
                 var data = this.data('console');
                 this.console('createMessageGroup', data.vfsCd)
                         .addClass(data.completedClass);
             },
-            '_help': 'return working directory name',
-            '_usage': 'usage: pwd'
+            '_help': 'return working directory name'
         }
     };
     var methods = {
@@ -270,6 +267,7 @@
             var data = this.data('console'),
                 found = false,
                 i = 0,
+                input = {},
                 obj = data.cmd,
                 prop = '';
             for (; i < args.length; i++) {
@@ -289,17 +287,52 @@
             }
             if (obj !== data.cmd) {
                 if (obj.hasOwnProperty('_call')) {
-                    obj._call.apply(this, [Array.prototype.slice.call(args, i)]);
+                    input = this.console('deriveCommandInput', obj,
+                            Array.prototype.slice.call(args, i));
+                    if (input.error) {
+                        this.console('createMessage', prop + ': ' + input.error,
+                                data.errorClass);
+                        this.console('printUsage', obj, prop);
+                    } else {
+                        obj._call.apply(this, [input.args, input.options]);
+                    }
                 } else if (obj.hasOwnProperty('_usage')) {
                     this.console('createMessage', obj._usage, data.errorClass);
                 } else {
-                    this.console('createMessage', 'Command not valid!',
-                            data.errorClass);
+                    this.console('printUsage', obj, prop);
                 }
             } else {
-                this.console('createMessage', 'Command not found!',
+                this.console('createMessage', 'command not found',
                         data.errorClass);
             }
+        },
+        clone: function (obj) {
+            var copy, i = 0, prop = '';
+            if (!obj || typeof(obj) !== 'object') {
+                return obj;
+            }
+            if (obj instanceof Date) {
+                copy = new Date();
+                copy.setTime(obj.getTime());
+                return copy;
+            }
+            if (obj instanceof Array) {
+                copy = [];
+                for (; i < obj.length; i++) {
+                    copy[i] = methods.clone(obj[i]);
+                }
+                return copy;
+            }
+            if (obj instanceof Object) {
+                copy = {};
+                for (prop in obj) {
+                    if (obj.hasOwnProperty(prop)) {
+                        copy[prop] = methods.clone(obj[prop]);
+                    }
+                }
+                return copy;
+            }
+            throw new Error('Unsupported object type');
         },
         createMessage: function (str, style, group) {
             var data = this.data('console');
@@ -345,6 +378,52 @@
             data.callback(obj);
             return obj;
         },
+        deriveCommandInput: function (command, args) {
+            var arg = '',
+                argUsed = false,
+                data = this.data('console'),
+                i = 0,
+                input = {
+                    args: [],
+                    error: '',
+                    options: {}
+                },
+                j = 0,
+                option = {};
+            if (command._options) {
+                input.options = this.console('clone', command._options);
+                for (; i < args.length; i++) {
+                    arg = args[i];
+                    if (arg.indexOf(data.optionPrefix) === 0) {
+                        option = input.options[arg.substring(1)];
+                        if (option) {
+                            option.declared = true;
+                        } else {
+                            input.error('illegal option ' + arg);
+                            break;
+                        }
+                    } else {
+                        argUsed = false;
+                        if (option && option.args) {
+                            for (j = 0; j < option.args.length; j++) {
+                                if (!option.args[j].declared) {
+                                    option.args[j].declared = true;
+                                    option.args[j].value = arg;
+                                    argUsed = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!argUsed) {
+                            input.args.push(arg);
+                        }
+                    }
+                }
+            } else {
+                input.args = args;
+            }
+            return input;
+        },
         destroy: function () {
             return this.each(function () {
                 var $this = $(this),
@@ -368,11 +447,75 @@
         },
         getPrefix: function () {
             var data = this.data('console'),
-                prefix = (data.username) ? data.username : 'guest';
-            prefix += data.prefixSeperator;
-            prefix += data.vfsCd;
+                prefix = '';
+            if (data.prefixOverride) {
+                prefix += data.prefixOverride;
+            } else {
+                prefix += data.username || 'guest';
+                prefix += data.prefixSeperator;
+                prefix += data.vfsCd;
+            }
             prefix += data.prefixSymbol;
             return prefix;
+        },
+        getUsage: function (command, name) {
+            var arg = {},
+                args = command._args,
+                container = $('<div/>'),
+                header = $('<span/>').appendTo(container),
+                headerText = 'usage: ' + name,
+                body = $('<div/>').appendTo(container),
+                i = 0,
+                j = 0,
+                opt = {},
+                optArgs = '',
+                options = command._options,
+                optName = '',
+                table = $('<table/>').css({
+                    'border-spacing': 10,
+                    'margin-left': 20
+                });
+            if (options) {
+                body.append('options:');
+                for (optName in options) {
+                    if (options.hasOwnProperty(optName)) {
+                        opt = options[optName];
+                        optArgs = '';
+                        if (opt.args) {
+                            for (i = 0; i < opt.args.length; i++) {
+                                optArgs += '<em>' + opt.args[i].name + '</em>, ';
+                            }
+                            if (optArgs) {
+                                optArgs = optArgs.substring(0,
+                                        optArgs.length - 2);
+                            }
+                        }
+                        headerText += ' [-' + optName;
+                        if (optArgs) {
+                            headerText += ' ' + optArgs;
+                        }
+                        headerText += ']';
+                        $('<tr/>').append($('<td/>', {
+                            'html': '-' + optName + ' ' + optArgs
+                        })).append($('<td/>', {
+                            'html': opt.description
+                        })).appendTo(table);
+                    }
+                }
+            }
+            if (args) {
+                for (; j < args.length; j++) {
+                    arg = args[j];
+                    if (arg.optional) {
+                        headerText += ' [' + arg.name.toUpperCase() + ']';
+                    } else {
+                        headerText += ' ' + arg.name.toUpperCase();
+                    }
+                }
+            }
+            header.html(headerText);
+            table.appendTo(body);
+            return container;
         },
         hintClickHandler: function () {
             var $this = $(this),
@@ -395,6 +538,8 @@
                 'completedClass': 'completed',
                 'dividerClass': 'divider',
                 'errorClass': 'error',
+                'hiddenFilePrefix': '.',
+                'hiddenFilePrefixMask': '',
                 'hints': '.hints',
                 'history': [],
                 'historyIndex': -1,
@@ -405,7 +550,9 @@
                 'maxHints': 10,
                 'messageClass': 'message',
                 'messageGroupClass': 'message-group',
+                'optionPrefix': '-',
                 'output': '.output',
+                'prefixOverride': '',
                 'prefixSeperator': ':',
                 'prefixSymbol': '$',
                 'runCmdLinksOnClick': true,
@@ -526,20 +673,23 @@
                     'command': args.join(' '),
                     'name': args[lastCommandFound],
                     'tip': obj._help,
-                    'usage': obj._usage
+                    'usage': this.console('getUsage', obj,
+                            args[lastCommandFound])
                 });
             } else if (arr.length === args.length - 1) {
                 for (prop in obj) {
                     if (obj.hasOwnProperty(prop) && prop.charAt(0) !== '_') {
                         if (prop.indexOf(args[args.length - 1]) === 0 &&
                                 obj[prop].hasOwnProperty('_help')) {
-                            if (data.maxHints <= 0 || hints.length <= data.maxHints) {
+                            if (data.maxHints <= 0 ||
+                                    hints.length <= data.maxHints) {
                                 hints.push({
                                     'command': args.slice(0, args.length - 2)
                                             .join(' ') + ' ' + prop,
                                     'name': prop,
                                     'tip': obj[prop]._help,
-                                    'usage': obj[prop]._usage
+                                    'usage': this.console('getUsage', obj[prop],
+                                            prop)
                                 });
                             }
                         }
@@ -574,6 +724,11 @@
             }).complete(function () {
                 callback.apply($this, [manifest]);
             });
+        },
+        printUsage: function (command, name, group) {
+            var data = this.data('console'),
+                usage = this.console('getUsage', command, name);
+            return this.console('createMessage', usage, data.errorClass, group);
         },
         navigateHints: function (moveUp, data) {
             var hintItems = data.hints.find('a'),

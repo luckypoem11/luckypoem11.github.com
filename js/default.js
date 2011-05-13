@@ -31,6 +31,35 @@ $(function () {
             max = (max === undefined) ? 99999999 : max;
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
+        randomIpv4: function () {
+            var i = 0, str = '', randomness = 0;
+            for (; i < 4; i++) {
+                randomness = gph.random(0, 4);
+                switch (randomness) {
+                    case 0:
+                        str += gph.random(0, 9);
+                        break;
+                    case 1:
+                        str += gph.random(10, 90);
+                        break;
+                    case 2:
+                        str += gph.random(100, 199);
+                        break;
+                    case 3:
+                        str += gph.random(200, 249);
+                        break;
+                    case 4:
+                        str += gph.random(250, 255);
+                        break;
+                    default:
+                        str += 0;
+                }
+                if (i !== 3) {
+                    str += '.';
+                }
+            }
+            return str;
+        },
         scrollTo: function (ele) {
             scroller.reinitialise();
             if (ele) {
@@ -59,6 +88,10 @@ $(function () {
     }
     var commands = {
         'login': {
+            '_args': [{
+                'name': 'username',
+                'optional': false
+            }],
             '_call': function (args) {
                 var console = this,
                     data = console.data('console'),
@@ -68,8 +101,7 @@ $(function () {
                     username = args[0];
                 }
                 if (!username) {
-                    console.console('createMessage',
-                            data.cmd.login._usage, data.errorClass, msgGroup);
+                    console.console('printUsage', data.cmd.login, 'login', msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -101,8 +133,7 @@ $(function () {
                     msg = console.console('createMessage', 'Authenticating...',
                             '', msgGroup);
                     digest = Crypto.SHA256(message);
-                    // TODO: Fix for live version (.security seems to be ignored on deploy even though exists in repo)
-                    $.getJSON('root/usr/local/.security', function (json) {
+                    $.getJSON('root/usr/local/_security', function (json) {
                         if (json[username] &&
                                 json[username].password === digest) {
                             msg.append(' Passed!');
@@ -121,8 +152,7 @@ $(function () {
                     });
                 });
             },
-            '_help': 'log in to user account',
-            '_usage': 'usage: login USERNAME'
+            '_help': 'log in to user account'
         },
         'logout': {
             '_call': function (args) {
@@ -139,10 +169,151 @@ $(function () {
                 }
                 msgGroup.addClass(data.completedClass);
             },
-            '_help': 'log out of current user account',
-            '_usage': 'usage: logout'
+            '_help': 'log out of current user account'
+        },
+        'ping': {
+            '_args': [{
+                'name': 'target',
+                'optional': false
+            }],
+            '_call': function (args, opts) {
+                var $this = this,
+                    count = 4,
+                    data = $this.data('console'),
+                    delay = 1.5,
+                    hostName = '',
+                    hostNameRegex = /^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/,
+                    i = 0,
+                    ipv4Regex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/,
+                    ipv4 = '',
+                    msgGroup = $this.console('createMessageGroup'),
+                    target = '';
+                if (args.length) {
+                    target = args[0];
+                }
+                if (!target) {
+                    $this.console('printUsage', data.cmd.ping, 'ping', msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+                if (ipv4Regex.test(target)) {
+                    ipv4 = target;
+                    if (ipv4 === '127.0.0.1') {
+                        hostName = 'localhost';
+                    } else {
+                        hostName = 'unknown';
+                    }
+                } else if (hostNameRegex.test(target)) {
+                    hostName = target;
+                    if (hostName === 'localhost') {
+                        ipv4 = '127.0.0.1';
+                    } else {
+                        ipv4 = gph.randomIpv4();
+                    }
+                }
+                if (hostName && ipv4) {
+                    $this.console('createMessage', 'Pinging ' + hostName + ' [' +
+                            ipv4 + '] with 32 bytes of data:<br/><br/>', '',
+                            msgGroup);
+                    if (hostName === 'localhost') {
+                        (function printResponse() {
+                            setTimeout(function () {
+                                if (i++ < count) {
+                                    $this.console('createMessage',
+                                            'Reply from ' + ipv4 +
+                                            ': bytes=32 time<1ms TTL=128', '',
+                                            msgGroup);
+                                    printResponse();
+                                } else {
+                                    $this.console('createMessage',
+                                            '<br/>Ping statistics for ' + ipv4 +
+                                            ':', '', msgGroup);
+                                    $this.console('createMessage',
+                                            'Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),',
+                                            '',
+                                            msgGroup).target.css('margin-left',
+                                            '20px');
+                                    $this.console('createMessage',
+                                            'Approximate round trip times in milli-seconds:',
+                                            '', msgGroup);
+                                    $this.console('createMessage',
+                                            'Minimum = 0ms, Maximum = 0ms, Average = 0ms',
+                                            '',
+                                            msgGroup).target.css('margin-left',
+                                            '20px');
+                                }
+                            }, delay * 1000);
+                        })();
+                    } else {
+                        (function printResponse() {
+                            setTimeout(function () {
+                                if (i++ < count) {
+                                    $this.console('createMessage',
+                                            'Request timed out.', '', msgGroup);
+                                    printResponse();
+                                } else {
+                                    $this.console('createMessage',
+                                            '<br/>Ping statistics for ' + ipv4 +
+                                            ':', '', msgGroup);
+                                    $this.console('createMessage',
+                                            'Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),',
+                                            '',
+                                            msgGroup).target.css('margin-left',
+                                            '20px');
+                                }
+                            }, delay * 1000);
+                        })();
+                    }
+                    msgGroup.addClass(data.completedClass);
+                } else {
+                    $this.console('createMessage',
+                            'ping: invalid target specified', data.errorClass,
+                            msgGroup);
+                    msgGroup.addClass(data.completedClass);
+                    return;
+                }
+            },
+            '_help': 'check connectivity to another computer',
+            // TODO: Implement below options
+            '_options': {
+                'a': {
+                    'description': 'resolve addresses to host names'
+                },
+                'i': {
+                    'args': [{
+                        'name': 'TTL',
+                        'value': 128 // TODO: Validate: 1...255
+                    }],
+                    'description': 'time to live'
+                },
+                'l': {
+                    'args': [{
+                        'name': 'size',
+                        'value': 32 // TODO: Validate: 1...65527
+                    }],
+                    'description': 'send buffer size'
+                },
+                'n': {
+                    'args': [{
+                        'name': 'count',
+                        'value': 4 // TODO: Validate: > 0
+                    }],
+                    'description': 'number of echo requests to send'
+                },
+                'w': {
+                    'args': [{
+                        'name': 'timeout',
+                        'value': 4000 // TODO: Validate: > 0
+                    }],
+                    'description': 'timeout in milliseconds to wait for each reply'
+                }
+            }
         },
         'sha': {
+            '_args': [{
+                'name': 'message',
+                'optional': false
+            }],
             '_call': function (args) {
                 var data = this.data('console'),
                     digest = '',
@@ -152,8 +323,7 @@ $(function () {
                     message = args[0];
                 }
                 if (!message) {
-                    this.console('createMessage', data.cmd.sha._usage,
-                            data.errorClass, msgGroup);
+                    this.console('printUsage', data.cmd.sha, 'sha', msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -161,13 +331,14 @@ $(function () {
                 this.console('createMessage', digest, '', msgGroup);
                 msgGroup.addClass(data.completedClass);
             },
-            '_help': 'return SHA-256 message digest',
-            '_usage': 'usage: sha MESSAGE'
+            '_help': 'return SHA-256 message digest'
         }
     };
     var console = $('#console').console({
         'callback': gph.scrollTo,
         'cmd': commands,
+        'hiddenFilePrefix': '_',
+        'hiddenFilePrefixMask': '.',
         'loading': loading,
         'output': '.output .jspPane',
         'welcomeMessage': 'Welcome to neocotic @ GitHub!<br/>' +
