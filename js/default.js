@@ -365,7 +365,8 @@ $(function () {
         'hiddenFilePrefixMask': '.',
         'loading': loading,
         'output': '.output .jspPane',
-        'welcomeMessage': 'Welcome to neocotic @ GitHub!<br/>' +
-                'Type \'help\' for a list of available commands'
+        'welcomeMessage': 'Welcome to neocotic @ GitHub!<br/>Type ' +
+                '<a data-cmd="help" data-cmd-run="true" tabindex="-1">help</a>' +
+                ' for a list of available commands'
     }).data('console').input.focus();
 });

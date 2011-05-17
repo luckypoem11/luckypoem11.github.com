@@ -92,6 +92,7 @@ body {
 }
 #console .hints a {
     color: #EEE;
+    cursor: pointer;
     display: block;
     margin-bottom: 2px;
     outline: none;

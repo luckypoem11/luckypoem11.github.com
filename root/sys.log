@@ -3,43 +3,43 @@
     <table style="display: none">
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:47:36.947 BST</td>
-            <td class="log-message">Connection established from <a data-cmd="ping"></a> to <a data-cmd="ping">127.0.0.1</a><td/>
+            <td class="log-message">Connection established from <a data-cmd="ping" data-cmd-run="true"></a> to <a data-cmd="ping" data-cmd-run="true">127.0.0.1</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:47:45.026 BST</td>
-            <td class="log-message">Authentication accepted from <a data-cmd="ping"></a> [<a data-cmd="login"></a>]<td/>
+            <td class="log-message">Authentication accepted from <a data-cmd="ping" data-cmd-run="true"></a> [<a data-cmd="login" data-cmd-run="true"></a>]<td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:48:45.866 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> accessed file: <a data-cmd="open">~/usr/local/projects.txt</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> accessed file: <a data-cmd="open" data-cmd-run="true">~/usr/local/projects.txt</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:49:00.009 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> accessed file: <a data-cmd="open">~/usr/local/details.txt</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> accessed file: <a data-cmd="open" data-cmd-run="true">~/usr/local/details.txt</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:49:59.926 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> updated file: <a data-cmd="open">~/usr/local/details.txt</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> updated file: <a data-cmd="open" data-cmd-run="true">~/usr/local/details.txt</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:49:59.989 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> updated authentication details: <a data-cmd="open">~/usr/local/.security</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> updated authentication details: <a data-cmd="open" data-cmd-run="true">~/usr/local/.security</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:52:23.969 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> created file: <a data-cmd="open">~/usr/local/snippets.txt</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> created file: <a data-cmd="open" data-cmd-run="true">~/usr/local/snippets.txt</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:54:02.972 BST</td>
-            <td class="log-message"><a data-cmd="login"></a> updated file: <a data-cmd="open">~/usr/local/snippets.txt</a><td/>
+            <td class="log-message"><a data-cmd="login" data-cmd-run="true"></a> updated file: <a data-cmd="open" data-cmd-run="true">~/usr/local/snippets.txt</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:54:16.068 BST</td>
-            <td class="log-message"><a data-cmd="ping"></a> disconnected from <a data-cmd="ping">127.0.0.1</a><td/>
+            <td class="log-message"><a data-cmd="ping" data-cmd-run="true"></a> disconnected from <a data-cmd="ping" data-cmd-run="true">127.0.0.1</a><td/>
         </tr>
         <tr>
             <td class="log-date"><span class="year"></span>.04.15 11:24:16.976 BST</td>
-            <td class="log-message">Authentication expired after 1800 secs inactive [<a data-cmd="login"></a>]<td/>
+            <td class="log-message">Authentication expired after 1800 secs inactive [<a data-cmd="login" data-cmd-run="true"></a>]<td/>
         </tr>
     </table>
 </div>

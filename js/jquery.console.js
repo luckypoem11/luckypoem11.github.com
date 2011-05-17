@@ -62,10 +62,9 @@
                     hints = [],
                     i = 0,
                     msgGroup = this.console('createMessageGroup'),
-                    obj = data.cmd,
                     prop = '';
                 if (args.length) {
-                    hints = this.console('lookupHints', args);
+                    hints = this.console('lookupHints', args, true);
                     if (hints.length === 1) {
                         if (hints[0].usage) {
                             this.console('createMessage', hints[0].usage, '',
@@ -79,28 +78,34 @@
                                 data.errorClass, msgGroup);
                     }
                 } else {
-                    for (prop in obj) {
-                        if (obj.hasOwnProperty(prop)) {
-                            if (prop.charAt(0) !== '_') {
+                    for (prop in data.cmd) {
+                        if (data.cmd.hasOwnProperty(prop)) {
+                            if (prop[0] !== '_') {
                                 arr.push({
                                     'name': prop,
-                                    'tip': obj[prop]._help
+                                    'tip': data.cmd[prop]._help
                                 });
                             }
                         }
                     }
+                    // Ensures commands are listed alphabetically
                     arr.sort(function (a, b) {
                         return a.name.localeCompare(b.name);
                     });
                     for (; i < arr.length; i++) {
-                        this.console('createMessage', $('<span/>', {
-                            'html': arr[i].name + ' &nbsp;&nbsp; ' + arr[i].tip
-                        }), '', msgGroup);
+                        this.console('createMessage',
+                                $('<span/>').append($('<a/>', {
+                                    'data-cmd': arr[i].name,
+                                    'tabindex': -1,
+                                    'text': arr[i].name
+                                })).append(' &nbsp;&nbsp; ' + arr[i].tip), '',
+                                msgGroup);
                     }
                 }
                 msgGroup.addClass(data.completedClass);
             },
-            '_help': 'show general help information and a list of available commands'
+            '_help': 'show general help information and a list of available ' +
+                    'commands'
         },
         'ls': {
             '_args': [{
@@ -253,55 +258,57 @@
     var methods = {
         addHistory: function (str) {
             return this.each(function () {
-                var $this = $(this),
-                    data = $this.data('console');
+                var data = $(this).data('console');
                 data.history.push(str);
                 data.historyIndex = -1;
             });
         },
         callCommand: function (args) {
-            var data = this.data('console'),
-                found = false,
-                i = 0,
-                input = {},
-                obj = data.cmd,
-                prop = '';
-            for (; i < args.length; i++) {
-                found = false;
-                for (prop in obj) {
-                    if (obj.hasOwnProperty(prop)) {
-                        if (prop === args[i] && prop.charAt(0) !== '_') {
-                            obj = obj[prop];
-                            found = true;
-                            break;
+            return this.each(function () {
+                var $this = $(this),
+                    data = $this.data('console'),
+                    found = false,
+                    i = 0,
+                    input = {},
+                    obj = data.cmd,
+                    prop = '';
+                for (; i < args.length; i++) {
+                    found = false;
+                    for (prop in obj) {
+                        if (obj.hasOwnProperty(prop)) {
+                            if (prop === args[i] && prop[0] !== '_') {
+                                obj = obj[prop];
+                                found = true;
+                                break;
+                            }
                         }
                     }
-                }
-                if (!found) {
-                    break;
-                }
-            }
-            if (obj !== data.cmd) {
-                if (obj.hasOwnProperty('_call')) {
-                    input = this.console('deriveCommandInput', obj,
-                            Array.prototype.slice.call(args, i));
-                    if (input.error) {
-                        this.console('createMessage', prop + ': ' + input.error,
-                                data.errorClass);
-                        this.console('printUsage', obj, prop);
-                    } else {
-                        obj._call.apply(this, [input.args, input.options]);
+                    if (!found) {
+                        break;
                     }
-                } else if (obj.hasOwnProperty('_usage')) {
-                    this.console('createMessage', obj._usage.apply(obj),
-                            data.errorClass);
-                } else {
-                    this.console('printUsage', obj, prop);
                 }
-            } else {
-                this.console('createMessage', 'command not found',
-                        data.errorClass);
-            }
+                if (obj !== data.cmd) {
+                    if (obj.hasOwnProperty('_call')) {
+                        input = $this.console('deriveCommandInput', obj,
+                                Array.prototype.slice.call(args, i));
+                        if (input.error) {
+                            $this.console('createMessage', prop + ': ' +
+                                    input.error, data.errorClass);
+                            $this.console('printUsage', obj, prop);
+                        } else {
+                            obj._call.apply($this, [input.args, input.options]);
+                        }
+                    } else if (obj.hasOwnProperty('_usage')) {
+                        $this.console('createMessage', obj._usage.apply(obj),
+                                data.errorClass);
+                    } else {
+                        $this.console('printUsage', obj, prop);
+                    }
+                } else {
+                    $this.console('createMessage', 'command not found',
+                            data.errorClass);
+                }
+            });
         },
         clone: function (obj) {
             var copy, i = 0, prop = '';
@@ -331,24 +338,24 @@
             }
             throw new Error('Unsupported object type');
         },
-        createMessage: function (str, style, group) {
+        createMessage: function (content, style, group) {
             var data = this.data('console');
-            str = str || '';
+            content = content || '';
             style = style || '';
             var obj = {
-                'append': function (content) {
-                    obj.target.append(content || '');
+                'append': function (newContent) {
+                    obj.target.append(newContent || '');
                     data.callback(obj.target);
                     return obj;
                 },
-                'replace': function (content) {
-                    obj.target.html(content || '');
+                'replace': function (substitution) {
+                    obj.target.html(substitution || '');
                     data.callback(obj.target);
                     return obj;
                 },
                 'target': $('<div/>', {
                     'class': data.messageClass + ' ' + style,
-                    'html': str
+                    'html': content
                 })
             };
             if (group) {
@@ -359,16 +366,16 @@
             data.callback(obj.target);
             return obj;
         },
-        createMessageGroup: function (str, style) {
+        createMessageGroup: function (childContent, childStyle) {
             var data = this.data('console'),
                 obj = $('<div/>', {
                     'class': data.messageGroupClass
                 });
-            if (str) {
-                style = style || '';
+            if (childContent) {
+                childStyle = childStyle || '';
                 obj.append($('<div/>', {
-                    'class': data.messageClass + ' ' + style,
-                    'html': str
+                    'class': data.messageClass + ' ' + childStyle,
+                    'html': childContent
                 }));
             }
             data.output.append(obj);
@@ -421,26 +428,28 @@
             }
             return input;
         },
-        destroy: function () {
+        destroy: function (keepMessages) {
             return this.each(function () {
                 var $this = $(this),
                     data = $this.data('console');
-                data.input.unbind('.console');
+                data.hints.find('a[data-hint]').die('.console').remove();
+                data.hints.hide();
+                data.input.unbind('.console').val('');
+                data.output.find('a[data-cmd]').die('.console');
+                if (!keepMessages) {
+                    data.output.find('div.' + data.messageClass + ', div.' +
+                            data.messageGroupClass).remove();
+                }
                 $this.removeData('console');
             });
         },
         findConsole: function () {
-            if (this.data('console')) {
-                return this;
-            }
-            return methods.findConsole.apply(this.parent());
+            var data = this.data('console');
+            return (data) ? this : methods.findConsole.apply(this.parent());
         },
         findData: function () {
             var data = this.data('console');
-            if (data) {
-                return data;
-            }
-            return methods.findData.apply(this.parent());
+            return data || methods.findData.apply(this.parent());
         },
         getPrefix: function () {
             var data = this.data('console'),
@@ -477,7 +486,8 @@
                         optArgs = '';
                         if (opt.args) {
                             for (i = 0; i < opt.args.length; i++) {
-                                optArgs += '<em>' + opt.args[i].name + '</em>, ';
+                                optArgs += '<em>' + opt.args[i].name +
+                                        '</em>, ';
                             }
                             if (optArgs) {
                                 optArgs = optArgs.substring(0,
@@ -512,22 +522,9 @@
             table.appendTo(body);
             return container;
         },
-        hintClickHandler: function () {
-            var $this = $(this),
-                data = $this.console('findData'),
-                hint = $this.attr('data-hint');
-            data.input.val(hint + ' ').focus();
-            data.hints.hide();
-        },
-        hintEnterHandler: function () {
-            $(this).addClass('selected');
-        },
-        hintExitHandler: function () {
-            $(this).removeClass('selected');
-        },
         init: function (options) {
             var settings = {
-                'callback': function (obj) {},
+                'callback': $.noop(),
                 'cmd': commands,
                 'commandClass': 'command',
                 'completedClass': 'completed',
@@ -542,7 +539,7 @@
                 'input': 'input[type="text"]',
                 'inputStash': '',
                 'loading': 'Loading...',
-                'maxHints': 10,
+                'maxHints': -1,
                 'messageClass': 'message',
                 'messageGroupClass': 'message-group',
                 'optionPrefix': '-',
@@ -550,7 +547,6 @@
                 'prefixOverride': '',
                 'prefixSeperator': ':',
                 'prefixSymbol': '$',
-                'runCmdLinksOnClick': true,
                 'username': '',
                 'vfsBase': 'root',
                 'vfsCd': '',
@@ -559,37 +555,57 @@
                 'welcomeMessage': 'Welcome to jQuery.console!'
             };
             return this.each(function () {
-                var $this = $(this),
-                    data = $this.data('console');
+                var console = $(this),
+                    data = console.data('console');
                 if (!data) {
                     if (options) {
                         $.extend(true, settings, options);
                     }
-                    settings.hints = $this.find(settings.hints).hide();
-                    settings.input = $this.find(settings.input);
-                    settings.output = $this.find(settings.output);
-                    $this.data('console', settings);
-                    data = $this.data('console');
-                    if (!data.vfsCd) {
-                        data.vfsCd = data.vfsBase;
-                    }
+                    settings.hints = console.find(settings.hints).hide();
+                    settings.input = console.find(settings.input);
+                    settings.output = console.find(settings.output);
+                    console.data('console', settings);
+                    data = console.data('console');
+                    data.vfsCd = data.vfsCd || data.vfsBase;
                     data.input.bind('keydown.console', methods.keyDownHandler);
                     data.input.bind('keyup.console', methods.keyUpHandler);
                     if (data.welcomeMessage) {
-                        $this.console('createMessage', data.welcomeMessage,
+                        console.console('createMessage', data.welcomeMessage,
                                 data.infoClass);
                     }
-                    data.output.find('a[data-cmd]').live('click', function () {
-                        data.inputStash = '';
-                        data.input.focus();
-                        if (data.runCmdLinksOnClick) {
-                            data.input.console('send', $this, data);
-                        }
-                    }).live('mouseenter', function () {
+                    data.hints.find('a[data-hint]').live('click.console',
+                            function () {
+                                data.input.val($(this).attr('data-hint') +
+                                        ' ').focus();
+                                data.hints.hide();
+                    }).live('mouseenter.console', function () {
+                        $(this).addClass('selected');
+                    }).live('mouseleave.console', function () {
+                        $(this).removeClass('selected');
+                    });
+                    data.output.find('a[data-cmd]').live('click.console',
+                            function () {
+                                var $this = $(this);
+                                data.inputStash = '';
+                                data.input.focus();
+                                // Fix to ensure caret positioned at end
+                                data.input.val(data.input.val());
+                                if ($this.attr('data-cmd-run')) {
+                                    console.console('send');
+                                } else {
+                                    $this.data('console.newcmd', true);
+                                    console.console('showHints');
+                                }
+                    }).live('mouseenter.console', function () {
                         data.inputStash = data.input.val();
-                        data.input.val($(this).attr('data-cmd'));
-                    }).live('mouseleave', function () {
-                        data.input.val(data.inputStash);
+                        data.input.val($(this).attr('data-cmd') + ' ');
+                    }).live('mouseleave.console', function () {
+                        var $this = $(this);
+                        if ($this.data('console.newcmd')) {
+                            $this.removeData('console.newcmd');
+                        } else {
+                            data.input.val(data.inputStash);
+                        }
                         data.inputStash = '';
                     });
                 }
@@ -599,14 +615,14 @@
             switch (event.keyCode) {
                 case 38: // Up
                 case 40: // Down
+                    // Prevents default start/end caret positioning behaviour
                     event.preventDefault();
                     break;
                 default:
             }
         },
         keyUpHandler: function (event) {
-            var $this = $(this),
-                console = $this.console('findConsole'),
+            var console = $(this).console('findConsole'),
                 data = console.data('console');
             switch (event.keyCode) {
                 case 13: // Enter
@@ -617,30 +633,30 @@
                         data.input.val(hint + ' ');
                         data.hints.hide();
                     } else {
-                        $this.console('send', console, data);
+                        console.console('send');
                     }
                     break;
                 case 27: // Escape
                     if (data.hints.is(':visible')) {
                         data.hints.hide();
                     } else {
-                        $this.console('showHints', console, data);
+                        console.console('showHints');
                     }
                     break;
                 case 38: // Up
                 case 40: // Down
                     var moveUp = event.keyCode === 38;
                     if (data.hints.is(':visible')) {
-                        console.console('navigateHints', moveUp, data);
+                        console.console('navigateHints', moveUp);
                     } else {
-                        console.console('searchHistory', moveUp, data);
+                        console.console('searchHistory', moveUp);
                     }
                     break;
                 default:
-                    $this.console('showHints', console, data);
+                    console.console('showHints');
             }
         },
-        lookupHints: function (args) {
+        lookupHints: function (args, noLimit) {
             var arr = [],
                 data = this.data('console'),
                 hints = [],
@@ -648,9 +664,10 @@
                 lastCommandFound = -1,
                 obj = data.cmd,
                 prop = '';
+            noLimit = noLimit || false;
             for (; i < args.length; i++) {
                 for (prop in obj) {
-                    if (obj.hasOwnProperty(prop) && prop.charAt(0) !== '_') {
+                    if (obj.hasOwnProperty(prop) && prop[0] !== '_') {
                         if (prop === args[i]) {
                             arr.push(obj[prop]);
                             lastCommandFound = i;
@@ -664,20 +681,22 @@
                 }
             }
             if (arr.length === args.length) {
-                hints.push({
-                    'command': args.join(' '),
-                    'name': args[lastCommandFound],
-                    'tip': obj._help,
-                    'usage': this.console('getUsage', obj,
-                            args[lastCommandFound])
-                });
+                if (obj.hasOwnProperty('_help')) {
+                    hints.push({
+                        'command': args.join(' '),
+                        'name': args[lastCommandFound],
+                        'tip': obj._help,
+                        'usage': this.console('getUsage', obj,
+                                args[lastCommandFound])
+                    });
+                }
             } else if (arr.length === args.length - 1) {
                 for (prop in obj) {
-                    if (obj.hasOwnProperty(prop) && prop.charAt(0) !== '_') {
+                    if (obj.hasOwnProperty(prop) && prop[0] !== '_') {
                         if (prop.indexOf(args[args.length - 1]) === 0 &&
                                 obj[prop].hasOwnProperty('_help')) {
-                            if (data.maxHints <= 0 ||
-                                    hints.length <= data.maxHints) {
+                            if (noLimit || (data.maxHints <= 0 ||
+                                    hints.length <= data.maxHints)) {
                                 hints.push({
                                     'command': args.slice(0, args.length - 2)
                                             .join(' ') + ' ' + prop,
@@ -697,27 +716,31 @@
             return hints;
         },
         lookupManifest: function (path, callback) {
-            var $this = this,
-                baseLookup = false,
-                data = $this.data('console'),
-                manifest;
-            if (path) {
-                if (path.lastIndexOf('/') !== path.length - 2 || path === '.') {
-                    path += '/';
+            return this.each(function () {
+                var $this = $(this),
+                    baseLookup = false,
+                    data = $this.data('console'),
+                    manifest;
+                if (path) {
+                    if (path.lastIndexOf('/') !== path.length - 2 ||
+                            path === '.') {
+                        path += '/';
+                    }
+                    if (path.indexOf('~/') === 0) {
+                        baseLookup = true;
+                    }
                 }
-                if (path.indexOf('~/') === 0) {
-                    baseLookup = true;
+                if (baseLookup) {
+                    path = data.vfsBase + '/' + path.substring(2) +
+                            data.vfsDescriptor;
+                } else {
+                    path = data.vfsCd + '/' + path + data.vfsDescriptor;
                 }
-            }
-            if (baseLookup) {
-                path = data.vfsBase + '/' + path.substring(2) + data.vfsDescriptor;
-            } else {
-                path = data.vfsCd + '/' + path + data.vfsDescriptor;
-            }
-            $.getJSON(path, function (descriptor) {
-                manifest = descriptor;
-            }).complete(function () {
-                callback.apply($this, [manifest]);
+                $.getJSON(path, function (descriptor) {
+                    manifest = descriptor;
+                }).complete(function () {
+                    callback.apply($this, [manifest]);
+                });
             });
         },
         printUsage: function (command, name, group) {
@@ -725,127 +748,113 @@
                 usage = this.console('getUsage', command, name);
             return this.console('createMessage', usage, data.errorClass, group);
         },
-        navigateHints: function (moveUp, data) {
-            var hintItems = data.hints.find('a'),
-                selectedItem = hintItems.filter('.selected');
-            if (!data) {
-                data = this.data('console');
-            }
-            if (moveUp) {
-                if (selectedItem.length) {
-                    var prev = selectedItem.removeClass('selected').prev();
-                    if (prev.length) {
-                        prev.addClass('selected');
-                    } else {
-                        hintItems.last().addClass('selected');
-                    }
+        navigateHints: function (moveUp) {
+            return this.each(function () {
+                var data = $(this).data('console'),
+                    defaultItem = {},
+                    hintItems = data.hints.find('a'),
+                    nextItem = {},
+                    selectedItem = hintItems.filter('.selected');
+                if (moveUp) {
+                    defaultItem = hintItems.last();
+                    nextItem = selectedItem.prev();
                 } else {
-                    hintItems.last().addClass('selected');
+                    defaultItem = hintItems.first();
+                    nextItem = selectedItem.next();
                 }
-            } else {
-                if (selectedItem.length) {
-                    var next = selectedItem.removeClass('selected').next();
-                    if (next.length) {
-                        next.addClass('selected');
-                    } else {
-                        hintItems.first().addClass('selected');
-                    }
+                selectedItem.removeClass('selected');
+                if (selectedItem.length && nextItem.length) {
+                    nextItem.addClass('selected');
                 } else {
-                    hintItems.first().addClass('selected');
+                    defaultItem.addClass('selected');
                 }
-            }
+            });
         },
         resetHistorySearch: function () {
             return this.each(function () {
                 $(this).data('console').historyIndex = -1;
             });
         },
-        searchHistory: function (moveUp, data) {
-            if (!data) {
-                data = this.data('console');
-            }
-            if (data.history.length === 0) {
-                data.input.val('');
-                return;
-            }
-            if (moveUp) {
-                if (data.historyIndex === -1) {
-                    data.historyIndex = data.history.length - 1;
+        searchHistory: function (moveUp) {
+            return this.each(function () {
+                var data = $(this).data('console');
+                if (data.history.length === 0) {
+                    data.historyIndex = -1;
                 } else {
-                    data.historyIndex--;
-                    if (data.historyIndex < 0) {
-                        data.historyIndex = 0;
+                    if (moveUp) {
+                        if (data.historyIndex === -1) {
+                            data.historyIndex = data.history.length - 1;
+                        } else {
+                            data.historyIndex--;
+                            if (data.historyIndex < 0) {
+                                data.historyIndex = 0;
+                            }
+                        }
+                    } else {
+                        if (data.historyIndex !== -1) {
+                            data.historyIndex++;
+                            if (data.historyIndex >= data.history.length) {
+                                data.historyIndex = -1;
+                            }
+                        }
                     }
                 }
-            } else {
                 if (data.historyIndex === -1) {
-                    return;
+                    data.input.val('');
                 } else {
-                    data.historyIndex++;
-                    if (data.historyIndex >= data.history.length) {
-                        data.historyIndex = -1;
+                    data.input.val(data.history[data.historyIndex]);
+                }
+            });
+        },
+        send: function () {
+            return this.each(function () {
+                var $this = $(this),
+                    args = [],
+                    data = $this.data('console'),
+                    input = '',
+                    str = (data.input.val()) ? data.input.val().trim() : '';
+                if (str.length) {
+                    data.input.val('');
+                    args = str.split(/\s+/);
+                    input = args.join(' ');
+                    data.hints.hide();
+                    $this.console('createMessage', $this.console('getPrefix') +
+                            ' ' + input, data.commandClass);
+                    $this.console('addHistory', input);
+                    $this.console('callCommand', args);
+                }
+            });
+        },
+        showHints: function () {
+            return this.each(function () {
+                var $this = $(this),
+                    data = $this.data('console'),
+                    hideHints = true,
+                    hints = [],
+                    i = 0,
+                    str = (data.input.val()) ? data.input.val().trim() : '';
+                if (str.length) {
+                    $this.console('resetHistorySearch');
+                    hints = $this.console('lookupHints', str.split(/\s+/));
+                    if (hints.length) {
+                        data.hints.find('a').remove();
+                        data.hints.show();
+                        hideHints = false;
+                        for (; i < hints.length; i++) {
+                            data.hints.append($('<a/>', {
+                                'data-hint': hints[i].command.trim(),
+                                'tabindex': -1,
+                                'text': hints[i].name
+                            }).append($('<span/>', {
+                                'text': hints[i].tip
+                            })));
+                        }
                     }
                 }
-            }
-            if (data.historyIndex === -1) {
-                data.input.val('');
-            } else {
-                data.input.val(data.history[data.historyIndex]);
-            }
-        },
-        send: function (console, data) {
-            var str = (this.val()) ? this.val().trim() : '';
-            if (!console) {
-                console = this.console('findConsole');
-                data = console.data('console');
-            }
-            if (!str.length) {
-                return;
-            }
-            this.val('');
-            var args = str.split(/\s+/),
-                input = args.join(' ');
-            data.hints.hide();
-            console.console('createMessage', console.console('getPrefix') +
-                    ' ' + input, data.commandClass);
-            console.console('addHistory', input);
-            console.console('callCommand', args);
-        },
-        showHints: function (console, data) {
-            var str = (this.val()) ? this.val().trim() : '';
-            if (!console) {
-                console = this.console('findConsole');
-                data = console.data('console');
-            }
-            if (!str.length) {
-                data.hints.hide();
-                return;
-            }
-            var args = str.split(/\s+/);
-            console.console('resetHistorySearch');
-            var anchor = {},
-                hints = console.console('lookupHints', args),
-                i = 0;
-            if (hints.length) {
-                data.hints.find('a').remove();
-                data.hints.show();
-                for (; i < hints.length; i++) {
-                    anchor = $('<a/>', {
-                        'data-hint': hints[i].command.trim(),
-                        'href': 'javascript:void(0);',
-                        'text': hints[i].name
-                    });
-                    $('<span/>', {
-                        'text': hints[i].tip
-                    }).appendTo(anchor);
-                    data.hints.append(anchor);
-                    anchor.bind('click.console', methods.hintClickHandler);
-                    anchor.bind('mouseout.console', methods.hintExitHandler);
-                    anchor.bind('mouseover.console', methods.hintEnterHandler);
+                if (hideHints) {
+                    data.hints.hide();
                 }
-            } else {
-                data.hints.hide();
-            }
+            });
         }
     };
     $.fn.console = function (method) {
