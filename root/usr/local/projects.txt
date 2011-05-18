@@ -27,12 +27,22 @@
             loader = container.find('div.loader'),
             table = container.find('table'),
             tableBody = table.find('tbody'),
+            tableHeader = table.find('thead'),
             username = 'neocotic';
         container.attr('id', container.attr('id') + '-' + gph.random());
         loader.append(gph.loadingImg);
         function addCell(row, contents) {
             return $('<td/>').append(contents).appendTo(row);
         }
+        tableHeader.find('th').bind('mouseenter.console', function () {
+            var $this = $(this).addClass('highlighted'),
+                index = $('th', $this.parent('tr')).index($this) + 1;
+            tableBody.find('tr td:nth-child(' + index + ')').addClass('highlighted');
+        }).bind('mouseleave.console', function () {
+            var $this = $(this).removeClass('highlighted'),
+                index = $('th', $this.parent('tr')).index($this) + 1;
+            tableBody.find('td:nth-child(' + index + ')').removeClass('highlighted');
+        });
         gh.user(username).repos(function (json) {
             var data = {}, i = 0, row = {};
             if (json.repositories.length) {
@@ -41,7 +51,9 @@
                 });
                 for (; i < json.repositories.length; i++) {
                     data = json.repositories[i];
-                    row = $('<tr/>').appendTo(tableBody);
+                    row = $('<tr/>', {
+                        'class': 'highlight'
+                    }).appendTo(tableBody);
                     addCell(row, $('<a/>', {
                         'href': data.url,
                         'tabindex': -1,

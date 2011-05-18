@@ -207,6 +207,11 @@ body {
 #console .output .message table td,
 #console .output .message table th {
     padding-right: 10px;
+    vertical-align: top;
+}
+#console .output .message table .highlight:hover,
+#console .output .message table .highlighted {
+    background-color: #333;
 }
 #console .output .message.command,
 #console .output .message.command a {
@@ -228,7 +233,4 @@ body {
     border-bottom: 1px solid #444;
     margin-bottom: 6px;
     padding-bottom: 6px;
-}
-#facebox .close {
-    text-decoration: none;
 }
