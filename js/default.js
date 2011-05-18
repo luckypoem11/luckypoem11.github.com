@@ -15,11 +15,18 @@ $(function () {
     }).resize();
     // Global: gph (Git Page Helper)
     gph = {
+        contentLoaded: function (ele) {
+            scroller.reinitialise();
+            if (ele) {
+                scroller.scrollToElement(ele, true);
+            }
+        },
         formatDateTime: function (dateTime) {
+            var parts = [];
             if (dateTime.indexOf('T') !== -1) {
                 return dateTime;
             }
-            var parts = dateTime.split(' ');
+            parts = dateTime.split(' ');
             parts[0] = parts[0].replace(/\//g, '-');
             parts[2] = parts[2].substring(0, 3) + ':' + parts[2].substring(3);
             parts.splice(1, 0, 'T');
@@ -27,8 +34,8 @@ $(function () {
         },
         loadingImg: loading,
         random: function (min, max) {
-            min = (min === undefined) ? 10000000 : min;
-            max = (max === undefined) ? 99999999 : max;
+            min = (typeof(min) === 'undefined') ? 10000000 : min;
+            max = (typeof(max) === 'undefined') ? 99999999 : max;
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
         randomIpv4: function () {
@@ -59,12 +66,6 @@ $(function () {
                 }
             }
             return str;
-        },
-        scrollTo: function (ele) {
-            scroller.reinitialise();
-            if (ele) {
-                scroller.scrollToElement(ele, true);
-            }
         }
     };
     function interceptor(console, callback) {
@@ -101,15 +102,16 @@ $(function () {
                     username = args[0];
                 }
                 if (!username) {
-                    console.console('printUsage', data.cmd.login, 'login', msgGroup);
+                    console.console('printUsage', data.cmd.login, 'login',
+                            msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
                 if (data.username) {
                     console.console('createMessage',
                             'You are already logged in as ' + data.username +
-                            '.<br/>You must first log out in order to log in as another user.',
-                            data.warningClass, msgGroup);
+                            '.<br/>You must first log out in order to log in ' +
+                            'as another user.', data.warningClass, msgGroup);
                     msgGroup.addClass(data.completedClass);
                     return;
                 }
@@ -144,8 +146,8 @@ $(function () {
                         } else {
                             msg.append(' Failed!');
                             console.console('createMessage',
-                                    'login: invalid username/password combination',
-                                    data.errorClass, msgGroup);
+                                    'login: invalid username/password ' +
+                                    'combination', data.errorClass, msgGroup);
                         }
                         msgGroup.addClass(data.completedClass);
                         interceptor(console);
@@ -258,11 +260,11 @@ $(function () {
                                             msgGroup).target.css('margin-left',
                                             '20px');
                                     $this.console('createMessage',
-                                            'Approximate round trip times in milli-seconds:',
-                                            '', msgGroup);
+                                            'Approximate round trip times in ' +
+                                            'milli-seconds:', '', msgGroup);
                                     $this.console('createMessage',
-                                            'Minimum = 0ms, Maximum = 0ms, Average = 0ms',
-                                            '',
+                                            'Minimum = 0ms, Maximum = 0ms, ' +
+                                            'Average = 0ms', '',
                                             msgGroup).target.css('margin-left',
                                             '20px');
                                 }
@@ -329,7 +331,8 @@ $(function () {
                         'name': 'timeout',
                         'value': 4000
                     }],
-                    'description': 'timeout in milliseconds to wait for each reply'
+                    'description': 'timeout in milliseconds to wait for each ' +
+                            'reply'
                 }
             }
         },
@@ -359,7 +362,7 @@ $(function () {
         }
     };
     var console = $('#console').console({
-        'callback': gph.scrollTo,
+        'callback': gph.contentLoaded,
         'cmd': commands,
         'hiddenFilePrefix': 'hidden.',
         'hiddenFilePrefixMask': '.',

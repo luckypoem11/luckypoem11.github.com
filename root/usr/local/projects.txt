@@ -99,7 +99,7 @@
             $('abbr.relatize').timeago();
             loader.hide();
             table.show();
-            gph.scrollTo(container);
+            gph.contentLoaded(container);
         });
     });
 </script>

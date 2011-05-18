@@ -24,11 +24,18 @@
             loader = container.find('div.loader'),
             table = container.find('table'),
             tableBody = table.find('tbody'),
-            username = 'neocotic';
+            username = 'unixcharles'; // TODO: Revert to neocotic
         container.attr('id', container.attr('id') + '-' + gph.random());
         loader.append(gph.loadingImg);
         function addCell(row, contents) {
             return $('<td/>').append(contents).appendTo(row);
+        }
+        function showGistFile(e) {
+            var $this = $(this),
+                file = $this.attr('data-gist-file'),
+                repo = $this.attr('data-gist-repo');
+            $.facebox({ajax: 'gist.html?repo=' + repo + '&file=' + file});
+            e.preventDefault();
         }
         gh.user(username).publicGists(function (json) {
             var data = {}, fileDiv = {}, i = 0, j = 0, row = {};
@@ -52,15 +59,17 @@
                         for (; j < data.files.length; j++) {
                             /*
                              * TODO: Add way of linking to raw file and/or showing/hiding/exposing(overlay) syntax highlighted file
+                             * Possibly load another (local) page using Ajax which dynamically creates script tag
                              *
                              * 'https://gist.github.com/' + data.repo + '.js?file=' + data.files[j]
                              */
                             fileDiv.append($('<a/>', {
                                 'href': 'https://gist.github.com/' + data.repo + '#file_' + data.files[j], // TODO: Requires another ajax call to determine url to raw file?
+                                'data-gist-file': data.files[j],
+                                'data-gist-repo': data.repo,
                                 'tabindex': -1,
-                                'target': '_blank',
                                 'text': data.files[j]
-                            }));
+                            }).bind('click.console', showGistFile));
                         }
                         addCell(row, fileDiv);
                     } else {
@@ -86,7 +95,7 @@
             $('abbr.relatize').timeago();
             loader.hide();
             table.show();
-            gph.scrollTo(container);
+            gph.contentLoaded(container);
         });
     });
 </script>

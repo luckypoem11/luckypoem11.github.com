@@ -226,9 +226,10 @@
                         if (fileExists) {
                             message = $this.console('createMessage',
                                     data.loading, '', msgGroup);
-                            $.get(manifest.path + '/' + fileName, function (content) {
-                                message.replace(content);
-                                msgGroup.addClass(data.completedClass);
+                            $.get(manifest.path + '/' + fileName,
+                                    function (content) {
+                                        message.replace(content);
+                                        msgGroup.addClass(data.completedClass);
                             });
                         } else {
                             $this.console('createMessage',

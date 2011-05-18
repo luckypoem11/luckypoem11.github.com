@@ -1,0 +1,10 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://github.com/allmarkedup/jQuery-URL-Parser/raw/v2.0/jquery.url.js"></script>
+<script type="text/javascript">
+alert(0);
+var params = $.url().param();
+alert(params.repo);
+alert(params.file);
+//$.getScript('https://gist.github.com/' + params.repo + '.js?file=' + params.file);
+document.write('<script src="https://gist.github.com/' + params.repo + '.js?file=' + params.file + '"><\/script>');
+</script>

@@ -229,3 +229,6 @@ body {
     margin-bottom: 6px;
     padding-bottom: 6px;
 }
+#facebox .close {
+    text-decoration: none;
+}
