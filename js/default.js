@@ -135,7 +135,7 @@ $(function () {
                     msg = console.console('createMessage', 'Authenticating...',
                             '', msgGroup);
                     digest = Crypto.SHA256(message);
-                    $.getJSON('root/usr/local/_security', function (json) {
+                    $.getJSON('root/usr/local/hidden.security', function (json) {
                         if (json[username] &&
                                 json[username].password === digest) {
                             msg.append(' Passed!');
