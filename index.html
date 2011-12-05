@@ -1,29 +1,41 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>neocotic @ GitHub</title>
-        <link type="text/css" href="style/default.css" rel="stylesheet" media="all" />
-        <link type="text/css" href="style/jquery.jscrollpane.css" rel="stylesheet" media="all" />
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-        <script type="text/javascript" src="http://timeago.yarp.com/jquery.timeago.js"></script>
-        <script type="text/javascript" src="https://github.com/neocotic/jquery-console/raw/master/jquery.console.js"></script>
-        <script type="text/javascript" src="https://github.com/fitzgen/github-api/raw/master/github.js"></script>
-        <script type="text/javascript" src="js/security.js"></script>
-        <script type="text/javascript" src="js/default.js"></script>
-    </head>
-    <body>
-        <div id="console">
-            <div class="output"></div>
-            <div class="input">
-                <div class="arrow"></div>
-                <div class="main">
-                    <input spellcheck="false" type="text" />
-                    <input style="display: none" type="password" />
-                </div>
-            </div>
-            <div class="hints"></div>
-        </div>
-    </body>
-</html>
+---
+layout: default
+title:
+url: /
+---
+<div class="posts">
+{% for post in paginator.posts %}
+  <div class="post">
+    <h2><a href="{{post.url}}">{{post.title}}</a></h2>
+    <span class="meta">
+  		Posted by
+      {% if page.author %}
+      		{% if page.authorurl %}
+    				<a href="{{page.authorurl}}" rel="author">{{page.author}}</a>
+    			{% else %}
+    				{{page.author}}
+    			{% endif %}
+    			on
+      {% else %}
+        <a href="/about" rel="author">Alasdair</a>
+    	{% endif %}
+  	</span>
+	  <div class="content">
+      {{post.content}}
+    </div>
+  </div>
+{% endfor %}
+</div>
+<div class="pagination">
+  {% if paginator.previous_page %}
+  	{% if paginator.page == 2 %}
+  		<a href="/" class="previous">Previous</a>
+  	{% else %}
+  		<a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
+  	{% endif %}
+  {% endif %}
+  <span class="page_number ">Page {{paginator.page}} of {{paginator.total_pages}}</span>
+  {% if paginator.next_page %}
+	  <a href="/page{{paginator.next_page}}" class="next ">Next</a>
+  {% endif %}
+</div>

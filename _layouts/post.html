@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<div class="post">
+  <h2><a href="{{page.url}}">{{page.title}}</a></h2>
+  <span class="meta">
+    Posted by
+    {% if page.author %}
+  			{% if page.authorurl %}
+  				<a href="{{page.authorurl}}" rel="author">{{page.author}}</a>
+  			{% else %}
+  				{{page.author}}
+  			{% endif %}
+  			on
+    {% else %}
+      <a href="/about" rel="author">Alasdair</a>
+  	{% endif %}
+  	{{page.date | date_to_string}}
+  </span>
+  <div class="content">
+    {{content}}
+  </div>
+</div>
