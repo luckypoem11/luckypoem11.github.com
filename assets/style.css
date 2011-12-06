@@ -41,4 +41,7 @@ body {
 .gravatar {
   float: left;
   padding: 0 10px 10px 0;
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
 }

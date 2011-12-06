@@ -39,7 +39,7 @@ $(function () {
         text: data[i].name
       })));
     }
-    projects.dropdown();
+    projects.parents('.topbar').dropdown();
     projects.prev('a').attr('href', '#');
   });
   // Activate twipsy tooltips
