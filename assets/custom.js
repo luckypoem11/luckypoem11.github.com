@@ -26,21 +26,30 @@
 // jQuery ready
 $(function () {
   // Populate Projects menu with GitHub repos
-  var projects = $('#projects-dropdown');
+  var
+    projects = $('#projects-dropdown'),
+    link     = projects.prev('a');
   JSONP.get('https://api.github.com/users/neocotic/repos', function (data) {
     data = data.data || [];
     data.sort(function (a, b) {
-      if (a.name === b.name) return 0;
-      return (a.name < b.name) ? -1 : 1;
+      a = a.name.toLowerCase();
+      b = b.name.toLowerCase();
+      if (a === b) return 0;
+      return (a < b) ? -1 : 1;
     });
-    for (var i = 0; i < data.length; i++) {
+    function addMenuItem(text, url) {
       projects.append($('<li/>').append($('<a/>', {
-        href: '/' + data[i].name,
-        text: data[i].name
+        href: url,
+        text: text
       })));
     }
+    for (var i = 0; i < data.length; i++) {
+      addMenuItem(data[i].name, '/' + data[i].name);
+    }
+    projects.append('<li class="divider"/>');
+    addMenuItem('View All', link.attr('href'));
     projects.parents('.topbar').dropdown();
-    projects.prev('a').attr('href', '#');
+    link.attr('href', '#');
   });
   // Activate twipsy tooltips
   $('[rel=twipsy]').twipsy({live: true});
