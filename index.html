@@ -24,7 +24,7 @@ url: /
     {% else %}
       <li class="prev disabled">
     {% endif %}
-      {% if paginator.page == 2 %}
+      {% if paginator.page < 3 %}
         <a href="/">&larr; Previous</a>
       {% else %}
         <a href="/page{{paginator.previous_page}}">&larr; Previous</a>

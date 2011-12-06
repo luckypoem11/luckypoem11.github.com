@@ -26,20 +26,21 @@
 // jQuery ready
 $(function () {
   // Populate Projects menu with GitHub repos
-  var projects = $('#projects-dropdown').attr('href', '#');
+  var projects = $('#projects-dropdown');
   JSONP.get('https://api.github.com/users/neocotic/repos', function (data) {
-    var repos = data.data;
-    repos.sort(function (a, b) {
+    data = data.data || [];
+    data.sort(function (a, b) {
       if (a.name === b.name) return 0;
       return (a.name < b.name) ? -1 : 1;
     });
-    for (var i = 0; i < repos.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       projects.append($('<li/>').append($('<a/>', {
-        href: '/' + repos[i].name,
-        text: repos[i].name
+        href: '/' + data[i].name,
+        text: data[i].name
       })));
     }
     projects.dropdown();
+    projects.prev('a').attr('href', '#');
   });
   // Activate twipsy tooltips
   $('[rel=twipsy]').twipsy({live: true});
