@@ -27,7 +27,8 @@
 $(function () {
   // Populate Projects menu with GitHub repos
   var projects = $('#projects-dropdown').attr('href', '#');
-  JSONP.get('https://api.github.com/users/neocotic/repos', function (repos) {
+  JSONP.get('https://api.github.com/users/neocotic/repos', function (data) {
+    var repos = data.data;
     repos.sort(function (a, b) {
       if (a.name === b.name) return 0;
       return (a.name < b.name) ? -1 : 1;
