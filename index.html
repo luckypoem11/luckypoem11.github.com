@@ -1,41 +1,29 @@
 ---
-layout: default
+layout: page
 title:
 url: /
 ---
-<div class="posts">
+<div class="span16">
 {% for post in paginator.posts %}
-  <div class="post">
-    <h2><a href="{{post.url}}">{{post.title}}</a></h2>
-    <span class="meta">
-  		Posted by
-      {% if page.author %}
-      		{% if page.authorurl %}
-    				<a href="{{page.authorurl}}" rel="author">{{page.author}}</a>
-    			{% else %}
-    				{{page.author}}
-    			{% endif %}
-    			on
-      {% else %}
-        <a href="/about" rel="author">Alasdair</a>
-    	{% endif %}
-  	</span>
-	  <div class="content">
+  <article>
+    <header>
+      <h2>
+        <a href="{{post.url}}">{{post.title}}</a>
+        <small>by <a href="/about" rel="author">Alasdair</a></small>
+      </h2>
+    </header>
+    <section>
       {{post.content}}
-    </div>
-  </div>
+    </section>
+  </article>
 {% endfor %}
-</div>
-<div class="pagination">
-  {% if paginator.previous_page %}
-  	{% if paginator.page == 2 %}
-  		<a href="/" class="previous">Previous</a>
-  	{% else %}
-  		<a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
-  	{% endif %}
-  {% endif %}
-  <span class="page_number ">Page {{paginator.page}} of {{paginator.total_pages}}</span>
-  {% if paginator.next_page %}
-	  <a href="/page{{paginator.next_page}}" class="next ">Next</a>
-  {% endif %}
+  <div class="pagination">
+    <ul>
+      <li class="prev {% unless paginator.previous_page %}disabled{% endunless %}"><a href="/{% unless paginator.page == 2 %}page{{paginator.previous_page}}{% endunless %}">&larr; Previous</a></li>
+    {% for i in (1..paginator.total_pages) %}
+      <li{% if i == paginator.page %} class="active"{% endif %}><a href="/{% unless i == 1 %}page{{i}}{% endif %}">{{i}}</a></li>
+    {% endfor %}
+      <li class="next {% unless paginator.next_page %}disabled{% endunless %}"><a href="/{% if paginator.next_page %}page{{paginator.next_page}}{% endif %}">Next &rarr;</a></li>
+    </ul>
+  </div>
 </div>
