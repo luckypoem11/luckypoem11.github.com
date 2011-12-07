@@ -3,7 +3,6 @@ permalink: /:year/:month/:day/:title
 pygments: true
 paginate: 5
 exclude:
-- 404.html
 - CNAME
 - Makefile
 - README.md
