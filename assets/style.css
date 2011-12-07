@@ -4,8 +4,11 @@ html, body {
 body {
   padding-top: 40px;
 }
-.container > footer p {
-  text-align: center;
+footer {
+  text-shadow: 0 1px 0 white;
+}
+footer p {
+  color: #555;
 }
 .container {
   width: 820px;
