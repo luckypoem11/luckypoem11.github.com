@@ -29,7 +29,8 @@ $(function () {
       if (data && data.length) {
         for (var i = 0; i < data.length; i++) {
           addMenuItem(data[i], '/' + data[i]);
-          repoRegex += '|' + data[i].replace('.', '\\.');
+          if (repoRegex) repoRegex += '|';
+          repoRegex += data[i].replace('.', '\\.');
         }
         projects.append('<li class="divider"/>');
       }
