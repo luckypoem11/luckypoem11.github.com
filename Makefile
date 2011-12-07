@@ -1,16 +1,16 @@
-nav_file = _includes/nav_projects.html
+repos_file = ajax/repos.json
 
 js_engine ?= `which node`
-nav_generator = $(js_engine) _lib/projects.js
+repos_generator = $(js_engine) _lib/repos.js
 
-all: nav
+all: repos
 
-nav:
+repos:
 	@@if test ! -z $(js_engine); then \
-		echo "Generating navigation..."; \
-		$(nav_generator) $(nav_file); \
+		echo "Generating repositories..."; \
+		$(repos_generator) $(repos_file); \
 	else \
-		echo "You must have NodeJS installed in order to generate navigation"; \
+		echo "You must have NodeJS installed in order to generate repositories"; \
 	fi
 
-.PHONY: all nav
+.PHONY: all repos

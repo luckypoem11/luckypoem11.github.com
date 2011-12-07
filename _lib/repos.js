@@ -9,34 +9,17 @@ var
 // ---------
 
 var
-  NAV_FILE = process.argv[2] || '_includes/nav_projects.html',
-  USERNAME = 'neocotic';
-
-// Variables
-// ---------
-
-var html = '';
+  JSON_FILE = process.argv[2] || 'ajax/repos.json',
+  USERNAME  = 'neocotic';
 
 // Helper functions
 // ----------------
 
-// Append a divider to the HTML.
-function addMenuDivider() {
-  if (html) html += '\n';
-  html += '<li class="divider"></li>';
-}
-
-// Append a menu item including a link for text and URL provided to the HTML.
-function addMenuItem(text, url) {
-  if (html) html += '\n';
-  html += '<li><a href="' + url + '">' + text + '</a></li>';
-}
-
-// Write the menu HTML to the navigation includes file.
-function writeMenu() {
-  fs.writeFile(NAV_FILE, html, function (err) {
+// Write repositories to file as JSON.
+function writeRepos(repos) {
+  fs.writeFile(JSON_FILE, JSON.stringify(repos), function (err) {
     if (err) throw err;
-    console.log('Navigation updated!');
+    console.log('Repositories updated!');
   });
 }
 
@@ -48,7 +31,9 @@ var req = https.request({
   host: 'api.github.com',
   path: '/users/' + USERNAME + '/repos'
 }, function (res) {
-  var data = '';
+  var
+    data  = '',
+    repos = [];
   res.on('data', function (pkg) {
     data += pkg;
     try {
@@ -63,21 +48,17 @@ var req = https.request({
           if (a === b) return 0;
           return (a < b) ? -1 : 1;
         });
-        // Append menu items for each repo.
         for (var i = 0; i < data.length; i++) {
           // Filter repos to remove pages and forked repos.
           if (data[i].name !== USERNAME + '.github.com' && !data[i].fork) {
-            addMenuItem(data[i].name, '/' + data[i].name);
+            repos.push(data[i].name);
           }
         }
-        addMenuDivider();
       }
-      addMenuItem('View All', 'https://github.com/' + USERNAME);
-      writeMenu();
+      writeRepos(repos);
     } catch (e) {}
   });
 }).on('error', function () {
-  addMenuItem('View All', 'https://github.com/' + USERNAME);
-  writeMenu();
+  writeRepos([]);
 });
 req.end();

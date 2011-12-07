@@ -11,44 +11,6 @@
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-twipsy.js"></script>
     <script src="/assets/custom.js"></script>
-    <script>
-      // jQuery ready
-      $(function () {
-        // Populate Projects menu with GitHub repos
-        var
-          projects = $('#projects-dropdown'),
-          link     = projects.prev('a');
-        function addMenuDivider() {
-          projects.append('<li class="divider"/>');
-        }
-        function addMenuItem(text, url) {
-          projects.append($('<li/>').append($('<a/>', {
-            href: url,
-            text: text
-          })));
-        }
-        JSONP.get('https://api.github.com/users/neocotic/repos', function (data) {
-          data = data.data || [];
-          if (data && data.length) {
-            data.sort(function (a, b) {
-              a = a.name.toLowerCase();
-              b = b.name.toLowerCase();
-              if (a === b) return 0;
-              return (a < b) ? -1 : 1;
-            });
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].name !== 'neocotic.github.com' && !data[i].fork) {
-                addMenuItem(data[i].name, '/' + data[i].name);
-              }
-            }
-            addMenuDivider();
-          }
-          addMenuItem('View All', link.attr('href'));
-          projects.parents('.topbar').dropdown();
-          link.attr('href', '#');
-        });
-      });
-    </script>
     <link rel="alternate" href="http://feeds.feedburner.com/neocotic" title="neocotic" type="application/atom+xml">
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/style.css">
