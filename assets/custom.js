@@ -25,32 +25,6 @@
 }(this));
 // jQuery ready
 $(function () {
-  // Populate Projects menu with GitHub repos
-  var
-    projects = $('#projects-dropdown'),
-    link     = projects.prev('a');
-  JSONP.get('https://api.github.com/users/neocotic/repos', function (data) {
-    data = data.data || [];
-    data.sort(function (a, b) {
-      a = a.name.toLowerCase();
-      b = b.name.toLowerCase();
-      if (a === b) return 0;
-      return (a < b) ? -1 : 1;
-    });
-    function addMenuItem(text, url) {
-      projects.append($('<li/>').append($('<a/>', {
-        href: url,
-        text: text
-      })));
-    }
-    for (var i = 0; i < data.length; i++) {
-      addMenuItem(data[i].name, '/' + data[i].name);
-    }
-    projects.append('<li class="divider"/>');
-    addMenuItem('View All', link.attr('href'));
-    projects.parents('.topbar').dropdown();
-    link.attr('href', '#');
-  });
   // Activate twipsy tooltips
   $('[rel=twipsy]').twipsy({live: true});
 });

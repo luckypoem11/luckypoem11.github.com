@@ -34,8 +34,10 @@
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li class="dropdown">
-              <a href="https://github.com/neocotic" class="dropdown-toggle">Projects</a>
-              <ul class="dropdown-menu" id="projects-dropdown"></ul>
+              <a href="#" class="dropdown-toggle">Projects</a>
+              <ul class="dropdown-menu">
+                {% include nav_projects.html %}
+              </ul>
             </li>
           </ul>
         </div>
