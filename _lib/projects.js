@@ -65,7 +65,10 @@ var req = https.request({
         });
         // Append menu items for each repo.
         for (var i = 0; i < data.length; i++) {
-          addMenuItem(data[i].name, '/' + data[i].name);
+          // Filter repos to remove pages and forked repos.
+          if (data[i].name !== USERNAME + '.github.com' && !data[i].fork) {
+            addMenuItem(data[i].name, '/' + data[i].name);
+          }
         }
         addMenuDivider();
       }
