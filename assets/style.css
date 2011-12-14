@@ -49,3 +49,10 @@ footer p {
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
+code,
+pre {
+  font-family: 'Bitstream Vera Sans Mono','Courier',monospace;
+}
+.highlight code {
+  background: transparent;
+}
