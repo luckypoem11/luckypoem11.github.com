@@ -57,5 +57,5 @@ pre {
   background: transparent;
 }
 .highlight code > span:first-child {
-  margin: -3px;
+  margin-left: -3px;
 }
