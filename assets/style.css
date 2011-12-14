@@ -56,3 +56,6 @@ pre {
 .highlight code {
   background: transparent;
 }
+.highlight code > span:first-child {
+  margin: -3px;
+}
