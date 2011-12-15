@@ -11,7 +11,12 @@ url: /
     <header>
       <h2>
         <a href="{{post.url}}">{{post.title}}</a>
-        <small>by <a href="/about" rel="author">Alasdair</a> on {{post.date | date_to_string}}</small>
+        <small>
+          by <a href="/about" rel="author">Alasdair</a>
+          <a rel="author" href="https://plus.google.com/114861910136746455630">
+            <img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16">
+          </a>
+          on {{post.date | date_to_string}}</small>
       </h2>
     </header>
     <section>
