@@ -72,6 +72,9 @@ pre {
 .highlight code > span:first-child {
   margin-left: -3px;
 }
+.google-profile img {
+  margin-bottom: -3px;
+}
 #disqus_thread {
   border-top: 1px solid #DDD;
   margin-top: 60px;
