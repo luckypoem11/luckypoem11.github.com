@@ -10,7 +10,7 @@ url: /
   <article>
     <header>
       <h2>
-        <a href="{{post.url}}">{{post.title}}</a>
+        <a href="{{post.url}}#disqus_thread" data-disqus-identifier="{{post.id}}">{{post.title}}</a>
         <small>
           by <a href="/about" rel="author">Alasdair</a>
           <a rel="author" href="https://plus.google.com/114861910136746455630">
@@ -64,3 +64,12 @@ url: /
     </ul>
   </div>
 </div>
+<script>
+  var disqus_shortname = 'neocotic';
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
