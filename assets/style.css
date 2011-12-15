@@ -42,8 +42,10 @@ footer p {
 .topbar .btn {
   border: 0;
 }
+.posts article {
+  padding-bottom: 60px;
+}
 .posts header {
-  padding-top: 60px;
   margin-bottom: 17px;
   border-bottom: 1px solid #DDD;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
