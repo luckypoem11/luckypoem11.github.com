@@ -52,6 +52,9 @@ footer p {
      -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
           box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
+.posts header .comments {
+  margin-top: -10px;
+}
 .gravatar {
   float: left;
   margin: 0 10px 10px 0;
