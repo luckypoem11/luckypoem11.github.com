@@ -4,7 +4,13 @@ layout: default
 <div class="page-header">
   <h1>
     {{page.title}}
-    <small>by <a href="/about" rel="author">Alasdair</a> on {{page.date | date_to_string}}</small>
+    <small>
+      by <a href="/about" rel="author">Alasdair</a>
+      <a rel="author" href="https://plus.google.com/114861910136746455630">
+        <img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16">
+      </a>
+      on {{page.date | date_to_string}}
+    </small>
   </h1>
 </div>
 <div class="post row">
