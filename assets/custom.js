@@ -48,4 +48,21 @@ $(function () {
   }
   // Activate twipsy tooltips.
   $('[rel=twipsy]').twipsy({live: true});
+  // Activate Chrome Web Store inline installations.
+  if (chrome && chrome.app && chrome.webstore) {
+    var chromeBtn = $('.chrome_install_button');
+    if (chromeBtn.length) {
+      if (chrome.app.isInstalled) {
+        chromeBtn.removeClass('primary').html('Installed');
+      } else {
+        chromeBtn.bind('click.chrome', function (e) {
+          var $this = $(this);
+          chrome.webstore.install($this.attr('href'), function () {
+            $this.removeClass('primary').unbind('.chrome').html('Installed');
+          });
+          e.preventDefault();
+        });
+      }
+    }
+  }
 });
