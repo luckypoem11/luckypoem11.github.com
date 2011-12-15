@@ -50,7 +50,9 @@ var req = https.request({
         });
         for (var i = 0; i < data.length; i++) {
           // Filter repos to remove pages and forked repos.
-          if (data[i].name !== USERNAME + '.github.com' && !data[i].fork) {
+          if (data[i].name !== USERNAME + '.github.com' &&
+              data[i].name !== 'gh-pages' &&
+             !data[i].fork) {
             repos.push(data[i].name);
           }
         }
