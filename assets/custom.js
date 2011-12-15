@@ -53,12 +53,12 @@ $(function () {
     var chromeBtn = $('.chrome_install_button');
     if (chromeBtn.length) {
       if (chrome.app.isInstalled) {
-        chromeBtn.removeClass('primary').html('Installed');
+        chromeBtn.toggleClass('primary disabled').html('Installed');
       } else {
         chromeBtn.bind('click.chrome', function (e) {
           var $this = $(this);
           chrome.webstore.install($this.attr('href'), function () {
-            $this.removeClass('primary').unbind('.chrome').html('Installed');
+            $this.toggleClass('primary disabled').unbind('.chrome').html('Installed');
           });
           e.preventDefault();
         });
