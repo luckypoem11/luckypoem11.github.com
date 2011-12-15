@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% if page.title %}{{page.title}} ~ {% endif %}neocotic</title>
+    {% if page.description %}<meta name="description" content="{{page.description}}">{% endif %}
+    {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
+    <meta name="author" content="Alasdair Mercer">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
+    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-twipsy.js"></script>
+    <script src="/assets/custom.js"></script>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-72x72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-114x114.png" sizes="114x114">
+    <link rel="alternate" href="http://feeds.feedburner.com/neocotic" title="neocotic" type="application/atom+xml">
+    {% if page.chromeinstall %}<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/{{page.chromeinstall}}">{% endif %}
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">neocotic</a>
+          <ul class="nav">
+            <li data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)"><a href="/">Home</a></li>
+            <li data-activate="^\/about(\.html)?$"><a href="/about">About</a></li>
+            <li class="dropdown">
+              <a href="https://github.com/neocotic" class="dropdown-toggle">Projects</a>
+              <ul class="dropdown-menu" id="projects-dropdown"></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="content">
+        {{content}}
+      </div>
+      <footer>
+        <div class="container">
+          <p class="pull-right"><a href="#">Back to top</a></p>
+          <p>&copy; Alasdair Mercer</p>
+        </div>
+      </footer>
+    </div>
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-27505414-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      }());
+    </script>
+  </body>
+</html>
