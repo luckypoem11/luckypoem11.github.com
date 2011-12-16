@@ -13,6 +13,15 @@
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-twipsy.js"></script>
     <script src="/assets/custom.js"></script>
+  {% if page.share %}
+    <script src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+      stLight.options({
+        onhover   : false,
+        publisher : '22a034ba-ce1f-48fa-b612-d6ca2289060a'
+      });
+    </script>
+  {% endif %}
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="stylesheet" href="/assets/syntax.css">
@@ -44,6 +53,16 @@
     </div>
     <div class="container">
       <div class="content">
+      {% if page.share %}
+        <div class="stContainer">
+          <span class="st_twitter_vcount" displayText="Tweet"></span>
+          <span class="st_plusone_vcount"></span>
+          <span class="st_fblike_vcount"></span>
+          <span class="st_linkedin_vcount" displayText="LinkedIn"></span>
+          <span class="st_email_button" displayText="Email"></span>
+          <span class="st_sharethis_button" displayText="Share"></span>
+        </div>
+      {% endif %}
         {{content}}
       </div>
       <footer>
