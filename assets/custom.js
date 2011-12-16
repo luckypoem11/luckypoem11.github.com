@@ -49,6 +49,7 @@ $(function () {
   // Activate twipsy tooltips.
   $('[rel=twipsy]').twipsy({live: true});
   // Activate Chrome Web Store inline installations.
+  var chrome = window.chrome || 0;
   if (chrome && chrome.app && chrome.webstore) {
     var chromeBtn = $('.chrome_install_button');
     if (chromeBtn.length) {
@@ -64,5 +65,32 @@ $(function () {
         });
       }
     }
+  }
+  // Activate floating share buttons.
+  var stContainer = $('.stContainer');
+  if (stContainer.length) {
+    var originalY = parseInt(stContainer.offset().top, 10) - 40;
+    $(window).scroll(function () {
+      var
+        scrollY = $(window).scrollTop(),
+        isFixed = stContainer.css('position') === 'fixed';
+      if (stContainer.length > 0) {
+        if (!isFixed && scrollY > originalY) {
+          stContainer.stop().css({
+            position   : 'fixed',
+            left       : '50%',
+            top        : 40,
+            marginLeft : -507
+          });
+        } else if (isFixed && scrollY < originalY) {
+          stContainer.css({
+            position   : 'relative',
+            left       : 0,
+            top        : 0,
+            marginLeft : originalX
+          });
+        }
+      }
+    });
   }
 });
