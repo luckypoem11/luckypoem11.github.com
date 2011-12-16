@@ -9,17 +9,67 @@ var
 // ---------
 
 var
-  JSON_FILE = process.argv[2] || 'ajax/repos.json',
-  USERNAME  = 'neocotic';
+  ORIGIN_PATH  = 'http://neocotic.com',
+  MENU_FILE    = 'ajax/repos.json',
+  SITEMAP_FILE = '_includes/repos.xml',
+  USERNAME     = 'neocotic';
 
 // Helper functions
 // ----------------
 
-// Write repositories to file as JSON.
+// Apply left padding of zero characters to the given `value` to ensure
+// consistent sizes.
+function pad(value, size) {
+  size  = size || 2;
+  value = String(value);
+  while (value.length < size) value = '0' + value;
+  return value;
+}
+
+// Parse the timezone offset to appear consistently and with the correct prefix
+// (plus/minus).
+function parseTimezoneOffset(date) {
+  var
+    offset = date.getTimezoneOffset(),
+    parsed = String(pad(Math.floor(Math.abs(offset) / 60) * 100 +
+                        Math.abs(offset) % 60, 4));
+  parsed = parsed.slice(0, 2) + ':' + parsed.slice(2);
+  return ((offset > 0) ? '-' : '+') + parsed;
+}
+
+// Write repositories to files.
 function writeRepos(repos) {
-  fs.writeFile(JSON_FILE, JSON.stringify(repos), function (err) {
+  writeReposForMenu(repos);
+  writeReposForSitemap(repos);
+}
+
+// Write repositories to file as JSON for projects menu.
+function writeReposForMenu(repos) {
+  fs.writeFile(MENU_FILE, JSON.stringify(repos), function (err) {
     if (err) throw err;
-    console.log('Repositories updated!');
+    console.log('Repositories menu updated!');
+  });
+}
+
+// Write repositories to file as XML for sitemap.
+function writeReposForSitemap(repos) {
+  var
+    date    = new Date(),
+    isoDate = date.toISOString(),
+    xml     = '';
+  isoDate = isoDate.substring(0, 19) + parseTimezoneOffset(date);
+  for (var i = 0; i < repos.length; i++) {
+    if (xml) xml += '\n';
+    xml += '<url>';
+    xml += '\n  <loc>' + ORIGIN_PATH + '/' + repos[i] + '</loc>';
+    xml += '\n  <lastmod>' + isoDate + '</lastmod>';
+    xml += '\n  <changefreq>weekly</changefreq>';
+    xml += '\n  <priority>0.6</priority>';
+    xml += '\n</url>';
+  }
+  fs.writeFile(SITEMAP_FILE, xml, function (err) {
+    if (err) throw err;
+    console.log('Repositories sitemap updated!');
   });
 }
 

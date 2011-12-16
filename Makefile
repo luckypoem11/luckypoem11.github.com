@@ -7,10 +7,10 @@ all: repos
 
 repos:
 	@@if test ! -z $(js_engine); then \
-		echo "Generating repositories..."; \
+		echo "Generating repository files..."; \
 		$(repos_generator) $(repos_file); \
 	else \
-		echo "You must have NodeJS installed in order to generate repositories"; \
+		echo "You must have NodeJS installed in order to generate repository files"; \
 	fi
 
 .PHONY: all repos
