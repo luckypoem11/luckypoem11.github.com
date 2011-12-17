@@ -2,7 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{% if page.title %}{{page.title}} ~ {% endif %}neocotic</title>
+  {% if page.metatitle %}
+    <title>{{page.metatitle}} ~ neocotic</title>
+  {% elsif page.title %}
+    <title>{{page.title}} ~ neocotic</title>
+  {% else %}
+    <title>neocotic</title>
+  {% endif %}
     {% if page.description %}<meta name="description" content="{{page.description}}">{% endif %}
     {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
     <meta name="author" content="Alasdair Mercer">
