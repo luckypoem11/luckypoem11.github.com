@@ -1,0 +1,171 @@
+---
+title: Frequently Asked Questions
+metatitle: FAQ ~ Template (Chrome)
+layout: full-width
+description: Read through the frequently asked questions for the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, faq, frequently, asked, questions, answers, support, download, open, source, neocotic, github
+chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
+---
+<h2><a name="writing-templates"></a>How do I create my own templates?</h2>
+<p>
+  In the <em>Template</em> tab on the options page you can click on the <em>&quot;Need help writing templates?&quot;</em>
+  link at the bottom to view the built-in help section for writing templates. If
+  for some crazy reason you don't yet have <a href="/template">Template</a> installed
+  (can't understand why not) you can still learn about <a href="/template/writing-templates">writing templates here</a>.
+</p>
+<h2><a name="special-pages"></a>Why can't I use some features on certain pages?</h2>
+<p>
+  Due to <a href="http://google.com/chrome">Chrome's</a> security implementations
+  some features won't work on certain pages. These pages are anything on the <a href="https://chrome.google.com/webstore">Chrome Web Store</a>
+  and any <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> using the
+  <code>chrome://</code> protocol as these are pages internal to the browser (including
+  pages specific to extensions/apps). In these cases keyboard shortcuts, context
+  (right-click) menus as well as extraction of selected <a href="/template/writing-templates/simple-values#selection">text</a>/<a href="/template/writing-templates/complex-values#selectionLinks">links</a>
+  <em>may</em> not work.
+</p>
+<h2><a name="saving"></a>Why are the changes to my templates not being saved?</h2>
+<p>
+  On the options page be sure that you <strong>always</strong> press <em>&quot;Save &amp; Close&quot;</em>
+  button whenever you want to save your changes. This applies even when you are
+  only adding, deleting, reordering and importing templates.
+</p>
+<h2><a name="predefined-templates"></a>Why can I not edit some templates?</h2>
+<p>
+  The title and content fields of predefined templates (<abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
+  Short, Anchor etc.) are read-only and cannot be changed. Also, you cannot delete
+  these templates but you can disable them like any other template to prevent them
+  from being used.
+</p>
+<h2><a name="supported-extensions"></a>What exactly do you mean &quot;Supported Extensions&quot;?</h2>
+<p>
+  The extensions that are listed in the <a href="/template#supported-extensions">Supported Extensions</a>
+  section have treated specially by <a href="/template">Template</a> so that the
+  tab <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> and title can
+  still be extracted. These extensions tend only to be those that would mask the
+  <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> and other information
+  of the current page.
+</p>
+<h2><a name="context-menu"></a>What <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> is used when I right-click on a page?</h2>
+<p>
+  Well, that absolutely depends what it is you right-clicked on. <a href="/template">Template</a>
+  currently checks what you clicked on in the following priority;
+</p>
+<ol>
+  <li>
+    <strong>Frame</strong> - Right-clicking anywhere within an internal frame
+  </li>
+  <li><strong>Link</strong> - Right-clicking on a link</li>
+  <li>
+    <strong>Media</strong> - Right-clicking on anything that has a <code>src</code>
+    attribute (e.g. images)
+  </li>
+  <li>
+    <strong>Page</strong> - Right-clicking anywhere else on the page that doesn't
+    match any of the above
+  </li>
+</ol>
+<p>
+  There is currently an issue raised that involves re-prioritizing this list so
+  if you're interested <a href="https://github.com/neocotic/template/issues/36">take a look</a>.
+</p>
+<h2><a name="permissions"></a>Why do you need this permission...?</h2>
+<p>
+  I've seen people commenting a lot on extensions in the <a href="https://chrome.google.com/webstore">Chrome Web Store</a>
+  about the permissions required by that extension. Most of these comments are negative
+  and usually posted by people who do not fully understand the creation of Chrome
+  extensions. For this reason I have <a href="/template/permissions">created a breakdown</a>
+  of the permissions used by <a href="/template">Template</a>. However, if you have
+  trust issues and don't trust that summary why not <a href="https://github.com/neocotic/template">look at the code</a>
+  and see for yourself.
+</p>
+<h2><a name="languages"></a>How can I get Template in a different language?</h2>
+<p>
+  Currently, this extension is only provided in the English but I am hoping to support
+  more languages in the future. I am currently working on a method of allowing others
+  to easily submit translations and I will update this space when it is available.
+</p>
+<h2><a name="errors"></a>Why am I seeing this error message...?</h2>
+<p>
+  Due to the extent of customization options available for <a href="/template">Template</a>
+  it's no surprise that something could go wrong. If it does it's nice to know what
+  that error message means;
+</p>
+<ul>
+  <li>
+    <strong>&quot;Empty templates cannot be copied&quot;</strong> - This occurs
+    if the template being used has either no content or the result after being parsed
+    is empty. If you think about it, you can't exactly copy an empty string to the
+    clipboard can you? Go on and try, I'll wait... I told you so.
+  </li>
+  <li>
+    <strong>&quot;URL is not properly encoded&quot;</strong> - This occurs if the
+    user is attempting to use <a href="/template">Template</a> on a <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    that is not properly encoded. This is due to the underlying technology used
+    for extract the information on each <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    (e.g. domain, port, parameters).
+  </li>
+  <li>
+    <strong>&quot;An error occurred when collecting page information&quot;</strong>
+    - This occurs when an unexpected error was thrown when building up the template
+    data. Please can you <a href="https://github.com/neocotic/template/issues">raise an issue</a>
+    while providing as much information as possible so I can investigate and fix
+    it.
+  </li>
+  <li>
+    <strong>&quot;Template could not be copied&quot;</strong> - This occurs when
+    an unexpected error was thrown during the copy process. Please can you <a href="https://github.com/neocotic/template/issues">raise an issue</a>
+    while providing as much information as possible so I can investigate and fix
+    it.
+  </li>
+  <li>
+    <strong>&quot;Configuration problem found with &lt;URL Shortener&gt;&quot;</strong>
+    - This occurs if the active <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    shortener requires a target <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    to be specified and this has not been done (e.g. <a href="http://yourls.org">YOURLS</a>).
+  </li>
+  <li>
+    <strong>&quot;Could not get a successful response from &lt;URL Shortener&gt;&quot;</strong>
+    - This occurs if the <a href="/template">Template</a> is unable to successfully
+    get a response from the active <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    shortener. This can be for multiple reasons but you should check you configuration
+    for that service first.
+  </li>
+</ul>
+<h2><a name="url-copy"></a>What happened to &quot;URL Copy&quot;?</h2>
+<p>
+  This extension was previously named &quot;URL Copy&quot; but was renamed in <a href="/template/changes#0.2.0.0">v0.2.0.0</a>
+  as I felt it had evolved far beyond that and the name no longer did it justice.
+  &quot;<a href="/template">Template</a>&quot; provides a much more accurate description
+  of the functionality and power of this extension.
+</p>
+<h2><a name="updating"></a>Why isn't Chrome updating Template?</h2>
+<p>
+  <a href="http://google.com/chrome">Chrome's</a> update frequency is slightly unpredictable
+  (at least in my eyes) and I've found that sometimes it updates my extensions as
+  soon as they're updated but I've also seen it some extensions not getting updated
+  even when using the browser for hours. However, there is a little-known way (at
+  least to non-developers) to force it to update your extensions;
+</p>
+<ul>
+  <li>Open the Extensions page via on of the following methods;</li>
+  <ul>
+    <li>Main Menu: Tools &gt; Extensions</li>
+    <li>Address Bar: <a href="chrome://extensions">chrome://extensions</a></li>
+    <li>
+      Right-click <a href="/template">Template's</a> toolbar icon and select <em>&quot;Manage extensions...&quot;</em>
+    </li>
+  </ul>
+  <li>
+    Click on <em>&quot;Developer mode&quot;</em> in the top right of the page so
+    that it has a collapse (-) icon on its left.
+  </li>
+  <li>
+    Click the <em>&quot;Update extensions now&quot;</em> button, et viola!
+  </li>
+</ul>
+<p>
+  Your extensions should now be receiving updates (where available) and you may
+  notice some extensions turning off and on again. If an extension requires any
+  additional permissions that you have not already authorized it will not be turned
+  back on until you have granted these permissions.
+</p>
