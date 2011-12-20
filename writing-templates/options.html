@@ -161,13 +161,13 @@ chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
   wants it;
 </p>
 {% highlight html %}
-<a href="{{url}}"{#doAnchorTitle} title="{{title}}"{/doAnchorTitle}>This is a test!</a>
+<a href="&#123;&#123;url&#125;&#125;"&#123;#doAnchorTitle&#125; title="&#123;&#123;title&#125;&#125;"&#123;/doAnchorTitle&#123;>This is a test!</a>
 {% endhighlight %}
 <p>Would output the following if this option was enabled by the user;</p>
 {% highlight html %}
-<a href="/projects/extensions/chrome/template/writing-templates/4/" title="Writing Templates | forchoon">This is a test!</a>
+<a href="/template/writing-templates/options" title="Options ~ Writing Templates ~ neocotic">This is a test!</a>
 {% endhighlight %}
 <p>However, if the user disabled this option it would output as follows;</p>
 {% highlight html %}
-<a href="/projects/extensions/chrome/template/writing-templates/4/">This is a test!</a>
+<a href="//template/writing-templates/options">This is a test!</a>
 {% endhighlight %}
