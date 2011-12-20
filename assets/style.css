@@ -47,6 +47,14 @@ h6 abbr {
   padding-left: 20px;
   border-left: 1px solid #eee;
 }
+.content .lefty {
+  margin-left: 0 !important;
+  margin-right: 20px;
+  padding-left: 0 !important;
+  padding-right: 20px;
+  border-left: 0 !important;
+  border-right: 1px solid #eee;
+}
 .topbar .btn {
   border: 0;
 }
