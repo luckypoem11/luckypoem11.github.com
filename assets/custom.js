@@ -1,3 +1,13 @@
+// Global function called by extensions via content scripts.
+window.disableChromeExtensionInstallLinks = function (extensionId) {
+  if (!extensionId) return;
+  var links = document.querySelectorAll('a.chrome_install_button[href$=' +
+      extensionId + ']');
+  for (var i = 0; i < links.length; i++) {
+    links[i].className = 'btn disabled';
+    links[i].innerText = 'Installed';
+  }
+};
 // jQuery is ready.
 $(function () {
   var
@@ -54,17 +64,17 @@ $(function () {
   if (chrome && chrome.app && chrome.webstore) {
     var chromeBtn = $('.chrome_install_button');
     if (chromeBtn.length) {
-      if (chrome.app.isInstalled) {
-        chromeBtn.toggleClass('primary disabled').html('Installed');
-      } else {
-        chromeBtn.bind('click.chrome', function (e) {
-          var $this = $(this);
-          chrome.webstore.install($this.attr('href'), function () {
-            $this.toggleClass('primary disabled').unbind('.chrome').html('Installed');
-          });
-          e.preventDefault();
+      chromeBtn.bind('click.chrome', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('chrome_install_button')) {
+          $this.unbind('.chrome');
+          return;
+        }
+        chrome.webstore.install($this.attr('href'), function () {
+          $this.toggleClass('primary disabled chrome_install_button').unbind('.chrome').html('Installed');
         });
-      }
+        e.preventDefault();
+      });
     }
   }
   // Activate floating share buttons.
