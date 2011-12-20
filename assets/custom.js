@@ -28,7 +28,7 @@ $(function () {
       var repoRegex = '';
       if (data && data.length) {
         for (var i = 0; i < data.length; i++) {
-          addMenuItem(data[i], '/' + data[i] + '/');
+          addMenuItem(data[i], '/' + data[i]);
           if (repoRegex) repoRegex += '|';
           repoRegex += data[i].replace('.', '\\.');
         }
