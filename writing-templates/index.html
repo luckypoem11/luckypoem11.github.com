@@ -13,11 +13,13 @@ chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
   syntax is really straight-forward the following main declaration types;
 </p>
 <h2><a name="simple-tag"></a>Simple Tag</h2>
-<p>Tags are always surrounded by curly braces like this <code>{name}</code>.</p>
+<p>
+  Tags are always surrounded by curly braces like this <code>&#123;name&#125;</code>.
+</p>
 <h2><a name="escaped-tag"></a>Escaped Tag</h2>
 <p>
   By default, values are not escaped and in order to do so you must use double braces
-  like <code>{{{name}}}</code>.
+  like <code>&#123;&#123;name&#125;&#125;</code>.
 </p>
 <p>
   This will escape certain characters (<code>(&amp; \ &quot; &lt; &gt;)</code>)
@@ -25,7 +27,7 @@ chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
 </p>
 <h2><a name="section"></a>Section</h2>
 <p>
-  Sections are always surrounded by opening and closing tags like this <code>{#name}...{/name}</code>
+  Sections are always surrounded by opening and closing tags like this <code>&#123;#name&#125;...&#123;/name&#125;</code>
   and can be used in the following situations;
 </p>
 <ul>
@@ -45,7 +47,8 @@ chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
 <h2><a name="inverted-section"></a>Inverted Section</h2>
 <p>
   Inverted sections are very similar to normal sections but their tags are like
-  this <code>{^name}...{/name}</code> and can be used in the following situations;
+  this <code>&#123;^name&#125;...&#123;/name&#125;</code> and can be used in the
+  following situations;
 </p>
 <ul>
   <li>
