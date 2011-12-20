@@ -7,3 +7,106 @@ description: Need help writing templates? Read this help documentation for the T
 keywords: template, google, chrome, extension, addon, writing, creating, editing, templates, help, documentation, guide, download, open, source, neocotic, github
 chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
 ---
+<p>
+  <strong>Functions</strong> can be accessed using the syntax <code>{#name}value{/name}</code>
+  where <code>name</code> is the name of the function and <code>value</code> is
+  the value of its argument and perform more complex operations using parameters
+  you provide.
+</p>
+<h2><a name="definitions"></a>Definitions</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th style="width: 15%">Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="cookie"></a>cookie</td>
+      <td>String</td>
+      <td>Access the value of the cookie provided</td>
+    </tr>
+    <tr>
+      <td><a name="encode"></a>encode</td>
+      <td>String</td>
+      <td>
+        Encodes the text provided so that it can be safely used in a query string
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fparam"></a>fparam</td>
+      <td>String</td>
+      <td>
+        Access the value of the parameter provided from within the hash fragment
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fsegment"></a>fsegment</td>
+      <td>Number</td>
+      <td>
+        Access the value of the segment provided from within the hash fragment
+      </td>
+    </tr>
+    <tr>
+      <td><a name="param"></a>param</td>
+      <td>String</td>
+      <td>Access the value of the parameter provided</td>
+    </tr>
+    <tr>
+      <td><a name="segment"></a>segment</td>
+      <td>Number</td>
+      <td>Access the value of the segment provided</td>
+    </tr>
+  </tbody>
+</table>
+<h2><a name="notes"></a>Notes</h2>
+<p>
+  The following notes apply to <a href="#segment">segment</a>/<a href="#fsegment">fsegment</a>;
+</p>
+<ul>
+  <li>
+    The count is <em>not</em> zero-indexed like an array (i.e. <code>{#segment}1{/segment}</code>
+    returns the first segment, not the second one)
+  </li>
+  <li>
+    The argument can be negative values, in which case it will count back from the
+    end of the path rather than forwards from the start
+  </li>
+</ul>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  If you wanted to pass the whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  as parameter;
+</p>
+{% highlight html %}
+{#encode}{url}{/encode}
+{% endhighlight %}
+<p>
+  Would escape all the characters of the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  and output the following;
+</p>
+{% highlight html %}
+http%3A%2F%2Fneocotic.com%2Ftemplate%2Fwriting-templates%2Ffunctions
+{% endhighlight %}
+<p>To access the second <a href="#segment">segment</a>;
+{% highlight html %}
+<p>{#segment}2{/segment}</p>
+{% endhighlight %}
+<p>Would output the following;</p>
+{% highlight html %}
+<p>writing-templates</p>
+{% endhighlight %}
+<p>
+  Let's pretend again that the query string for this page is <code>foo=bar&amp;fu=baz</code>.
+  In order to access the value of the <code>foo</code> parameter we would use;
+</p>
+{% highlight html %}
+<b>{#param}foo{/param}</b>
+{% endhighlight %}
+<p>Which would output the following;</p>
+{% highlight html %}
+<b>bar</b>
+{% endhighlight %}
