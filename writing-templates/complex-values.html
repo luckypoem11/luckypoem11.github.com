@@ -7,3 +7,122 @@ description: Need help writing templates? Read this help documentation for the T
 keywords: template, google, chrome, extension, addon, writing, creating, editing, templates, help, documentation, guide, download, open, source, neocotic, github
 chromeinstall: dcjnfaoifoefmnbhhlbppaebgnccfddf
 ---
+<p>
+  <strong>Complex values</strong> are either arrays containing strings or maps of
+  key/value pairs.
+</p>
+<h2><a name="definitions"></a>Definitions</h2>
+<table class="bordered-table zebra-striped">
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th style="width: 15%">Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="cookies"></a>cookies</td>
+      <td>Array</td>
+      <td>
+        The names of all cookies associated with <a href="/template/writing-templates/simple-values#url">url</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fparams"></a>fparams</td>
+      <td>Map</td>
+      <td>
+        The key/value pairs of all parameters within the hash fragment (e.g. <code>&#123; 'foo':'bar', 'fu':'baz' &#125;</code>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fsegments"></a>fsegments</td>
+      <td>Array</td>
+      <td>The segments from the hash fragment's path</td>
+    </tr>
+    <tr>
+      <td><a name="params"></a>params</td>
+      <td>Map</td>
+      <td>
+        The key/value pairs of all parameters (e.g. <code>&#123; 'foo':'bar', 'fu':'baz' &#125;</code>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="segments"></a>segments</td>
+      <td>Array</td>
+      <td>
+        The segments from the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>'s
+        path
+      </td>
+    </tr>
+    <tr>
+      <td><a name="selectionLinks"></a>selectionLinks</td>
+      <td>Array</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>'s of
+        any links within the currently selected text (not available on Chrome's
+        protected pages)
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  Using an array, you can do the following to iterate over all the <a href="#segments">segments</a>;
+</p>
+{% highlight html %}
+{#segments}
+  <b>{.}</b>
+{/segments}
+{% endhighlight %}
+<p>Would output the following;</p>
+{% highlight html %}
+  <b>template</b>
+  <b>writing-templates</b>
+  <b>complex-values</b>
+{% endhighlight %}
+<p>
+  However, when the iterating over a map you access each item in a single section
+  as follows;
+</p>
+{% highlight html %}
+{#params}
+  <p>foo is {foo}!</p>
+  <p>fu is {fu}!</p>
+{/params}
+{^params}
+  <b>No parameters!</b>
+{/params}
+{% endhighlight %}
+<p>
+  Since this page has (or at least should have) no parameters it would output the
+  following;
+</p>
+{% highlight html %}
+  <b>No parameters!</b>
+{% endhighlight %}
+<p>
+  However, if it was to have something like <code>foo=bar&amp;fu=baz</code> as its
+  query string it would output this;
+</p>
+{% highlight html %}
+  <p>foo is bar</p>
+  <p>fu is faz</p>
+{% endhighlight %}
+<p>
+  Using the following you can access the name and values of all available cookies;
+</p>
+{% highlight html %}
+<ul>
+{#cookies}
+  <li>{.} = {#cookie}{.}{/cookie}</li>
+{/cookies}
+</ul>
+{% endhighlight %}
+<p>This can output a lot but generally looks something like below;</p>
+{% highlight html %}
+<ul>
+  <li>__utmc = 123456789</li>
+</ul>
+{% endhighlight %}
