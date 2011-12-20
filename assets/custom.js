@@ -1,6 +1,7 @@
 // jQuery is ready.
 $(function () {
   var
+    $window  = $(window),
     projects = $('#projects-dropdown'),
     link     = projects.prev('a');
   // Append menu item (including link) to projects dropdown.
@@ -69,10 +70,12 @@ $(function () {
   // Activate floating share buttons.
   var stContainer = $('.stContainer');
   if (stContainer.length) {
-    var originalY = parseInt(stContainer.offset().top, 10) - 40;
-    $(window).scroll(function () {
+    var
+      originalX = stContainer.css('margin-left'),
+      originalY = stContainer.offset().top - 40;
+    $window.scroll(function () {
       var
-        scrollY = $(window).scrollTop(),
+        scrollY = $window.scrollTop(),
         isFixed = stContainer.css('position') === 'fixed';
       if (stContainer.length > 0) {
         if (!isFixed && scrollY > originalY) {
@@ -90,6 +93,15 @@ $(function () {
             marginLeft : originalX
           });
         }
+      }
+    });
+  }
+  // Improves fragment/anchor accuracy, but only works when fragment changes.
+  var firstContainer = $('body .container').first();
+  if (firstContainer.length) {
+    $window.on('hashchange', function () {
+      if (window.location.hash) {
+        $window.scrollTop(firstContainer.offset().top - 40);
       }
     });
   }
