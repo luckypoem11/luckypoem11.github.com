@@ -97,10 +97,12 @@ $(function () {
     });
   }
   // Improves fragment/anchor accuracy, but only works when fragment changes.
-  $window.on('hashchange', function () {
+  function tuneFragment() {
     var firstContainer = $('body .container').first();
     if (firstContainer.length && window.location.hash) {
       $window.scrollTop(firstContainer.offset().top - 40);
     }
-  });
+  }
+  $window.on('hashchange', tuneFragment);
+  tuneFragment();
 });
