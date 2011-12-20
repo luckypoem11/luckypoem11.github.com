@@ -97,12 +97,10 @@ $(function () {
     });
   }
   // Improves fragment/anchor accuracy, but only works when fragment changes.
-  var firstContainer = $('body .container').first();
-  if (firstContainer.length) {
-    $window.on('hashchange', function () {
-      if (window.location.hash) {
-        $window.scrollTop(firstContainer.offset().top - 40);
-      }
-    });
-  }
+  $window.on('hashchange', function () {
+    var firstContainer = $('body .container').first();
+    if (firstContainer.length && window.location.hash) {
+      $window.scrollTop(firstContainer.offset().top - 40);
+    }
+  });
 });
