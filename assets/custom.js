@@ -1,13 +1,3 @@
-// Global function called by extensions via content scripts.
-window.disableChromeExtensionInstallLinks = function (extensionId) {
-  if (!extensionId) return;
-  var links = document.querySelectorAll('a.chrome_install_button[href$=' +
-      extensionId + ']');
-  for (var i = 0; i < links.length; i++) {
-    links[i].className = 'btn disabled';
-    links[i].innerText = 'Installed';
-  }
-};
 // jQuery is ready.
 $(function () {
   var
