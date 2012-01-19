@@ -9,10 +9,11 @@ var
 // ---------
 
 var
-  ORIGIN_PATH  = 'http://neocotic.com',
-  MENU_FILE    = 'ajax/repos.json',
-  SITEMAP_FILE = '_includes/repos.xml',
-  USERNAME     = 'neocotic';
+  ORIGIN_PATH       = 'http://neocotic.com',
+  MENU_FILE         = 'ajax/repos.json',
+  SITEMAP_HTML_FILE = '_includes/repos.html',
+  SITEMAP_XML_FILE  = '_includes/repos.xml',
+  USERNAME          = 'neocotic';
 
 // Helper functions
 // ----------------
@@ -40,7 +41,7 @@ function parseTimezoneOffset(date) {
 // Write repositories to files.
 function writeRepos(repos) {
   writeReposForMenu(repos);
-  writeReposForSitemap(repos);
+  writeReposForSitemaps(repos);
 }
 
 // Write repositories to file as JSON for projects menu.
@@ -51,14 +52,21 @@ function writeReposForMenu(repos) {
   });
 }
 
-// Write repositories to file as XML for sitemap.
-function writeReposForSitemap(repos) {
+// Write repositories to files for the sitemaps (HTML and XML).
+function writeReposForSitemaps(repos) {
   var
     date    = new Date(),
+    html    = '',
     isoDate = date.toISOString(),
     xml     = '';
   isoDate = isoDate.substring(0, 19) + parseTimezoneOffset(date);
   for (var i = 0; i < repos.length; i++) {
+    // Build HTML for repository link.
+    if (html) html += '\n';
+    html += '<li>';
+    html += '<a href="/' + repos[i] + '">' + repos[i] + '</a>';
+    html += '</li>';
+    // Build XML for repository entry.
     if (xml) xml += '\n';
     xml += '<url>';
     xml += '\n  <loc>' + ORIGIN_PATH + '/' + repos[i] + '</loc>';
@@ -67,9 +75,13 @@ function writeReposForSitemap(repos) {
     xml += '\n  <priority>0.6</priority>';
     xml += '\n</url>';
   }
-  fs.writeFile(SITEMAP_FILE, xml, function (err) {
+  fs.writeFile(SITEMAP_HTML_FILE, html, function (err) {
     if (err) throw err;
-    console.log('Repositories sitemap updated!');
+    console.log('Repositories HTML sitemap updated!');
+  });
+  fs.writeFile(SITEMAP_XML_FILE, xml, function (err) {
+    if (err) throw err;
+    console.log('Repositories XML sitemap updated!');
   });
 }
 
