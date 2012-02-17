@@ -1,0 +1,177 @@
+---
+title: Guide
+metatitle: Options ~ Guide ~ Template (Chrome)
+subtitle: Options
+layout: guide
+description: Get to grips with using options in the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, options, download, open, source, neocotic, github
+---
+<p>
+  <strong>Options</strong> are variables that represent your current <a href="/template">Template</strong>
+  settings and are generally accessed in the same way as standard variables.
+</p>
+<table class="bordered-table zebra-striped">
+  <caption><a name="definitions"></a>Definitions</caption>
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="anchor-target"></a>anchorTarget</td>
+      <td>
+        Whether or not the option to include the anchor tags <em>target</em> attribute
+        is enabled
+      </td>
+    </tr>
+    <tr>
+      <td><a name="anchor-title"></a>anchorTitle</td>
+      <td>
+        Whether or not the option to include the anchor tags <em>title</em> attribute
+        is enabled
+      </td>
+    </tr>
+    <tr>
+      <td><a name="bitly"></a>bitly</td>
+      <td>
+        Whether or not <a href="http://bit.ly">bit.ly</a> is the enabled <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        shortener
+      </td>
+    </tr>
+    <tr>
+      <td><a name="bitly-api-key"></a>bitlyApiKey</td>
+      <td>
+        The <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+        key associated with your <a href="http://bit.ly/a/account">bit.ly account</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a name="bitly-username"></a>bitlyUsername</td>
+      <td>
+        The username associated with your <a href="http://bit.ly/a/account">bit.ly account</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a name="googl"></a>googl</td>
+      <td>
+        Whether or not <a href="http://goo.gl">goo.gl</a> is the enabled <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        shortener
+      </td>
+    </tr>
+    <tr>
+      <td><a name="googl-account"></a>googlAccount<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not you are currently logged in to your <a href="http://goo.gl">goo.gl</a>
+        account
+      </td>
+    </tr>
+    <tr>
+      <td><a name="menu"></a>menu<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not the option to show the context (right-click) menu is enabled
+      </td>
+    </tr>
+    <tr>
+      <td><a name="menu-options"></a>menuOptions<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not the <em>Options</em> item is displayed at the bottom of the
+        context (right-click) menu
+      </td>
+    </tr>
+    <tr>
+      <td><a name="notification-duration"></a>notificationDuration</td>
+      <td>The number of seconds desktop notifications are displayed for</td>
+    </tr>
+    <tr>
+      <td><a name="notifications"></a>notifications</td>
+      <td>
+        Whether or not the option to show desktop notifications is enabled
+      </td>
+    </tr>
+    <tr>
+      <td><a name="shortcuts"></a>shortcuts</td>
+      <td>Whether or not the option to allow keyboard shortcuts is enabled</td>
+    </tr>
+    <tr>
+      <td><a name="toolbar-close"></a>toolbarClose<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not the popup is closed immediately after a template is selected
+      </td>
+    </tr>
+    <tr>
+      <td><a name="toolbar-key"></a>toolbarKey<span class="label success pull-right">New</span></td>
+      <td>
+        The unique key of the template activated when the toolbar button is clicked
+      </td>
+    </tr>
+    <tr>
+      <td><a name="toolbar-options"></a>toolbarOptions<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not the <em>Options</em> link is displayed at the bottom of the
+        popup
+      </td>
+    </tr>
+    <tr>
+      <td><a name="toolbar-popup"></a>toolbarPopup<span class="label success pull-right">New</span></td>
+      <td>
+        Whether or not the popup is shown when the toolbar button is clicked
+      </td>
+    </tr>
+    <tr>
+      <td><a name="toolbar-style"></a>toolbarStyle<span class="label success pull-right">New</span></td>
+      <td>Whether or not the toolbar button's design is based on a template</td>
+    </tr>
+    <tr>
+      <td><a name="yourls"></a>yourls</td>
+      <td>
+        Whether or not <a href="http://yourls.org">YOURLS</a> is the enabled <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        shortener
+      </td>
+    </tr>
+    <tr>
+      <td><a name="yourls-password"></a>yourlsPassword</td>
+      <td>
+        The password for the <a href="http://yourls.org">YOURLS</a> service
+      </td>
+    </tr>
+    <tr>
+      <td><a name="yourls-signature"></a>yourlsSignature</td>
+      <td>
+        The signature for the <a href="http://yourls.org">YOURLS</a> service (e.g.
+        <em>3002a61584</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="yourls-url"></a>yourlsUrl</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> of the
+        <a href="http://yourls.org">YOURLS</a> service (e.g. <em>http://example.com/yourls-api.php</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="yourls-username"></a>yourlsUsername</td>
+      <td>
+        The username for the <a href="http://yourls.org">YOURLS</a> service
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  To include the <em>title</em> attribute in an anchor tag only if you have enabled
+  the corresponding option;
+</p>
+{% highlight html %}
+<a href="{{ '{{url' }}}}"{#anchorTitle} title="{{ '{{title' }}}}"{/anchorTitle}>This is a test!</a>
+{% endhighlight %}
+<p>This would output the following if you've enabled the option;</p>
+{% highlight html %}
+<a href="http://neocotic.com/template/guide/options" title="Options ~ Guide ~ Template (Chrome) ~ neocotic">This is a test!</a>
+{% endhighlight %}
+<p>However, if you have disabled the option it will output this;</p>
+{% highlight html %}
+<a href="http://neocotic.com/template/guide/options">This is a test!</a>
+{% endhighlight %}

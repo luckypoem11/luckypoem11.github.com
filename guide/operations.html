@@ -1,0 +1,164 @@
+---
+title: Guide
+metatitle: Operations ~ Guide ~ Template (Chrome)
+subtitle: Operations
+layout: guide
+description: Get to grips with using operations in the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, operations, download, open, source, neocotic, github
+---
+<p>
+  <strong>Operations</strong> are performed using sections, accepting its rendered
+  contents as an argument.
+</p>
+<table class="bordered-table zebra-striped">
+  <caption><a name="definitions"></a>Definitions</caption>
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th style="width: 15%">Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="cookie"></a>cookie</td>
+      <td>Text</td>
+      <td>Get the value for the cookie with the name provided</td>
+    </tr>
+    <tr>
+      <td><a name="date-time"></a>dateTime</td>
+      <td>Text</td>
+      <td>
+        Format the current date &amp; time using the pattern provided
+        <br>
+        (see <a href="http://php.net/manual/en/function.date.php#refsect1-function.date-parameters"><abbr data-original-title="Hypertext Preprocessor">PHP</abbr>s date</a>
+        for more details)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="decode"></a>decode</td>
+      <td>Text</td>
+      <td>Decode the previously encoded text provided</td>
+    </tr>
+    <tr>
+      <td><a name="encode"></a>encode</td>
+      <td>Text</td>
+      <td>
+        Encode the text provided so that it can be safely used in a query string
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fparam"></a>fparam</td>
+      <td>Text</td>
+      <td>
+        Get the value of the parameter provided from within the hash fragment
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fsegment"></a>fsegment</td>
+      <td>Number</td>
+      <td>
+        Get the segment at the index provided from within the hash fragment
+      </td>
+    </tr>
+    <tr>
+      <td><a name="last-modified"></a>lastModified<strong>*</strong><span class="label success pull-right">New</span></td>
+      <td>Text</td>
+      <td>
+        Format the last modified date &amp; time using the pattern provided
+        <br>
+        (see <a href="http://php.net/manual/en/function.date.php#refsect1-function.date-parameters"><abbr data-original-title="Hypertext Preprocessor">PHP</abbr>s date</a>
+        for more details)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="param"></a>param</td>
+      <td>Text</td>
+      <td>Get the value of the parameter provided</td>
+    </tr>
+    <tr>
+      <td><a name="segment"></a>segment</td>
+      <td>Number</td>
+      <td>Get the segment at the index provided</td>
+    </tr>
+    <tr>
+      <td><a name="shorten"></a>shorten<span class="label success pull-right">New</span></td>
+      <td>Text</td>
+      <td>
+        Shorten the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        provided using the active <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        shortener
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="font-style: italic">
+        <strong>*</strong> Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<div class="well bottom">
+  <h3><a name="notes"></a>Notes</h3>
+  <p>
+    The following notes only apply to <a href="#segment">segment</a> and <a href="#fsegment">fsegment</a>
+    operations;
+  </p>
+  <ul>
+    <li>
+      The count is not zero-indexed like an array (e.g. <code>{#segment}1{/segment}</code>
+      returns the first segment)
+    </li>
+    <li>
+      The argument can be negative values, in which case it will count back from
+      the end of the path rather than forwards from the start
+    </li>
+  </ul>
+</div>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  To output the current date &amp; time in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+  format you would use;
+</p>
+{% highlight html %}
+Today is {#dateTime}Y-m-d\TH:i:sP{/dateTime}.
+{% endhighlight %}
+<p>
+  Also, the <em>c</em> parameter would also have the same outcome in this case.
+  If you wanted to safely pass the whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  as a parameter in a query string;
+</p>
+{% highlight html %}
+http://example.com/something.do?url={#encode}{url}{/encode}
+{% endhighlight %}
+<p>
+  This escapes all of the necessary characters within <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  and outputs the following;
+</p>
+{% highlight html %}
+http://example.com/something.do?url=http%3A%2F%2Fneocotic.com%2Ftemplate%2Fguide%2Foperations
+{% endhighlight %}
+<p>
+  To access the last segment of the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>'s
+  path;
+</p>
+{% highlight html %}
+I am currently viewing "{#segment}-1{/segment}".
+{% endhighlight %}
+<p>Would render the following output;</p>
+{% highlight html %}
+I am currently viewing "operations".
+{% endhighlight %}
+<p>
+  Let's pretend again that the query string for this page is <em>foo=bar&amp;fu=baz</em>.
+  Accessing the value of the <em>foo</em> parameter is as simple as the following;
+</p>
+{% highlight html %}
+The value of foo is "{#param}foo{/param}".
+{% endhighlight %}
+<p>This would cause the following output to be rendered;</p>
+{% highlight html %}
+The value of foo is "bar".
+{% endhighlight %}
