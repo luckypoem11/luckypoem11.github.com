@@ -8,15 +8,19 @@ share: true
 ---
 <p>
   <a href="/template">Template</a> is an extension for <a href="http://google.com/chrome">Google Chrome</a>
-  that provides quick and easy access to lots of information about the current page
-  and environment;
+  that provides quick and easy access to lots of information about the current
+  page and environment;
 </p>
 <blockquote>
   <p>
-    cookies, browser version, directory, encoded, favicon <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
-    file, formatted date/time, fragment, host name, operating system, options, parameters,
-    path, port, protocol, query string, relative, segments, selected links/text,
-    shortened <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>, title
+    all links on a page, author, browser version, cookies, description, directory,
+    encode/decode anything, favicon <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
+    file, formatted date &amp; time, fragment, host name, keywords, last modified
+    date &amp; time, location, operating system, options, page dimensions, parameters,
+    path, plugins, port, protocol, query string, referrer, relative, screen resolution
+    and other information, scripts, segments, selected links/text, shortened <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
+    stats, style sheets, title, and the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    itself of course
   </p>
 </blockquote>
 <p>Just to name a few...</p>
@@ -67,8 +71,8 @@ share: true
 </p>
 <h2><a name="shorteners"></a><abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> Shorteners</h2>
 <p>
-  The following <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> shortener
-  services are supported by this extension;
+  The following <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  shortener services are supported by this extension;
 </p>
 <ul>
   <li>
@@ -76,8 +80,8 @@ share: true
     on your <a href="http://bit.ly">timeline</a>
   </li>
   <li>
-    <a href="http://goo.gl">goo.gl</a> - Link to your Google account to allow tracking
-    on <a href="http://goo.gl">goo.gl</a>
+    <a href="http://goo.gl">goo.gl</a> - Login to your Google account to allow
+    tracking on <a href="http://goo.gl">goo.gl</a>
   </li>
   <li>
     <a href="http://yourls.org">YOURLS</a> - Link to <em>any</em> custom YOURLS
@@ -102,59 +106,30 @@ share: true
 <h2><a name="permissions"></a>Permissions</h2>
 <p>
   For those of you that worry about these things I have <a href="/template/permissions">constructed a breakdown</a>
-  of what permissions are used by this extension (even those you aren't warned about)
-  and why.
+  of what permissions are used by this extension (even those you aren't warned
+  about) and why.
 </p>
 <h2><a name="changes"></a>Changes</h1>
-<h3>Version 0.3.0.0</h3>
-<ul>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/48">#48</a>: Add option
-    to change behaviour of the toolbar icon (available in templates via the new
-    <em>&quot;toolbarPopup&quot;</em> and <em>&quot;toolbarFeature&quot;</em> option
-    tags)
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/48">#48</a>: Add option
-    to select a default template (available in templates via the new <em>&quot;toolbarFeatureName&quot;</em>
-    option tag)
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/48">#48</a>: Add option
-    to change the style of the toolbar icon to that of the default template <em>&quot;toolbarFeatureDetails&quot;</em>
-    option tag)
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/50">#50</a>: Make tags
-    case-insensitive
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/51">#51</a>: Add new <em>&quot;dateTime&quot;</em>
-    simple tag and function to allow formatted date/time
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/53">#53</a>: Add support
-    for <a href="http://code.google.com/chrome/webstore/docs/inline_installation.html">inline installation</a>
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/54">#54</a>: Replace <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
-    calls deprecated by <a href="http://code.google.com/chrome/extensions/whats_new.html#16">Chrome 16</a>
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/56">#56</a>: Add new <em>&quot;decode&quot;</em>
-    function to decode its previously encoded contents
-  </li>
-  <li>
-    Change to <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>
-  </li>
-  <li>Update homepage links</li>
-  <li>Patch underlying template technology</li>
-  <li>Minor bug fixes</li>
-</ul>
-<p><a href="/template/changes">View historical changes</a></p>
+<h3>Version 1.0.0</h3>
+<p>
+ This is the largest update ever for <a href="/template">Template</a> and finally
+ brings it out of beta in to a full release, almost one year after first being
+ added to the <a href="https://chrome.google.com/webstore">Chrome Web Store</a>.
+</p>
+<p>
+  This doesn't mean that work has stopped on <a href="/template">Template</a>;
+  quite the opposite in fact. Support will continue to be provided and we still
+  plan on adding even more improvements, user enhancements and whole new features
+  in the future.
+</p>
+<p>
+  Due to the huge number of changes in this release they won't be listed here this
+  time. However, if you're interested in seeing the changes included in this release
+  and/or previous versions you can <a href="/template/changes">view hostorical changes here</a>.
+</p>
 <h2><a name="bugs"></a>Bugs</h2>
 <p>
-  If you have any problems with this application or would like to see the changes
+  If you have any problems with this extension or would like to see the changes
   currently in development <a href="https://github.com/neocotic/template/issues">browse our issues</a>.
 </p>
 <h2><a name="questions"></a>Questions?</h2>
@@ -164,11 +139,11 @@ share: true
 </p>
 <p>
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
-  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>. However, I highly
-  recommend reading the <a href="/template/faq">frequently asked questions</a>.
+  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>. However, I
+  highly recommend reading the <a href="/template/faq">frequently asked questions</a>.
 </p>
 <div class="well bottom">
   <a href="https://chrome.google.com/webstore/detail/dcjnfaoifoefmnbhhlbppaebgnccfddf" rel="twipsy" title="Chrome Web Store" class="btn large primary chrome_install_button">Install</a>
-  <a href="https://github.com/neocotic/template/zipball/v0.3.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/template/zipball/v1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
   <a href="https://github.com/neocotic/template" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
 </div>
