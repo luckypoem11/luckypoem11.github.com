@@ -25,19 +25,24 @@ keywords: template, google, chrome, extension, addon, required, permissions, dow
   <li>
     <strong>&quot;Data you copy and paste&quot;</strong> - Although this is a no-brainer
     for most of you, some long-term users may wonder why this wasn't always displayed.
-    Well, that's because this permission didn't even exist until <a href="http://code.google.com/chrome/extensions/whats_new.html#13">Chrome 13</a>
+    Well, that's because this permission didn't even exist until <a href="http://code.google.com/chrome/extensions/whats_new.html#13">Chrome 13</a>,
     where it was introduced.
   </li>
   <li>
-    <strong>&quot;Your browsing history&quot;</strong> - This is caused by the
-    need to inject the keyboard shortcut and selection script in to all previously
-    opened pages. This functionality is required when installing/updating the extension.
+    <strong>&quot;Your browsing history&quot;</strong> - This is required in order
+    to execute the keyboard shortcut and <abbr rel="twipsy" title="Document Object Model">DOM</abbr>
+    parser script on all previously opened pages. This functionality is required
+    when installing/updating/re-enabling the extension.
+  </li>
+  <li>
+    <strong>&quot;Your physical location&quot;</strong> - This is required for
+    the <span class="label">coords</span> object variable.
   </li>
   <li>
     <strong>&quot;Your data on all websites&quot;</strong> - This is caused by
     the need to read the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-    and page title as well as injecting the keyboard shortcut and selection script
-    in to all possible pages.
+    and page title as well as injecting the keyboard shortcut and <abbr rel="twipsy" title="Document Object Model">DOM</abbr>
+    parser script in to all possible pages.
   </li>
 </ul>
 <p>
