@@ -9,58 +9,62 @@ keywords: template, google, chrome, extension, addon, historical, changes, chang
   The following changes have been made to <a href="/template">Template</a> in the
   versions listed;
 </p>
-<!--
-<h1><a name="1.0.0"></a>YYYY.MM.DD, Version 1.0.0</h1>
+<h1><a name="1.0.0"></a>2012.02.17, Version 1.0.0</h1>
 <ul>
-  <li>Full release!</li>
+  <li><strong>Full release!</strong></li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/20">#20</a>: Add <em>&quot;Revoke Access&quot;</em>
+    <a href="https://github.com/neocotic/template/issues/20">#20</a>: Add <em>&quot;Login&quot;</em>/<em>&quot;Logout&quot;</em>
     button to <a href="http://goo.gl">goo.gl</a>'s configuration on the Options
     page
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/35">#35</a>: Tidy naming
-    and documentation of the code
+    <a href="https://github.com/neocotic/template/issues/20">#20</a>: Deprecate
+    the <em>&quot;googlOAuth&quot;</em> option and replace with the new <em>&quot;googlAccount&quot;</em>
+    option
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/47">#47</a>: Simplify
-    internationalization code
+    <a href="https://github.com/neocotic/template/issues/35">#35</a>: Ensure code
+    and documentation quality and standards are high
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/47">#47</a>: Completely
+    redesign and simplify the Options page
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/48">#48</a>: Add option
     to keep popup open after clicking a template (available in templates via the
-    new <em>&quot;toolbarPopupClose&quot;</em> option tag)
+    new <em>&quot;toolbarClose&quot;</em> option)
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/48">#48</a>: Deprecate
-    the <em>&quot;toolbarFeature&quot;</em> template option tag and replace with
-    the <em>&quot;toolbarTemplate&quot;</em> option tag
+    the <em>&quot;toolbarFeature&quot;</em> option (still available by inverting 
+    he <em>&quot;toolbarPopup&quot;</em> option)
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/48">#48</a>: Deprecate
-    the <em>&quot;toolbarFeatureDetails&quot;</em> template option tag and replace
-    with the <em>&quot;toolbarTemplateDetails&quot;</em> option tag
+    the <em>&quot;toolbarFeatureDetails&quot;</em> option and replace with the
+    <em>&quot;toolbarStyle&quot;</em> option
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/48">#48</a>: Deprecate
-    the <em>&quot;toolbarFeatureName&quot;</em> template option tag and replace
-    with the <em>&quot;toolbarTemplateName&quot;</em> option tag
+    the <em>&quot;toolbarFeatureName&quot;</em> option and replace with the <em>&quot;toolbarKey&quot;</em>
+    option
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/49">#49</a>: Add new <em>&quot;count&quot;</em>
-    simple tag to allow access to the total number of templates
+    standard variable to enable access to the total number of templates
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/49">#49</a>: Add new <em>&quot;customCount&quot;</em>
-    simple tag to allow access to the total number of custom templates (i.e. excluding
-    predefined)
+    standard variable to enable access to the total number of custom templates
+    (i.e. excluding predefined)
   </li>
   <li>
     <a href="https://github.com/neocotic/template/issues/49">#49</a>: Add new <em>&quot;popular&quot;</em>
-    complex tag to allow access to the details of the most popular template
+    object to enable access to the details of the most popular template
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/49">#49</a>: Restructure
+    <a href="https://github.com/neocotic/template/issues/49">#49</a>: Reorganize
     template data stored in <code>localStorage</code>
   </li>
   <li>
@@ -72,10 +76,136 @@ keywords: template, google, chrome, extension, addon, historical, changes, chang
     process
   </li>
   <li>
-    Bug fixes and <abbr rel="twipsy" title="User Interface">UI</abbr> tweaks
+    <a href="https://github.com/neocotic/template/issues/58">#58</a>: Remove requirement
+    of names for templates
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/59">#59</a>: Reorganize
+    option data stored in <code>localStorage</code>
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/60">#60</a>: Automically
+    save changes on the Options page
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/61">#61</a>: Add new <em>&quot;coords&quot;</em>
+    object to enable access to the user's geolocation
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/62">#62</a>: Add Options
+    link to bottom of context menu (available in templates via the new <em>&quot;menuOptions&quot;</em>
+    option)
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/62">#62</a>: Add Options
+    link to bottom of popup (available in templates via the new <em>&quot;toolbarOptions&quot;</em>
+    option)
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/62">#62</a>: Deprecate the <em>&quot;contextMenu&quot;</em>
+    option and replace with the new <em>&quot;menu&quot;</em> option
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;author&quot;</em>
+    standard variable to enable access to the author from the page's meta information
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;characterSet&quot;</em>
+    standard variable to enable access to the <a href="http://www.iana.org/assignments/character-sets">character set</a>
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;description&quot;</em>
+    standard variable to enable access to the description from the page's meta
+    information
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;depth&quot;</em>
+    standard variable to enable access to the colour depth of the user's screen
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;keywords&quot;</em>
+    list to enable iteration over the keywords from the page's meta information
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;lastModified&quot;</em>
+    standard variable and operation to enable access to the potentially formatted
+    last modified date &amp; time
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;links&quot;</em>
+    list to enable iteration over all of the links on the page
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;pageWidth&quot;</em>
+    and <em>&quot;pageHeight&quot;</em> standard variables to enable access to
+    the page's dimensions
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;plugins&quot;</em>
+    list to enable iteration over the active browser plugins
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;referrer&quot;</em>
+    standard variable to enable access to the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    of the referring page
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;screenWidth&quot;</em>
+    and <em>&quot;screenHeight&quot;</em> standard variables to enable access to
+    the user's screen resolution
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;scripts&quot;</em>
+    list to enable iteration over all of the page's external script sources
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;styleSheets&quot;</em>
+    list to enable iteration over all of the page's external <abbr rel="twipsy" title="Cascading Style Sheets">CSS</abbr>
+    stylesheet sources
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Add new <em>&quot;template&quot;</em>
+    object to enable access to the activated template
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/63">#63</a>: Deprecate
+    the <em>&quot;selectionLinks&quot;</em> list and replace with the new <em>&quot;selectedLinks&quot;</em>
+    list
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/64">#64</a>: Deprecate
+    the <em>&quot;short&quot;</em> standard variable and replace with the new <em>&quot;shorten&quot;</em>
+    operation
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/65">#65</a>: Allow easier
+    access to object properties using dot notation
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/66">#66</a>: Fix bug where
+    some variables are not case-insensitive
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/67">#67</a>: Fix bug where
+    overwriting an existing file during the export process can corrupt the file
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/68">#68</a>: Simplify
+    debugging and testing by adding a new Developer Tools section to the Options
+    page
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/69">#69</a>: Redesign
+    desktop notifications
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/template/issues/70">#70</a>: Redesign
+    <em>Please wait...</em> animation in popup
+  </li>
+  <li>
+    More bug fixes and <abbr rel="twipsy" title="User Interface">UI</abbr> tweaks
   </li>
 </ul>
--->
 <h1><a name="0.3.0.0"></a>2011.12.22, Version 0.3.0.0</h1>
 <ul>
   <li>
