@@ -176,6 +176,22 @@ keywords: template, google, chrome, extension, addon, faq, frequently, asked, qu
   just doing that so the name no longer did it justice. &quot;Template&quot; provides
   a much more accurate description of the functionality and power of this extension.
 </p>
+<h2>
+  <a name="oauth"></a>Why am I no longer logged in to my <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  shortener accounts?
+</h2>
+<p>
+  This section is only relevant for versions updating to <a href="/template/changes#1.0.1">1.0.1</a>
+  from a previous version as the <a href="http://oauth.net">OAuth</a> implementation
+  was upgraded to <a href="http://oauth.net/2">2.0</a> in this release.
+</p>
+<p>
+  Unfortunately, the authorization provided by these services were not compatible
+  with the latest version of this framework so you'll need to re-authorize each
+  affected service in order to associate the links to your account. The <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  key and username for the <a href="http://bit.ly">bit.ly</a> service has been replaced
+  with the new login/logout functionality for easier use and improved security.
+</p>
 <h2><a name="saving"></a>Why are the changes to my templates not being saved?</h2>
 <p>
   This section is only relevant for versions before <a href="/template/changes#1.0.0">1.0.0</a>
