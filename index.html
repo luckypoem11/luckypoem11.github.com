@@ -13,13 +13,14 @@ share: true
 </p>
 <blockquote>
   <p>
-    all links on a page, author, browser version, cookies, description, directory,
+    all links/images on a page, author, browser version, cookies, description, directory,
     encode/decode anything, favicon <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
     file, formatted date &amp; time, fragment, host name, keywords, last modified
     date &amp; time, location, operating system, options, page dimensions, parameters,
     path, plugins, port, protocol, query string, referrer, relative, screen resolution
-    and other information, scripts, segments, selected links/text, shortened <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>,
-    stats, style sheets, title, and the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    and other information, scripts, segments, selected text/<abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>/links/images,
+    shortened <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>, stats,
+    style sheets, title, and the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
     itself of course
   </p>
 </blockquote>
@@ -110,48 +111,29 @@ share: true
   about) and why.
 </p>
 <h2><a name="changes"></a>Changes</h1>
-<h3>Version 1.0.1</h3>
+<h3>Version 1.0.3</h3>
 <ul>
   <li>
-    <a href="https://github.com/neocotic/template/issues/71">#71</a>: Make <a href="http://bit.ly">bit.ly</a>
-    the default <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> shortener
+    <a href="https://github.com/neocotic/template/issues/76">#76</a>: Add new <em>&quot;selectionHTML&quot;</em>
+    list to enabled access to the <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>
+    behind the current selection
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/71">#71</a>: Make unauthenticated
-    <a href="http://bit.ly">bit.ly</a> use the <a href="http://tmpl.at">tmpl.at</a>
-    custom domain
+    <a href="https://github.com/neocotic/template/issues/76">#76</a>: Add new <em>&quot;selectedImages&quot;</em>
+    list to enabled iteration over images within in current selection
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/72">#72</a>: Add <a href="http://oauth.net">OAuth</a>
-    support for <a href="http://bit.ly">bit.ly</a>
+    <a href="https://github.com/neocotic/template/issues/76">#76</a>: Add new <em>&quot;images&quot;</em>
+    list to enable iteration over all of the images on the page
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/72">#72</a>: Add new <em>&quot;bitlyAccount&quot;</em>
-    option to determine whether or not you are logged in to <a href="http://bit.ly">bit.ly</a>
+    <a href="https://github.com/neocotic/template/issues/77">#77</a>: Fix bug preventing
+    access to page-derived template variables
   </li>
   <li>
-    <a href="https://github.com/neocotic/template/issues/72">#72</a>: Remove the
-    <em>&quot;bitlyApiKey&quot;</em> and <em>&quot;bitlyUsername&quot;</em> options
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/73">#73</a>: Add new <em>&quot;yourlsAuthentication&quot;</em>
-    option to determine how the <a href="http://yourls.org">YOURLS</a> <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-    shortener is being authenticated
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/73">#73</a>: Improve <abbr rel="twipsy" title="User Interface">UI</abbr>
-    on Options page in some places
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/74">#74</a>: Implement
-    support for <a href="http://oauth.net/2">OAuth 2.0</a>
-  </li>
-  <li>
-    <a href="https://github.com/neocotic/template/issues/75">#75</a>: Improve extension
-    compatibility system
-  </li>
-  <li>
-    Minor bug fixes and <abbr rel="twipsy" title="User Interface">UI</abbr> tweaks
+    <a href="https://github.com/neocotic/template/issues/78">#78</a>: Remove duplicate
+    <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s from certain
+    lists
   </li>
 </ul>
 <p><a href="/template/changes">View historical changes</a></p>
@@ -177,6 +159,6 @@ share: true
 </p>
 <div class="well bottom">
   <a href="https://chrome.google.com/webstore/detail/dcjnfaoifoefmnbhhlbppaebgnccfddf" rel="twipsy" title="Chrome Web Store" class="btn large primary chrome_install_button">Install</a>
-  <a href="https://github.com/neocotic/template/zipball/v1.0.1" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/template/zipball/v1.0.3" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
   <a href="https://github.com/neocotic/template" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
 </div>
