@@ -3,7 +3,7 @@ layout: page
 ---
 <div class="span3 max sidebar-left">
   <ul class="unstyled">
-    {% for item in menu_items | split:, %}
+    {% for item in page.menu_items | split:, %}
       <li>{{item | markdownify}}</li>
     {% endfor %}
   </ul>
