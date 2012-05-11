@@ -1,0 +1,281 @@
+---
+title: Guide
+metatitle: Standard ~ Guide ~ Template (Chrome)
+subtitle: Standard
+layout: sidebar-template-guide
+description: Get to grips with using standard variables in the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, standard, variables, download, open, source, neocotic, github
+---
+<p>
+  <strong>Standard</strong> variables are generally accessed using simple tags.
+  However, sections (including inverted) can also be used to add conditions.
+</p>
+<table class="bordered-table zebra-striped">
+  <caption><a name="definitions"></a>Definitions</caption>
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="author"></a>author <strong>&sup1;</strong></td>
+      <td>The author from the page's meta information</td>
+    </tr>
+    <tr>
+      <td><a name="base"></a>base</td>
+      <td>The base domain (e.g. <em>https://www.example.com:443</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="browser"></a>browser</td>
+      <td>The name of the browser (i.e. <em>Chrome</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="browser-version"></a>browserVersion</td>
+      <td>The current version of the browser (e.g. <em>16.0.912.77</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="character-set"></a>characterSet <strong>&sup1;</strong></td>
+      <td>
+        The <a href="http://www.iana.org/assignments/character-sets">character set</a>
+        used by the page (e.g. <em>UTF-8</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="cookies-enabled"></a>cookiesEnabled</td>
+      <td>Whether or not cookies are enabled</td>
+    </tr>
+    <tr>
+      <td><a name="count"></a>count</td>
+      <td>The total number of templates</td>
+    </tr>
+    <tr>
+      <td><a name="custom-count"></a>customCount</td>
+      <td>The total number of user-defined templates</td>
+    </tr>
+    <tr>
+      <td><a name="date-time"></a>dateTime</td>
+      <td>
+        The current date &amp; time in <a href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a>
+        format
+      </td>
+    </tr>
+    <tr>
+      <td><a name="depth"></a>depth</td>
+      <td>The colour depth in bits (e.g. <em>24</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="description"></a>description <strong>&sup1;</strong></td>
+      <td>The description from the page's meta information</td>
+    </tr>
+    <tr>
+      <td><a name="directory"></a>directory</td>
+      <td>The directory part of the path (e.g. <em>/folder/dir/</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="favicon"></a>favicon</td>
+      <td>
+        The whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        of the page's favicon
+      </td>
+    </tr>
+    <tr>
+      <td><a name="file"></a>file</td>
+     <td>The basename of the file (e.g. <em>index.html</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="fragment"></a><a name="anchor"></a>fragment/anchor</td>
+      <td>The entire string after the hash (#) symbol</td>
+    </tr>
+    <tr>
+      <td><a name="host"></a>host</td>
+      <td>For example; <em>www.example.com</em>, <em>localhost</em></td>
+    </tr>
+    <tr>
+      <td><a name="java"></a>java</td>
+      <td>Whether or not <a href="http://www.java.com">Java</a> is enabled</td>
+    </tr>
+    <tr>
+      <td><a name="last-modified"></a>lastModified <strong>&sup1;</strong></td>
+      <td>
+        The last modified date &amp; time of the page in <a href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a>
+        format
+      </td>
+    </tr>
+    <tr>
+      <td><a name="link-html"></a>linkHTML <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td>
+        The <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr> behind
+        the contextual (right-clicked) link
+      </td>
+    </tr>
+    <tr>
+      <td><a name="link-markdown"></a>linkMarkdown <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td>
+        The contents of the contextual (right-clicked) link formatted as <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a name="link-text"></a>linkText <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td>The contextual (right-clicked) link text</td>
+    </tr>
+    <tr>
+      <td><a name="offline"></a>offline</td>
+      <td>Whether or not you are currently offline</td>
+    </tr>
+    <tr>
+      <td><a name="original-title"></a>originalTitle</td>
+      <td>
+        The original title of the page (may be different than <a href="#title">title</a>
+        if a supported extension was detected and the value of <a href="#title">title</a>
+        was extracted from this)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="original-url"></a>originalUrl</td>
+      <td>
+        The original whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        being parsed (may be different than <a href="#url">url</a> if a supported
+        extension was detected and the value of <a href="#url">url</a> was extracted
+        from this)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="os"></a>os</td>
+      <td>
+        The family of your operating system (i.e. <em>Windows</em>, <em>Mac</em>,
+        <em>Linux</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="page-height"></a>pageHeight <strong>&sup1;</strong></td>
+      <td>The height of the page</td>
+    </tr>
+    <tr>
+      <td><a name="page-width"></a>pageWidth <strong>&sup1;</strong></td>
+      <td>The width of the page</td>
+    </tr>
+    <tr>
+      <td><a name="path"></a>path</td>
+      <td>The path to the file (e.g. <em>/folder/dir/index.html</em>)</td>
+    </tr>
+    <tr>
+      <td><a name="port"></a>port</td>
+      <td>For example; <em>80</em>, <em>443</em></td>
+    </tr>
+    <tr>
+      <td><a name="protocol"></a>protocol</td>
+      <td>For example; <em>http</em>, <em>https</em>, <em>file</em></td>
+    </tr>
+    <tr>
+      <td><a name="query"></a>query</td>
+      <td>
+        The entire query string if it exists (e.g. <em>item=value&amp;item2=value2</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="referrer"></a>referrer <strong>&sup1;</strong></td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> of the
+        referring page
+      </td>
+    </tr>
+    <tr>
+      <td><a name="relative"></a>relative</td>
+      <td>
+        The relative path to the file including the query string (e.g. <em>/folder/dir/index.html?item=value</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="screen-height"></a>screenHeight</td>
+      <td>The height of the screen</td>
+    </tr>
+    <tr>
+      <td><a name="screen-width"></a>screenWidth</td>
+      <td>The width of the screen</td>
+    </tr>
+    <tr>
+      <td><a name="selection"></a>selection <strong>&sup1;</strong></td>
+      <td>The currently selected text</td>
+    </tr>
+    <tr>
+      <td><a name="selection-html"></a>selectionHTML <strong>&sup1;</strong></td>
+      <td>
+        The <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr> behind
+        the current selection
+      </td>
+    </tr>
+    <tr>
+      <td><a name="selection-markdown"></a>selectionMarkdown <strong>&sup1;</strong></td>
+      <td>
+        The current selection formatted as <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a name="title"></a>title</td>
+      <td>
+        The title of the page or <a href="#url">url</a> if the title could not be
+        detected (e.g. page had not finished loading)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="url"></a>url</td>
+      <td>
+        The whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        being parsed
+      </td>
+    </tr>
+    <tr>
+      <td><a name="version"></a>version</td>
+      <td>
+        The installed version of <a href="/template">Template</a> (e.g. <em>1.0.9</em>)
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <ul class="unstyled" style="margin-bottom: 0">
+          <li>
+            <strong>&sup1;</strong>
+            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
+          </li>
+          <li>
+            <strong>&sup2;</strong>
+            <em>Only available when Template is accessed via the context menu of a link</em>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  A great of example of using standard variables is showing the title of the current
+  page along with its meta description, where possible;
+</p>
+{% highlight html %}
+Title:
+{title}
+Description:
+{#description}{description}{/description}
+{^description}N/A{/description}
+{% endhighlight %}
+<p>
+  Since this page contains a meta description it will output something like this;
+</p>
+{% highlight html %}
+Title:
+Standard ~ Guide ~ Template (Chrome) ~ neocotic
+Description:
+Get to grips with using standard variables in the Template Google Chrome extension
+{% endhighlight %}
+<p>However, if it didn't you can expect to the see the following;</p>
+{% highlight html %}
+Title:
+Standard ~ Guide ~ Template (Chrome) ~ neocotic
+Description:
+N/A
+{% endhighlight %}

@@ -1,0 +1,238 @@
+---
+title: Guide
+metatitle: Lists &amp; Objects ~ Guide ~ Template (Chrome)
+subtitle: Lists &amp; Objects
+layout: sidebar-template-guide
+description: Get to grips with using lists and objects in the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, lists, objects, download, open, source, neocotic, github
+---
+<p>
+  <strong>Lists &amp; Objects</strong> are generally accessed using sections (including
+  inverted) to iterate over and access properties respectively. However, simple
+  tags can be used to output the contents of a list or the properties of an object
+  in <abbr rel="twipsy" title="Comma-Separated Values">CSV</abbr> format.
+</p>
+<table class="bordered-table zebra-striped">
+  <caption><a name="definitions"></a>Definitions</caption>
+  <thead>
+    <tr>
+      <th style="width: 25%">Name</th>
+      <th style="width: 15%">Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a name="cookies"></a>cookies</td>
+      <td>List</td>
+      <td>The names of all cookies associated with the page</td>
+    </tr>
+    <tr>
+      <td><a name="coords"></a>coords</td>
+      <td>Object</td>
+      <td>
+        The properties of your current physical location (e.g. <em>latitude</em>,
+        <em>longitude</em> and many more)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fparams"></a>fparams</td>
+      <td>Object</td>
+      <td>
+        The key/value pairs of all parameters within the hash fragment (e.g. fragment
+        <code>foo=bar&amp;fu=baz</code> contains <em>foo</em> and <em>fu</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="fsegments"></a>fsegments</td>
+      <td>List</td>
+      <td>The segments from the hash fragment's path</td>
+    </tr>
+    <tr>
+      <td><a name="images"></a>images <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of all
+        images on the page
+      </td>
+    </tr>
+    <tr>
+      <td><a name="keywords"></a>keywords <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>The keywords from the page's meta information</td>
+    </tr>
+    <tr>
+      <td><a name="links"></a>links <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of all
+        links on the page
+      </td>
+    </tr>
+    <tr>
+      <td><a name="params"></a>params</td>
+      <td>Object</td>
+      <td>
+        The key/value pairs of all parameters (e.g. query <code>foo=bar&amp;fu=baz</code>
+        contains <em>foo</em> and <em>fu</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="plugins"></a>plugins</td>
+      <td>List</td>
+      <td>
+        The names of all enabled browser plugins (e.g. <em>Shockwave Flash</em>)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="popular"></a>popular</td>
+      <td>Object</td>
+      <td>
+        The properties of your most popular template (e.g. <em>title</em>, <em>content</em>,
+        <em>shortcut</em> and many more)
+      </td>
+    </tr>
+    <tr>
+      <td><a name="scripts"></a>scripts <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of all
+        external script used by the page
+      </td>
+    </tr>
+    <tr>
+      <td><a name="segments"></a>segments</td>
+      <td>List</td>
+      <td>
+        The segments from the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>'s
+        path
+      </td>
+    </tr>
+    <tr>
+      <td><a name="selected-images"></a>selectedImages <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of
+        all images within the current selection
+      </td>
+    </tr>
+    <tr>
+      <td><a name="selected-links"></a>selectedLinks <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of
+        all links within the current selection
+      </td>
+    </tr>
+    <tr>
+      <td><a name="style-sheets"></a>styleSheets <strong>&sup1;</strong></td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of all
+        external <abbr rel="twipsy" title="Cascading Style Sheets">CSS</abbr> resources
+        used by the page
+      </td>
+    </tr>
+    <tr>
+      <td><a name="tabs"></a>tabs</td>
+      <td>List</td>
+      <td>
+        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>s of all
+        tabs open in the current window
+      </td>
+    </tr>
+    <tr>
+      <td><a name="template"></a>template</td>
+      <td>Object</td>
+      <td>
+        The properties of the activated template (e.g. <em>title</em>, <em>image</em>,
+        <em>usage</em> and many more)
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <ul class="unstyled" style="margin-bottom: 0">
+          <li>
+            <strong>&sup1;</strong>
+            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<h2><a name="examples"></a>Examples</h2>
+<p>This page's information will be used in the following examples.</p>
+<p>
+  As it's a list, you can do the following to iterate over all the <a href="#segments">segments</a>;
+</p>
+{% highlight html %}
+Follow the breadcrumbs;
+{#segments}
+ * {.}
+{/segments}
+{% endhighlight %}
+<p>Would output the following;</p>
+{% highlight html %}
+Follow the breadcrumbs;
+ * template
+ * guide
+ * lists-objects
+{% endhighlight %}
+<p>
+  In order to access the properties of an object it couldn't be any easier than
+  this;
+</p>
+{% highlight html %}
+{#params}foo is "{foo}" and fu is "{fu}".{/params}
+{^params}No parameters could be found!{/params}
+{% endhighlight %}
+<p>
+  Since this page has (or at least should have) no parameters it would output the
+  following;
+</p>
+{% highlight html %}
+No parameters could be found!
+{% endhighlight %}
+<p>
+  However, if it was to have something like <code>foo=bar&amp;fu=baz</code> as its
+  query string it would output this;
+</p>
+{% highlight html %}
+foo is "bar" and fu is "baz".
+{% endhighlight %}
+<p>
+  Alternatively, this could be achieved using <a href="/template/guide#dot-notation">dot notation</a>
+  as follows;
+</p>
+{% highlight html %}
+foo is "{params.foo}" and fu is "{params.fu}".
+{% endhighlight %}
+<p>
+  Using the following you can access the name and values of all available cookies;
+</p>
+{% highlight html %}
+The site has following information stored;
+{#cookies}
+ * {.} = "{#cookie}{.}{/cookie}"
+{/cookies}
+{% endhighlight %}
+<p>This will output in something like the following;</p>
+{% highlight html %}
+The site has following information stored;
+ * JSESSIONID = "2pkffy9ivmpfwntf12y6o4cgu"
+ * __utmc = "224978569"
+{% endhighlight %}
+<p>
+  If you would like to embed a map of your current location (e.g. in a blog post)
+  try the following snippet;
+</p>
+{% highlight html %}
+{#coords}
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?ll={latitude},{longitude}&output=embed"></iframe>
+<br>
+<small><a href="http://maps.google.com/maps?ll={latitude},{longitude}&source=embed">View Larger Map</a></small>
+{/coords}
+{% endhighlight %}

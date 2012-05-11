@@ -1,0 +1,94 @@
+---
+title: Guide
+metatitle: Introduction ~ Guide ~ Template (Chrome)
+subtitle: Introduction
+layout: sidebar-template-guide
+description: Need help writing templates? Read this guide for the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, download, open, source, neocotic, github
+---
+<p>
+  <a href="/template">Template</a> uses an advanced, yet simple, template system
+  to allows you to create and modify the content to be copied to the clipboard.
+  The syntax is really straight-forward and consists of the following categories;
+</p>
+<h2><a name="simple-tag"></a>Simple Tag</h2>
+<p>
+  Tags are always surrounded by curly braces like this <code>{name}</code> and output
+  the value of the named variable. If that value is undefined or <em>falsey</em>
+  it will simply be deleted.
+</p>
+<p>
+  Values are not escaped by default and, in order to do so, you must use double
+  braces like this <code>{{ '{{name' }}}}</code>. This will escape <code>&amp;</code>
+  <code>&lt;</code> <code>&gt;</code> <code>&quot;</code> <code>&#39;</code> characters
+  so that the final output can be safely copied in to <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr>
+  and <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>.
+</p>
+<h2><a name="section"></a>Section</h2>
+<p>
+  Sections are always surrounded by opening and closing tags like this <code>{#name}...{/name}</code>
+  and can be used for the following purposes;
+</p>
+<ul>
+  <li>
+    <strong>Conditions</strong> - Only renders the contents if the value is <em>truey</em>
+  </li>
+  <li>
+    <strong>Iterating</strong> - If the value is an array it will render the contents
+    for each enumerable item of that value
+  </li>
+  <li>
+    <strong>Access</strong> - If the value is an object it will render the contents
+    while exposing the properties of that object as variables
+  </li>
+  <li>
+    <strong>Operations</strong> - Renders the outcome of the operation, passing
+    the contents as the argument
+  </li>
+</ul>
+<h2><a name="inverted-section"></a>Inverted Section</h2>
+<p>
+  Inverted sections are very similar to normal sections but are written like this
+  <code>{^name}...{/name}</code> and can be used in for the following purposes;
+</p>
+<ul>
+  <li>
+    <strong>Conditions</strong> - Only renders the contents if the value is <em>falsey</em>
+  </li>
+  <li>
+    <strong>Iterating</strong> - Only renders the contents if the value is an empty
+    list
+  </li>
+  <li>
+    <strong>Access</strong> - Only renders the contents if the value is an empty
+    object
+  </li>
+</ul>
+<h2><a name="dot-notation"></a>Dot Notation</h2>
+<p>
+  Nested properties of objects can also be accessed using dot notation like <code>{name.nested}</code>
+  which would get the <em>nested</em> property of the <em>name</em> object. These
+  expressions can be even chained to access properties of nested properties and
+  so on.
+</p>
+<h2><a name="case-sensitivity"></a>Case Sensitivity</h2>
+<p>
+  The names of simple tags and sections are case-insensitive, therefore <code>{name}</code>
+  will output the same as <code>{NaMe}</code>. However, sections must be opened
+  and closed with names in the same case (i.e. <code>{#name}...{/NaMe}</code> will
+  not work).
+</p>
+<div class="well bottom">
+  <h3><a name="notes"></a>Notes</h3>
+  <p>
+    If you are having problems with understanding this guide please <a href="https://template.uservoice.com">let us know</a>
+    and we will try to help you and take your comments on board, updating the documentation
+    if required.
+  </p>
+  <p>
+    If you encounter any problems while using <a href="/template">Template</a> and/or
+    would like to see a change or addition, please <a href="https://template.uservoice.com">raise a ticket</a>
+    and we will have a look at it.
+  </p>
+  <p>For more examples, try looking at the predefined templates.</p>
+</div>

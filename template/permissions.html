@@ -1,0 +1,72 @@
+---
+title: Permissions
+metatitle: Permissions ~ Template (Chrome)
+layout: full-width
+description: Get a better understanding of the permissions required by the Template Google Chrome extension
+keywords: template, google, chrome, extension, addon, required, permissions, download, open, source, neocotic, github
+---
+<p>
+  The <a href="http://google.com/chrome">Google Chrome</a> permissions mentioned
+  on this page are required by the <a href="/template">Template</a> extension to
+  function.
+</p>
+<p>
+  Some of these permissions can be quite scary so I have attempted to explain why
+  each one is required. If you doubt these explanations or are simply curious please
+  feel free to take a look at the <a href="https://github.com/neocotic/template">source code</a>
+  yourself. It is open source after all.
+</p>
+<h2><a name="visible"></a>Visible</h2>
+<p>
+  These permissions are displayed on the <a href="https://chrome.google.com/webstore/detail/dcjnfaoifoefmnbhhlbppaebgnccfddf">extension's page</a>
+  and on the warning message displayed to the user;
+</p>
+<ul>
+  <li>
+    <strong>&quot;Data you copy and paste&quot;</strong> - Although this is a no-brainer
+    for most of you, some long-term users may wonder why this wasn't always displayed.
+    Well, that's because this permission didn't even exist until <a href="http://code.google.com/chrome/extensions/whats_new.html#13">Chrome 13</a>,
+    where it was introduced.
+  </li>
+  <li>
+    <strong>&quot;Your browsing history&quot;</strong> - This is required in order
+    to execute the keyboard shortcut and <abbr rel="twipsy" title="Document Object Model">DOM</abbr>
+    parser script on all previously opened pages. This functionality is required
+    when installing/updating/re-enabling the extension.
+  </li>
+  <li>
+    <strong>&quot;Your physical location&quot;</strong> - This is required for
+    the <span class="label">coords</span> object variable.
+  </li>
+  <li>
+    <strong>&quot;Your data on all websites&quot;</strong> - This is caused by
+    the need to read the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+    and page title as well as injecting the keyboard shortcut and <abbr rel="twipsy" title="Document Object Model">DOM</abbr>
+    parser script in to all possible pages.
+  </li>
+</ul>
+<p>
+  Further information on these permissions can be <a href="http://code.google.com/chrome/extensions/permission_warnings.html#warnings">found here</a>
+  and <a href="http://www.google.com/support/chrome_webstore/bin/answer.py?hl=en&answer=186213">here</a>.
+</p>
+<h2><a name="hidden"></a>Hidden</h2>
+<p>
+  Users are not informed about these permissions but are required by this extension;
+</p>
+<ul>
+  <li>
+    <strong>&quot;contextMenus&quot;</strong> - This is required to support the
+    context (right-click) menus.
+  </li>
+  <li>
+    <strong>&quot;cookies&quot;</strong> - This is required to make cookie information
+    accessible to templates.
+  </li>
+  <li>
+    <strong>&quot;notifications&quot;</strong> - This is required to display notifications
+    to the user (if the associated option is enabled).
+  </li>
+</ul>
+<p>
+  Further information on these permissions can be <a href="http://code.google.com/chrome/extensions/permission_warnings.html#nowarning">found here</a>.
+</p>
