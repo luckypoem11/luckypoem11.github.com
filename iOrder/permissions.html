@@ -1,0 +1,58 @@
+---
+title: Permissions
+metatitle: Permissions ~ iOrder
+layout: full-width
+description: Get a better understanding of the permissions required by the iOrder Google Chrome extension
+keywords: iorder, google, chrome, extension, addon, required, permissions, download, open, source, neocotic, github
+---
+<p>
+  The <a href="http://google.com/chrome">Google Chrome</a> permissions mentioned
+  on this page are required by the <a href="/iOrder">iOrder</a> extension to function.
+</p>
+<p>
+  Some of these permissions can be quite scary so I have attempted to explain why
+  each one is required. If you doubt these explanations or are simply curious please
+  feel free to take a look at the <a href="https://github.com/neocotic/iOrder">source code</a>
+  yourself. It is open source after all.
+</p>
+<h2><a name="visible"></a>Visible</h2>
+<p>
+  These permissions are displayed on the <a href="https://chrome.google.com/webstore/detail/kflemogpkbophbipihnbcmlplbihbdhb">extension's page</a>
+  and on the warning message displayed to the user;
+</p>
+<ul>
+  <li>
+    <strong>&quot;Your data on neocotic.com&quot;</strong> - This is required to
+    for the <a href="http://code.google.com/chrome/webstore/docs/inline_installation.html">inline installations</a>
+    process to update the <em>Install</em> buttons on the homepage once <a href="/iOrder">iOrder</a>
+    has been successfully installed.
+  </li>
+  <li>
+    <strong>&quot;Your data on store.apple.com&quot;</strong> - This is required
+    as <a href="/iOrder">iOrder</a> requests your order's page from this website
+    and parses the response to check for any status updates and to extract the tracking
+    link.
+  </li>
+  <li>
+    <strong>&quot;Your tabs and browsing activity&quot;</strong> - This is required
+    to prevent the <em>Options</em> link in the popup from opening a new tab each
+    time it's clicked.
+  </li>
+</ul>
+<p>
+  Further information on these permissions can be <a href="http://code.google.com/chrome/extensions/permission_warnings.html#warnings">found here</a>
+  and <a href="http://www.google.com/support/chrome_webstore/bin/answer.py?hl=en&answer=186213">here</a>.
+</p>
+<h2><a name="hidden"></a>Hidden</h2>
+<p>
+  Users are not informed about these permissions but are required by <a href="/iOrder">iOrder</a>;
+</p>
+<ul>
+	<li>
+    <strong>&quot;notifications&quot;</strong> - This is required to display notifications
+    to the user (if the associated option is enabled).
+  </li>
+</ul>
+<p>
+  Further information on these permissions can be <a href="http://code.google.com/chrome/extensions/permission_warnings.html#nowarning">found here</a>.
+</p>
