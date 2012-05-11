@@ -1,0 +1,45 @@
+---
+title: Permissions
+metatitle: Permissions ~ Undo Wikipedia Blackout
+layout: full-width
+description: Get a better understanding of the permissions required by the Undo Wikipedia Blackout Google Chrome extension
+keywords: undo, wikipedia, blackout, google, chrome, extension, addon, required, permissions, download, open, source, neocotic, github
+---
+<p>
+  The <a href="http://google.com/chrome">Google Chrome</a> permissions mentioned
+  on this page are required by the <a href="/UndoWikipediaBlackout">Undo Wikipedia Blackout</a>
+  extension to function.
+</p>
+<p>
+  Some of these permissions can be quite scary so I have attempted to explain why
+  each one is required. If you doubt these explanations or are simply curious please
+  feel free to take a look at the <a href="https://github.com/neocotic/UndoWikipediaBlackout">source code</a>
+  yourself. It is open source after all.
+</p>
+<h2><a name="visible"></a>Visible</h2>
+<p>
+  These permissions are displayed on the <a href="https://chrome.google.com/webstore/detail/gbgogigdaibinioohdhejplmajgkkfdn">extension's page</a>
+  and on the warning message displayed to the user;
+</p>
+<ul>
+  <li>
+    <strong>&quot;Your data on neocotic.com&quot;</strong> - This is required to
+    for the <a href="http://code.google.com/chrome/webstore/docs/inline_installation.html">inline installations</a>
+    process to update the <em>Install</em> buttons on the homepage once <a href="/UndoWikipediaBlackout">Undo Wikipedia Blackout</a>
+    has been successfully installed.
+  </li>
+  <li>
+    <strong>&quot;Your data on wikipedia.org&quot;</strong> - This is caused by
+    the need to inject the script that prevents the blackout from being displayed.
+  </li>
+  <li>
+    <strong>&quot;Your tabs and browsing activity&quot;</strong> - This is caused
+    by the need to inject the blackout prevention script in all previously opened
+    pages on <a href="http://wikipedia.org">Wikipedia</a>. This functionality is
+    required when installing/updating the extension.
+  </li>
+</ul>
+<p>
+  Further information on these permissions can be <a href="http://code.google.com/chrome/extensions/permission_warnings.html#warnings">found here</a>
+  and <a href="http://www.google.com/support/chrome_webstore/bin/answer.py?hl=en&answer=186213">here</a>.
+</p>
