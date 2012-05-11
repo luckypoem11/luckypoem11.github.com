@@ -1,0 +1,13 @@
+---
+layout: page
+---
+<div class="span3 max sidebar-left">
+  <ul class="unstyled">
+    {% for item in menu_items | split:, %}
+      <li>{{item | markdownify}}</li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="span10 max">
+  {{content}}
+</div>
