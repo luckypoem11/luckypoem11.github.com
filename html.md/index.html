@@ -1,0 +1,69 @@
+---
+title: html.md
+layout: full-width
+description: html.md is a pure JavaScript library for converting HTML in to valid Markdown
+keywords: html, markdown, convert, javascript, library, download, open, source, neocotic, github
+share: true
+---
+<p>
+  <a href="/html.md">html.md</a> is a JavaScript library that converts <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>
+  in to valid <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>.
+</p>
+<p>
+  Originally based on the <a href="http://homepage.mac.com/tjim">Make.text</a>
+  bookmarklet but with cleaner safer code and not to mention a new simple and understandable
+  <abbr rel="twipsy" title="Application Programming Interface">API</abbr>.
+</p>
+<h2><a name="standard-usage"></a>Standard Usage</h2>
+<p>
+  Convert the an <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>
+  element or string in to <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>.
+</p>
+{% highlight javascript %}
+md(html[, options])
+{% endhighlight %}
+<h2><a name="config"></a>Configuration</h2>
+<p>
+  The behaviour of <a href="/html.md">html.md</a> can easily be configured further
+  to suit your needs by passing an object as the second argument to the main call.
+</p>
+{% highlight javascript %}
+options.debug = true
+{% endhighlight %}
+<p>Whether or not debug information is logged in the console.</p>
+<h2><a name="misc"></a>Miscellaneous</h2>
+<p>
+  The <a href="/html.md">html.md</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  exposes some properties and methods which may only be useful to users in special
+  cases.
+</p>
+{% highlight javascript %}
+md.noConflict()
+{% endhighlight %}
+<p>
+  Relinquish <a href="/html.md">html.md</a>'s control of the <code>md</code> global
+  variable. If another library uses this variable calling this method will reassign
+  it back to that library.
+</p>
+{% highlight javascript %}
+md.VERSION
+{% endhighlight %}
+<p>The current version of <a href="/html.md">html.md</a>.</p>
+<h2><a name="bugs"></a>Bugs</h2>
+<p>
+  If you have any problems with this library or would like to see the changes currently
+  in development <a href="https://github.com/neocotic/html.md/issues">browse our issues</a>.
+</p>
+<h2><a name="questions"></a>Questions?</h2>
+<p>
+  Take a look at the <a href="/html.md/docs/md.html">documentation</a> to get a
+  better understanding of what the code is doing.
+</p>
+<p>
+  If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
+  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
+</p>
+<div class="well bottom">
+  <a href="https://github.com/neocotic/html.md/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/html.md" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+</div>
