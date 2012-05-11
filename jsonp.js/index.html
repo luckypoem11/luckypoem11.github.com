@@ -1,0 +1,74 @@
+---
+title: jsonp.js
+layout: full-width
+description: jsonp.js is a simple JSONP JavaScript library
+keywords: jsonp, javascript, library, download, open, source, neocotic, github
+share: true
+---
+<p>
+  <a href="/jsonp.js">jsonp.js</a> is a library that provides simple <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>
+  support for JavaScript.
+</p>
+<h2><a name="get"></a>Get</h2>
+<p>
+  Send the parameters to the provided <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  and then handle the response with a function which is called under a specific
+  context.
+</p>
+{% highlight javascript %}
+JSONP.get(url[, data][, callback][, context])
+{% endhighlight %}
+<h2><a name="config"></a>Configuration</h2>
+<p>
+  The behaviour of <a href="/jsonp.js">jsonp.js</a> can easily be configured further
+  to suit your needs or that of the web service you're calling.
+</p>
+{% highlight javascript %}
+JSONP.callbackName = "callback"
+{% endhighlight %}
+<p>
+  Change the name of the callback parameter declaring the name of the callback function.
+</p>
+{% highlight javascript %}
+JSONP.timeout = 0
+{% endhighlight %}
+<p>
+  The number of milliseconds before a request times out. Requests won't timeout
+  if the value is below <code>1</code>.
+</p>
+<h2><a name="misc"></a>Miscellaneous</h2>
+<p>
+  The <a href="/jsonp.js">jsonp.js</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  exposes some properties and methods which may only be useful to users in special
+  cases.
+</p>
+{% highlight javascript %}
+JSONP.noConflict()
+{% endhighlight %}
+<p>
+  Relinquish <a href="/jsonp.js">jsonp.js'</a> control of the <code>JSONP</code>
+  global variable. If another library uses this variable calling this method will
+  reassign it back to that library.
+</p>
+{% highlight javascript %}
+JSONP.VERSION
+{% endhighlight %}
+<p>The current version of <a href="/jsonp.js">jsonp.js</a>.</p>
+<h2><a name="bugs"></a>Bugs</h2>
+<p>
+  If you have any problems with this library or would like to see the changes currently
+  in development <a href="https://github.com/neocotic/jsonp.js/issues">browse our issues</a>.
+</p>
+<h2><a name="questions"></a>Questions?</h2>
+<p>
+  Take a look at the <a href="/jsonp.js/docs/jsonp.html">documentation</a> to get
+  a better understanding of what the code is doing.
+</p>
+<p>
+  If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
+  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
+</p>
+<div class="well bottom">
+  <a href="https://github.com/neocotic/jsonp.js/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/jsonp.js" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+</div>
