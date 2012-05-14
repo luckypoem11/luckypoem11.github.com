@@ -1,0 +1,169 @@
+---
+title: mor.js
+layout: full-width
+description: mor.js is a pure JavaScript library for encoding/decoding Morse code messages
+keywords: morse, code, morjs, javascript, library, encode, decode, download, open, source, neocotic, github
+share: true
+---
+<p>
+  <a href="/mor.js">mor.js</a> is a pure JavaScript library for encoding/decoding
+  <a href="http://en.wikipedia.org/wiki/Morse_code">Morse code</a> messages.
+</p>
+<p>
+  The library provides a very simple <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  that exposes the easy encoding/decoding functionality while only exposing a single
+  global variable (<code>morjs</code>). The predefined Morse alphabet is based on
+  the <a href="http://en.wikipedia.org/wiki/International_Telecommunication_Union">International Telecommunication Union</a>
+  (ITU) but <a href="/mor.js">mor.js</a> allows this to be easily extended by adding
+  and/or modifying characters.
+</p>
+<h2><a name="instructions"></a>Translating messages</h2>
+<p>
+  The <abbr rel="twipsy" title="Application Programming Interface">API</abbr> allows
+  either a <code>data</code> object or string <code>message</code> to be passed
+  as the first argument. If a string is used all options will use their default
+  value; otherwise they can be set using the following properties;
+</p>
+<ul>
+  <li><code>message</code> - The message to be translated.</li>
+  <li><code>[mode]</code> - The mode to be used to translate the message.</li>
+  <ul>
+    <li><code>classic</code> mode is used if not specified.</li>
+  </ul>
+</ul>
+<h3><a name="encode"></a>Encoding</h3>
+{% highlight javascript %}
+morjs.encode([data|message][, callback(error, result)])
+{% endhighlight %}
+<p>This returns the message provided encoded in Morse code.</p>
+<h3><a name="decode"></a>Decoding</h3>
+{% highlight javascript %}
+morjs.encode([data|message][, callback(error, result)])
+{% endhighlight %}
+<p>
+  This returns the human-readable message decoded from the Morse code provided.
+</p>
+<h2><a name="customize"></a>Customizing</h2>
+<p>
+  In order to get the most out of <a href="/mor.js">mor.js</a> the <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  also exposes two methods which allow you to define (or redefine) supported characters
+  and translation modes.
+</p>
+<h3><a name="define-char"></a>Defining characters</h3>
+{% highlight javascript %}
+morjs.defineChar(character, pattern[, callback(error)])
+{% endhighlight %}
+<p>
+  This method maps a Morse alphabet pattern for a supported character (existing/new).
+  When defining a character it's recommended to specify its value using a
+  <a href="https://developer.mozilla.org/en/JavaScript/Guide/Values,_Variables,_and_Literals#Unicode_Escape_Sequences">Unicode escape sequence</a>
+  (codes can easily be found on <a href="http://en.wikipedia.org/wiki/List_of_Unicode_characters">Wikipedia</a>)
+  and follow these guidelines when specifying the pattern;
+</p>
+<ul>
+  <li>
+    Must be a combination of <code>S</code> and <code>L</code> characters.
+  </li>
+  <ul>
+    <li><strong>S</strong> - Short mark (dot)</li>
+    <li><strong>L</strong> - Longer mark (dash)</li>
+  </ul>
+  <li>Must contain a minimum of one valid character.</li>
+  <li>
+    May be a duplicate but not recommended as <a href="#decode">decoding</a> chooses
+    the character that matches the pattern first.
+  </li>
+  <li>Use a <em>recognized</em> pattern for that character <a href="http://en.wikipedia.org/wiki/Other_alphabets_in_Morse_code">where possible</a>.</li>
+</ul>
+{% highlight javascript %}
+morjs.defineChar('\u0642', 'SSSLLL'); // Arabic Letter Qaf
+morjs.encode({message: 'ق'});         // · · · - - -
+{% endhighlight %}
+<h3><a name="define-mode"></a>Defining modes</h3>
+{% highlight javascript %}
+morjs.defineMode(name, characters[, callback(error)])
+{% endhighlight %}
+<p>
+  This method maps a set of characters to a translation mode (existing/new). When
+  defining a mode the order of the elements in the <code>characters</code> array
+  determines the implementation;
+</p>
+<ol start="0">
+  <li>Short mark (dot)</li>
+  <li>Longer mark (dash)</li>
+  <li>Intra-character gap (between dots and dashes within a character)</li>
+  <li>Short gap (between letters)</li>
+  <li>Medium gap (between words)</li>
+</ol>
+{% highlight javascript %}
+morjs.encode({message: 'Invert', mode: 'simple'});        // 00,10,0001,0,010,1
+morjs.defineMode('simple-invert', [
+  '\u0031', // 1
+  '\u0030', // 0
+  '',       // Nothing
+  '\u002C', // Comma
+  '\u0020'  // Space
+]);
+morjs.encode({message: 'Invert', mode: 'simple-invert'}); // 11,01,1110,1,101,0
+{% endhighlight %}
+<h2><a name="misc"></a>Miscellaneous</h2>
+<p>
+  The <a href="/mor.js">mor.js</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  exposes some properties and methods which may only be useful to users in special
+  cases.
+</p>
+{% highlight javascript %}
+morjs.chars([callback(error, chars)])
+morjs.modes([callback(error, modes)])
+{% endhighlight %}
+<p>
+  Retrieve a read-only version of the currently loaded modes and characters.
+</p>
+{% highlight javascript %}
+morjs.noConflict([callback(error)])
+{% endhighlight %}
+<p>
+  Relinquish <a href="/mor.js">mor.js'</a> control of the <code>morjs</code> global
+  variable. If another library uses this variable calling this method will reassign
+  it back to that library.
+</p>
+{% highlight javascript %}
+morjs.VERSION
+{% endhighlight %}
+<p>The current version of <a href="/mor.js">mor.js</a>.</p>
+<h2><a name="changes"></a>Changes</h2>
+<h3>Version 1.0.2</h3>
+<ul>
+  <li>
+    <a href="https://github.com/neocotic/mor.js/issues/1">#1</a>: Add support for
+    single string or object argument to the <code>encode</code> and <code>decode</code>
+    methods
+  </li>
+  <li>
+    <a href="https://github.com/neocotic/mor.js/issues/3">#3</a>: Expose read-only
+    versions of the internal <code>chars</code> and <code>modes</code> variables
+  </li>
+</ul>
+<p><a href="/mor.js/changes">View historical changes</a></p>
+<h2><a name="bugs"></a>Bugs</h2>
+<p>
+  If you have any problems with this library or would like to see the changes currently
+  in development <a href="https://github.com/neocotic/mor.js/issues">browse our issues</a>.
+</p>
+<p>
+  Developers should <a href="/mor.js/test">run all tests</a> (locally) and ensure they
+  pass before submitting a pull request.
+</p>
+<h2><a name="questions"></a>Questions?</h2>
+<p>
+  Take a look at the <a href="/mor.js/docs/mor.html">documentation</a> to get a
+  better understanding of what the code is doing.
+</p>
+<p>
+  If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
+  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
+</p>
+<div class="well bottom">
+  <a href="https://github.com/neocotic/mor.js/zipball/1.0.2" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/mor.js" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+</div>
