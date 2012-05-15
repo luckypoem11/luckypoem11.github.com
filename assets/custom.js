@@ -14,6 +14,9 @@ $(function() {
     }
   });
 
+  // Active dropdown menus.
+  $('.topbar').dropdown();
+
   // Activate twipsy tooltips.
   $('[rel=twipsy]').twipsy({live: true});
 
