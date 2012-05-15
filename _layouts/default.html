@@ -36,7 +36,9 @@
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-72x72.png" sizes="72x72">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-114x114.png" sizes="114x114">
     <link rel="alternate" href="http://feeds.feedburner.com/neocotic" title="neocotic" type="application/atom+xml">
-    {% include chrome-extensions.html %}
+  {% for extension in site.chrome_extensions %}
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/{{extension}}">
+  {% endfor %}
   </head>
   <body>
     <div class="topbar">
@@ -47,8 +49,14 @@
             <li data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)"><a href="/">Home</a></li>
             <li data-activate="^\/about(\.html)?$"><a href="/about">About</a></li>
             <li class="dropdown">
-              <a href="https://github.com/neocotic" class="dropdown-toggle">Projects</a>
-              <ul class="dropdown-menu" id="projects-dropdown"></ul>
+              <a href="#" class="dropdown-toggle">Projects</a>
+              <ul class="dropdown-menu">
+              {% for project in site.projects %}
+                <li><a href="/{{project}}">{{project}}</a></li>
+              {% endfor %}
+                <li class="divider"></li>
+                <li><a href="https://github.com/neocotic">View All</a></li>
+              </ul>
             </li>
           </ul>
           <form action="/search" class="pull-right">

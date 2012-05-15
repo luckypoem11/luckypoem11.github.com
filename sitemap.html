@@ -15,7 +15,9 @@ title: Sitemap
     <div class="span3">
       <h2>Projects</h2>
       <ul class="unstyled">
-{% include repos.html %}
+      {% for project in site.projects %}
+        <li><a href="/{{project}}">{{project}}</a></li>
+      {% endfor %}
       </ul>
     </div>
     <div class="span8">

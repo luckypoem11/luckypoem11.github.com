@@ -37,5 +37,12 @@ layout: nil
     <priority>0.2</priority>
   </url>
 {% endfor %}
-{% include repos.xml %}
+{% for project in site.projects %}
+  <url>
+    <loc>http://neocotic.com/{{project}}</loc>
+    <lastmod>{{site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+{% endfor %}
 </urlset>
