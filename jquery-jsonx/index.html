@@ -1,0 +1,107 @@
+---
+title: jquery-jsonx
+layout: full-width
+description: jquery-jsonx is a plugin for the library that provides support for XML to JSON transformations and vice versa
+keywords: jsonx, json, xml, javascript, jquery, plugin, transform, convert, download, open, source, neocotic, github
+share: true
+---
+<p>
+  <a href="/jquery-jsonx">jquery-jsonx</a> is a <a href="http://jquery.com/">jQuery</a>
+  plugin which allows simple transformation between <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr>
+  and <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr>.
+</p>
+<p>
+  This is a <a href="http://jquery.com/">jQuery</a> implementation for the <a href="/jsonx">JSONX</a>
+  JavaScript library which provides the same transformation support as well as additional
+  manipulation and management using the powerful <a href="http://jquery.com/">jQuery</a>
+  framework.
+</p>
+<p>More information is coming soon...</p>
+<h2><a name="json-xml"></a><abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr> to <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr></h2>
+{% highlight javascript %}
+$(*).jsonx(Object[]|String)
+$.jsonx(Object[]|String)
+$(*).jsonx('build', Object[]|String)
+$.jsonx('build', Object[]|String)
+{% endhighlight %}
+<h2><a name="xml-json"></a><abbr rel="twipsy" title="Extensible Markup Language">XML</abbr> to <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr></h2>
+{% highlight javascript %}
+$(*).jsonx('parse', jQuery|String)
+$.jsonx('parse', jQuery|String)
+{% endhighlight %}
+<p>
+  The argument for <code>parse</code> is entirely optional and the <a href="http://jquery.com/">jQuery</a>
+  context will be parsed if this argument is neglected.
+</p>
+<h2><a name="stringify"></a>Stringify</h2>
+{% highlight javascript %}
+$(*).jsonx('stringify', jQuery|Object[])
+$.jsonx('stringify', jQuery|Object[])
+{% endhighlight %}
+<p>
+  The argument for <code>stringify</code> is entirely optional and the <a href="http://jquery.com/">jQuery</a>
+  context will be transformed in to a string if this argument is neglected.
+</p>
+<h2><a name="grammar"></a>Grammar</h2>
+<p>
+  The following grammar (<abbr rel="twipsy" title="Backus–Naur Form">BNF</abbr>)
+  represents the <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr>
+  to <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr> transformation;
+</p>
+<div class="highlight"><pre><code>element
+  = '[' element-name ',' attributes ',' element-list ']'
+  | '[' element-name ',' attributes ']'
+  | '[' element-name ',' element-list ']'
+  | '[' element-name ']'
+  | string
+  ;
+element-name
+  = string
+  ;
+attributes
+  = '{' attribute-list '}'
+  | '{' '}'
+  ;
+attribute-list
+  = attribute ',' attribute-list
+  | attribute
+  ;
+attribute
+  = attribute-name ':' attribute-value
+  ;
+attribute-name
+  = string
+  ;
+attribute-value
+  = string
+  | number
+  | 'true'
+  | 'false'
+  | 'null'
+  ;
+element-list
+  = element ',' element-list
+  | element
+  ;</code></pre></div>
+<h2><a name="bugs"></a>Bugs</h2>
+<p>
+  If you have any problems with this plugin or would like to see the changes currently
+  in development <a href="https://github.com/neocotic/jquery-jsonx/issues">browse our issues</a>.
+</p>
+<p>
+  Developers should run all tests and ensure they pass before submitting a pull
+  request.
+</p>
+<h2><a name="questions"></a>Questions?</h2>
+<p>
+  Take a look at the documentation to get a better understanding of what the code
+  is doing.
+</p>
+<p>
+  If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
+  <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
+</p>
+<div class="well bottom">
+  <a href="https://github.com/neocotic/jquery-jsonx/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
+  <a href="https://github.com/neocotic/jquery-jsonx" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+</div>
