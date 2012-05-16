@@ -2,90 +2,90 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-  {% if page.metatitle %}
-    <title>{{page.metatitle}} ~ neocotic</title>
-  {% elsif page.title %}
-    <title>{{page.title}} ~ neocotic</title>
-  {% else %}
-    <title>neocotic</title>
-  {% endif %}
+    {% if page.metatitle %}
+      <title>{{page.metatitle}} &middot; neocotic</title>
+    {% elsif page.title %}
+      <title>{{page.title}} &middot; neocotic</title>
+    {% else %}
+      <title>neocotic</title>
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if page.description %}<meta name="description" content="{{page.description}}">{% endif %}
     {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
     <meta name="author" content="Alasdair Mercer">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-twipsy.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/custom.js"></script>
-  {% if page.share %}
-    <script src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">
-      stLight.options({
-          onhover: false
-        , publisher: '22a034ba-ce1f-48fa-b612-d6ca2289060a'
-      });
-    </script>
-  {% endif %}
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/syntax.css">
+    {% if page.share %}
+      <script src="http://w.sharethis.com/button/buttons.js"></script>
+      <script>
+        stLight.options({
+            onhover: false
+          , publisher: '22a034ba-ce1f-48fa-b612-d6ca2289060a'
+        });
+      </script>
+    {% endif %}
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-72x72.png" sizes="72x72">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-114x114.png" sizes="114x114">
     <link rel="alternate" href="http://feeds.feedburner.com/neocotic" title="neocotic" type="application/atom+xml">
-  {% for extension in site.chrome_extensions %}
-    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/{{extension}}">
-  {% endfor %}
+    {% for extension in site.chrome_extensions %}
+      <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/{{extension}}">
+    {% endfor %}
   </head>
   <body>
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
           <a class="brand" href="/">neocotic</a>
-          <ul class="nav">
-            <li data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)"><a href="/">Home</a></li>
-            <li data-activate="^\/about(\.html)?$"><a href="/about">About</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle">Projects</a>
-              <ul class="dropdown-menu">
-              {% for project in site.projects %}
-                <li><a href="/{{project}}">{{project}}</a></li>
-              {% endfor %}
-                <li class="divider"></li>
-                <li><a href="https://github.com/neocotic">View All</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form action="/search" class="pull-right">
-            <input name="q" type="text" placeholder="Search">
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="content">
-      {% if page.share %}
-        <div class="stContainer">
-          <span class="st_twitter_vcount" displayText="Tweet"></span>
-          <span class="st_plusone_vcount"></span>
-          <span class="st_fblike_vcount"></span>
-          <span class="st_linkedin_vcount" displayText="LinkedIn"></span>
-          <span class="st_email_button" displayText="Email"></span>
-          <span class="st_sharethis_button" displayText="Share"></span>
-        </div>
-      {% endif %}
-        {{content}}
-      </div>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)" href="/">Home</a></li>
+              <li><a data-activate="^\/about(\.html)?$" href="/about">About</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  {% for project in site.projects %}
+                    <li><a data-activate="^\/{{project.name}}$" href="/{{project.name}}">{{project.name}}</a></li>
+                  {% endfor %}
+                  <li class="divider"></li>
+                  <li><a href="https://github.com/neocotic">View All</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form action="/search" class="navbar-search pull-right">
+              <input name="q" type="text" class="search-query span2" placeholder="Search">
+            </form>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div><!--/.navbar-inner -->
+    </div><!--/.navbar -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="container">
+          {{content}}
+        </div><!--/.container -->
+      </div><!--/.row-fluid -->
+      <hr>
       <footer>
         <div class="container">
           <p class="pull-right"><a href="#">Back to top</a></p>
           <p>&copy; Alasdair Mercer | <a href="/sitemap">Sitemap</a></p>
-        </div>
+        </div><!--/.container -->
       </footer>
-    </div>
+    </div><!--/.container-fluid -->
     {% include analytics.html %}
   </body>
 </html>

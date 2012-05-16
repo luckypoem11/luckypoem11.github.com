@@ -39,7 +39,7 @@ layout: nil
 {% endfor %}
 {% for project in site.projects %}
   <url>
-    <loc>http://neocotic.com/{{project}}</loc>
+    <loc>http://neocotic.com/{{project.name}}</loc>
     <lastmod>{{site.time | date_to_xmlschema}}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

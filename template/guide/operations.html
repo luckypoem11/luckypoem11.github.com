@@ -1,8 +1,10 @@
 ---
 title: Guide
-metatitle: Operations ~ Guide ~ Template (Chrome)
+metatitle: Operations &middot; Guide &middot; Template
 subtitle: Operations
-layout: sidebar-template-guide
+layout: template-guide
+navbar_active_urls: [guide,guide/operations]
+sidebar_active_urls: [operations]
 description: Get to grips with using operations in the Template Google Chrome extension
 keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, operations, download, open, source, neocotic, github
 ---
@@ -10,7 +12,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
   <strong>Operations</strong> are performed using sections, accepting its rendered
   contents as an argument.
 </p>
-<table class="bordered-table zebra-striped">
+<table class="table table-condensed table-bordered table-striped">
   <caption><a name="definitions"></a>Definitions</caption>
   <thead>
     <tr>
@@ -19,9 +21,21 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <th>Description</th>
     </tr>
   </thead>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <ul class="unstyled" style="margin-bottom: 0">
+          <li>
+            <a href="#ref-1" id="ref-1" class="bold">&sup1;</a>
+            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tfoot>
   <tbody>
     <tr>
-      <td><a name="capitalise"></a><a name="capitalize"></a>capitalise<span class="label success pull-right">New</span></td>
+      <td><a name="capitalise"></a><a name="capitalize"></a>capitalise<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Transform the text provided into title case</td>
     </tr>
@@ -67,7 +81,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       </td>
     </tr>
     <tr>
-      <td><a name="last-modified"></a>lastModified <strong>&sup1;</strong></td>
+      <td><a name="last-modified"></a>lastModified <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>Text</td>
       <td>
         Format the last modified date &amp; time using the pattern provided
@@ -77,12 +91,12 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       </td>
     </tr>
     <tr>
-      <td><a name="length"></a>length<span class="label success pull-right">New</span></td>
+      <td><a name="length"></a>length<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Get the character length of the text provided</td>
     </tr>
     <tr>
-      <td><a name="lower-case"></a>lowerCase<span class="label success pull-right">New</span></td>
+      <td><a name="lower-case"></a>lowerCase<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Transform the text provided into lower case</td>
     </tr>
@@ -100,54 +114,101 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <td><a name="shorten"></a>shorten</td>
       <td>Text</td>
       <td>
-        Shorten the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-        provided using the active <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        Shorten the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+        provided using the active <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
         shortener
       </td>
     </tr>
     <tr>
-      <td><a name="tidy"></a>tidy<span class="label success pull-right">New</span></td>
+      <td><a name="tidy"></a>tidy<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>
-        Reduce all of the joined spaces and tabs into single spaces within the text
-        provided before removing all leading and trailing whitespace
+        Reduce all of the joined spaces and tabs into single spaces within the
+        text provided before removing all leading and trailing whitespace
       </td>
     </tr>
     <tr>
-      <td><a name="trim"></a>trim<span class="label success pull-right">New</span></td>
+      <td><a name="trim"></a>trim<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
-      <td>Remove all leading and trailing whitespace from the text provided</td>
+      <td>
+        Remove all leading and trailing whitespace from the text provided
+      </td>
     </tr>
     <tr>
-      <td><a name="trim-left"></a>trimLeft<span class="label success pull-right">New</span></td>
+      <td><a name="trim-left"></a>trimLeft<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Remove all leading whitespace from the text provided</td>
     </tr>
     <tr>
-      <td><a name="trim-right"></a>trimRight<span class="label success pull-right">New</span></td>
+      <td><a name="trim-right"></a>trimRight<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Remove all trailing whitespace from the text provided</td>
     </tr>
     <tr>
-      <td><a name="upper-case"></a>upperCase<span class="label success pull-right">New</span></td>
+      <td><a name="upper-case"></a>upperCase<span class="label label-success pull-right">New</span></td>
       <td>Text</td>
       <td>Transform the text provided into upper case</td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">
-        <ul class="unstyled" style="margin-bottom: 0">
-          <li>
-            <strong>&sup1;</strong>
-            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
-          </li>
-        </ul>
-      </td>
-    </tr>
-  </tfoot>
 </table>
-<div class="well bottom">
+<div class="accordion">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-target="#examples">Examples</a>
+    </div>
+    <div id="examples" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <p>This page's information will be used in the following examples.</p>
+        <p>
+          To output the current date &amp; time in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+          format you would use;
+        </p>
+{% highlight html %}
+Today is {#dateTime}Y-m-d\TH:i:sP{/dateTime}.
+{% endhighlight %}
+        <p>
+          Also, the <em>c</em> parameter would also have the same outcome in this
+          case. If you wanted to safely pass the whole <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+          as a parameter in a query string;
+        </p>
+{% highlight html %}
+http://example.com/something.do?url={#encode}{url}{/encode}
+{% endhighlight %}
+        <p>
+          This escapes all of the necessary characters within <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+          and outputs the following;
+        </p>
+{% highlight html %}
+http://example.com/something.do?url=http%3A%2F%2Fneocotic.com%2Ftemplate%2Fguide%2Foperations
+{% endhighlight %}
+        <p>
+          To access the last segment of the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>'s
+          path;
+        </p>
+{% highlight html %}
+I am currently viewing "{#segment}-1{/segment}".
+{% endhighlight %}
+        <p>Would render the following output;</p>
+{% highlight html %}
+I am currently viewing "operations".
+{% endhighlight %}
+        <p>
+          Let's pretend again that the query string for this page is <em>foo=bar&amp;fu=baz</em>.
+          Accessing the value of the <em>foo</em> parameter is as simple as the
+          following;
+        </p>
+{% highlight html %}
+The value of foo is "{#param}foo{/param}".
+{% endhighlight %}
+        <p>This would cause the following output to be rendered;</p>
+{% highlight html %}
+The value of foo is "bar".
+{% endhighlight %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="well">
   <h3><a name="notes"></a>Notes</h3>
   <p>
     The following notes only apply to <a href="#segment">segment</a> and <a href="#fsegment">fsegment</a>
@@ -164,49 +225,3 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
     </li>
   </ul>
 </div>
-<h2><a name="examples"></a>Examples</h2>
-<p>This page's information will be used in the following examples.</p>
-<p>
-  To output the current date &amp; time in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
-  format you would use;
-</p>
-{% highlight html %}
-Today is {#dateTime}Y-m-d\TH:i:sP{/dateTime}.
-{% endhighlight %}
-<p>
-  Also, the <em>c</em> parameter would also have the same outcome in this case.
-  If you wanted to safely pass the whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-  as a parameter in a query string;
-</p>
-{% highlight html %}
-http://example.com/something.do?url={#encode}{url}{/encode}
-{% endhighlight %}
-<p>
-  This escapes all of the necessary characters within <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-  and outputs the following;
-</p>
-{% highlight html %}
-http://example.com/something.do?url=http%3A%2F%2Fneocotic.com%2Ftemplate%2Fguide%2Foperations
-{% endhighlight %}
-<p>
-  To access the last segment of the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>'s
-  path;
-</p>
-{% highlight html %}
-I am currently viewing "{#segment}-1{/segment}".
-{% endhighlight %}
-<p>Would render the following output;</p>
-{% highlight html %}
-I am currently viewing "operations".
-{% endhighlight %}
-<p>
-  Let's pretend again that the query string for this page is <em>foo=bar&amp;fu=baz</em>.
-  Accessing the value of the <em>foo</em> parameter is as simple as the following;
-</p>
-{% highlight html %}
-The value of foo is "{#param}foo{/param}".
-{% endhighlight %}
-<p>This would cause the following output to be rendered;</p>
-{% highlight html %}
-The value of foo is "bar".
-{% endhighlight %}

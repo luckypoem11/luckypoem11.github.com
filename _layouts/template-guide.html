@@ -1,0 +1,26 @@
+---
+layout: template
+navbar_active_urls: [guide]
+sidebar_base_url: /template/guide
+sidebar_items:
+- text: Guide
+  items:
+  - href: ""
+    text: Introduction
+  - href: standard
+    text: Standard
+  - href: lists-objects
+    text: Lists &amp; Objects
+  - href: options
+    text: Options
+  - href: operations
+    text: Operations
+---
+<div class="row-fluid">
+  <div class="span3">
+		{% include sidebar.html %}
+	</div>
+	<div class="span9">
+	  {{content}}
+	</div>
+</div>

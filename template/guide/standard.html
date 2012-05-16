@@ -1,8 +1,10 @@
 ---
 title: Guide
-metatitle: Standard ~ Guide ~ Template (Chrome)
+metatitle: Standard &middot; Guide &middot; Template
 subtitle: Standard
-layout: sidebar-template-guide
+layout: template-guide
+navbar_active_urls: [guide,guide/standard]
+sidebar_active_urls: [standard]
 description: Get to grips with using standard variables in the Template Google Chrome extension
 keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, standard, variables, download, open, source, neocotic, github
 ---
@@ -10,7 +12,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
   <strong>Standard</strong> variables are generally accessed using simple tags.
   However, sections (including inverted) can also be used to add conditions.
 </p>
-<table class="bordered-table zebra-striped">
+<table class="table table-condensed table-bordered table-striped">
   <caption><a name="definitions"></a>Definitions</caption>
   <thead>
     <tr>
@@ -18,9 +20,25 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <th>Description</th>
     </tr>
   </thead>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <ul class="unstyled" style="margin-bottom: 0">
+          <li>
+            <a href="#ref-1" id="ref-1" class="bold">&sup1;</a>
+            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
+          </li>
+          <li>
+            <a href="#ref-2" id="ref-2" class="bold">&sup2;</a>
+            <em>Only available when Template is accessed via the context menu of a link</em>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tfoot>
   <tbody>
     <tr>
-      <td><a name="author"></a>author <strong>&sup1;</strong></td>
+      <td><a name="author"></a>author <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>The author from the page's meta information</td>
     </tr>
     <tr>
@@ -36,7 +54,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <td>The current version of the browser (e.g. <em>16.0.912.77</em>)</td>
     </tr>
     <tr>
-      <td><a name="character-set"></a>characterSet <strong>&sup1;</strong></td>
+      <td><a name="character-set"></a>characterSet <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>
         The <a href="http://www.iana.org/assignments/character-sets">character set</a>
         used by the page (e.g. <em>UTF-8</em>)
@@ -66,7 +84,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <td>The colour depth in bits (e.g. <em>24</em>)</td>
     </tr>
     <tr>
-      <td><a name="description"></a>description <strong>&sup1;</strong></td>
+      <td><a name="description"></a>description <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>The description from the page's meta information</td>
     </tr>
     <tr>
@@ -76,7 +94,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
     <tr>
       <td><a name="favicon"></a>favicon</td>
       <td>
-        The whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        The whole <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
         of the page's favicon
       </td>
     </tr>
@@ -97,27 +115,27 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <td>Whether or not <a href="http://www.java.com">Java</a> is enabled</td>
     </tr>
     <tr>
-      <td><a name="last-modified"></a>lastModified <strong>&sup1;</strong></td>
+      <td><a name="last-modified"></a>lastModified <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>
         The last modified date &amp; time of the page in <a href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a>
         format
       </td>
     </tr>
     <tr>
-      <td><a name="link-html"></a>linkHTML <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td><a name="link-html"></a>linkHTML <a href="#ref-1" class="bold">&sup1;</a> <a href="#ref-2" class="bold">&sup2;</a><span class="label label-success pull-right">New</span></td>
       <td>
-        The <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr> behind
+        The <abbr rel="tooltip" title="HyperText Markup Language">HTML</abbr> behind
         the contextual (right-clicked) link
       </td>
     </tr>
     <tr>
-      <td><a name="link-markdown"></a>linkMarkdown <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td><a name="link-markdown"></a>linkMarkdown <a href="#ref-1" class="bold">&sup1;</a> <a href="#ref-2" class="bold">&sup2;</a><span class="label label-success pull-right">New</span></td>
       <td>
         The contents of the contextual (right-clicked) link formatted as <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>
       </td>
     </tr>
     <tr>
-      <td><a name="link-text"></a>linkText <strong>&sup1;</strong> <strong>&sup2;</strong><span class="label success pull-right">New</span></td>
+      <td><a name="link-text"></a>linkText <a href="#ref-1" class="bold">&sup1;</a> <a href="#ref-2" class="bold">&sup2;</a><span class="label label-success pull-right">New</span></td>
       <td>The contextual (right-clicked) link text</td>
     </tr>
     <tr>
@@ -135,7 +153,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
     <tr>
       <td><a name="original-url"></a>originalUrl</td>
       <td>
-        The original whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        The original whole <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
         being parsed (may be different than <a href="#url">url</a> if a supported
         extension was detected and the value of <a href="#url">url</a> was extracted
         from this)
@@ -149,11 +167,11 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       </td>
     </tr>
     <tr>
-      <td><a name="page-height"></a>pageHeight <strong>&sup1;</strong></td>
+      <td><a name="page-height"></a>pageHeight <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>The height of the page</td>
     </tr>
     <tr>
-      <td><a name="page-width"></a>pageWidth <strong>&sup1;</strong></td>
+      <td><a name="page-width"></a>pageWidth <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>The width of the page</td>
     </tr>
     <tr>
@@ -175,10 +193,10 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       </td>
     </tr>
     <tr>
-      <td><a name="referrer"></a>referrer <strong>&sup1;</strong></td>
+      <td><a name="referrer"></a>referrer <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>
-        The <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> of the
-        referring page
+        The <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr> of
+        the referring page
       </td>
     </tr>
     <tr>
@@ -196,18 +214,18 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
       <td>The width of the screen</td>
     </tr>
     <tr>
-      <td><a name="selection"></a>selection <strong>&sup1;</strong></td>
+      <td><a name="selection"></a>selection <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>The currently selected text</td>
     </tr>
     <tr>
-      <td><a name="selection-html"></a>selectionHTML <strong>&sup1;</strong></td>
+      <td><a name="selection-html"></a>selectionHTML <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>
-        The <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr> behind
+        The <abbr rel="tooltip" title="HyperText Markup Language">HTML</abbr> behind
         the current selection
       </td>
     </tr>
     <tr>
-      <td><a name="selection-markdown"></a>selectionMarkdown <strong>&sup1;</strong></td>
+      <td><a name="selection-markdown"></a>selectionMarkdown <a href="#ref-1" class="bold">&sup1;</a></td>
       <td>
         The current selection formatted as <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>
       </td>
@@ -215,47 +233,37 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
     <tr>
       <td><a name="title"></a>title</td>
       <td>
-        The title of the page or <a href="#url">url</a> if the title could not be
-        detected (e.g. page had not finished loading)
+        The title of the page or <a href="#url">url</a> if the title could not
+        be detected (e.g. page had not finished loading)
       </td>
     </tr>
     <tr>
       <td><a name="url"></a>url</td>
       <td>
-        The whole <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+        The whole <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
         being parsed
       </td>
     </tr>
     <tr>
       <td><a name="version"></a>version</td>
       <td>
-        The installed version of <a href="/template">Template</a> (e.g. <em>1.0.10</em>)
+        The installed version of <a href="/template">Template</a> (e.g. <em>{{site.project.template.version}}</em>)
       </td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="2">
-        <ul class="unstyled" style="margin-bottom: 0">
-          <li>
-            <strong>&sup1;</strong>
-            <em>Not available on internal Chrome pages or the <a href="https://chrome.google.com/webstore/">Chrome Web Store</a></em>
-          </li>
-          <li>
-            <strong>&sup2;</strong>
-            <em>Only available when Template is accessed via the context menu of a link</em>
-          </li>
-        </ul>
-      </td>
-    </tr>
-  </tfoot>
 </table>
-<h2><a name="examples"></a>Examples</h2>
-<p>This page's information will be used in the following examples.</p>
-<p>
-  A great of example of using standard variables is showing the title of the current
-  page along with its meta description, where possible;
-</p>
+<div class="accordion">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-target="#examples">Examples</a>
+    </div>
+    <div id="examples" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <p>This page's information will be used in the following examples.</p>
+        <p>
+          A great of example of using standard variables is showing the title of
+          the current page along with its meta description, where possible;
+        </p>
 {% highlight html %}
 Title:
 {title}
@@ -263,19 +271,24 @@ Description:
 {#description}{description}{/description}
 {^description}N/A{/description}
 {% endhighlight %}
-<p>
-  Since this page contains a meta description it will output something like this;
-</p>
+        <p>
+          Since this page contains a meta description it will output something
+          like this;
+        </p>
 {% highlight html %}
 Title:
-Standard ~ Guide ~ Template (Chrome) ~ neocotic
+Standard · Guide · Template · neocotic
 Description:
 Get to grips with using standard variables in the Template Google Chrome extension
 {% endhighlight %}
-<p>However, if it didn't you can expect to the see the following;</p>
+        <p>However, if it didn't you can expect to the see the following;</p>
 {% highlight html %}
 Title:
-Standard ~ Guide ~ Template (Chrome) ~ neocotic
+Standard · Guide · Template · neocotic
 Description:
 N/A
 {% endhighlight %}
+      </div>
+    </div>
+  </div>
+</div>

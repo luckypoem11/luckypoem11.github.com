@@ -1,8 +1,10 @@
 ---
 title: Guide
-metatitle: Introduction ~ Guide ~ Template (Chrome)
+metatitle: Introduction &middot; Guide &middot; Template
 subtitle: Introduction
-layout: sidebar-template-guide
+layout: template-guide
+navbar_active_urls: [guide]
+sidebar_active_urls: [""]
 description: Need help writing templates? Read this guide for the Template Google Chrome extension
 keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, download, open, source, neocotic, github
 ---
@@ -13,16 +15,16 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
 </p>
 <h2><a name="simple-tag"></a>Simple Tag</h2>
 <p>
-  Tags are always surrounded by curly braces like this <code>{name}</code> and output
-  the value of the named variable. If that value is undefined or <em>falsey</em>
+  Tags are always surrounded by curly braces like this <code>{name}</code> and
+  output the value of the named variable. If that value is undefined or <em>falsey</em>
   it will simply be deleted.
 </p>
 <p>
   Values are not escaped by default and, in order to do so, you must use double
   braces like this <code>{{ '{{name' }}}}</code>. This will escape <code>&amp;</code>
   <code>&lt;</code> <code>&gt;</code> <code>&quot;</code> <code>&#39;</code> characters
-  so that the final output can be safely copied in to <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr>
-  and <abbr rel="twipsy" title="HyperText Markup Language">HTML</abbr>.
+  so that the final output can be safely copied in to <abbr rel="tooltip" title="Extensible Markup Language">XML</abbr>
+  and <abbr rel="tooltip" title="HyperText Markup Language">HTML</abbr>.
 </p>
 <h2><a name="section"></a>Section</h2>
 <p>
@@ -78,7 +80,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
   and closed with names in the same case (i.e. <code>{#name}...{/NaMe}</code> will
   not work).
 </p>
-<div class="well bottom">
+<div class="well">
   <h3><a name="notes"></a>Notes</h3>
   <p>
     If you are having problems with understanding this guide please <a href="https://template.uservoice.com">let us know</a>
@@ -86,8 +88,8 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
     if required.
   </p>
   <p>
-    If you encounter any problems while using <a href="/template">Template</a> and/or
-    would like to see a change or addition, please <a href="https://template.uservoice.com">raise a ticket</a>
+    If you encounter any problems while using <a href="/template">Template</a>
+    and/or would like to see a change or addition, please <a href="https://template.uservoice.com">raise a ticket</a>
     and we will have a look at it.
   </p>
   <p>For more examples, try looking at the predefined templates.</p>

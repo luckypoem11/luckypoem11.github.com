@@ -1,8 +1,7 @@
 // jQuery is ready.
 $(function() {
 
-  var $window = $(window)
-    , stContainer = $('.stContainer');
+  var $window = $(window);
 
   // Highlight navigation for active page.
   $('[data-activate]').each(function() {
@@ -14,11 +13,8 @@ $(function() {
     }
   });
 
-  // Active dropdown menus.
-  $('.topbar').dropdown();
-
-  // Activate twipsy tooltips.
-  $('[rel=twipsy]').twipsy({live: true});
+  // Activate styled tooltips.
+  $('[rel=tooltip]').tooltip();
 
   // Activate Chrome Web Store inline installations.
   var chrome = window.chrome || 0;
@@ -32,7 +28,7 @@ $(function() {
           return;
         }
         chrome.webstore.install($this.attr('href'), function() {
-          $this.toggleClass('primary disabled chrome_install_button')
+          $this.toggleClass('btn-primary disabled chrome_install_button')
               .unbind('.chrome').html('Installed');
         });
         e.preventDefault();
@@ -40,36 +36,9 @@ $(function() {
     }
   }
 
-  // Activate floating share buttons.
-  if (stContainer.length) {
-    var originalX = stContainer.css('margin-left')
-      , originalY = stContainer.offset().top - 40;
-    $window.scroll(function() {
-      var scrollY = $window.scrollTop()
-        , isFixed = 'fixed' === stContainer.css('position');
-      if (stContainer.length > 0) {
-        if (!isFixed && scrollY > originalY) {
-          stContainer.stop().css({
-              position: 'fixed'
-            , left: '50%'
-            , top: 40
-            , marginLeft: -507
-          });
-        } else if (isFixed && scrollY < originalY) {
-          stContainer.css({
-              position: 'relative'
-            , left: 0
-            , top: 0
-            , marginLeft: originalX
-          });
-        }
-      }
-    });
-  }
-
   // Improves fragment/anchor accuracy, but only works when fragment changes.
   function tuneFragment() {
-    var firstContainer = $('body .container').first();
+    var firstContainer = $('body .container-fluid').first();
     if (firstContainer.length && window.location.hash) {
       $window.scrollTop(firstContainer.offset().top - 40);
     }

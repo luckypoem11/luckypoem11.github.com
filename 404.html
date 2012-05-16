@@ -2,18 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>File Not Found ~ neocotic</title>
+    <title>File Not Found &middot; neocotic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Alasdair Mercer">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-dropdown.js"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-twipsy.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/custom.js"></script>
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/syntax.css">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-72x72.png" sizes="72x72">
@@ -21,40 +21,58 @@
     <link rel="alternate" href="http://feeds.feedburner.com/neocotic" title="neocotic" type="application/atom+xml">
   </head>
   <body>
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
           <a class="brand" href="/">neocotic</a>
-          <ul class="nav">
-            <li data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)"><a href="/">Home</a></li>
-            <li data-activate="^\/about(\.html)?$"><a href="/about">About</a></li>
-            <li><a href="https://github.com/neocotic">Projects</a></li>
-          </ul>
-          <form action="/search" class="pull-right">
-            <input name="q" type="text" placeholder="Search">
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="content">
-        <div class="page-header">
-          <h1>Error 404 <small>File Not Found</small></h1>
-        </div>
-        <div class="row">
-          <div class="span14 max">
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)" href="/">Home</a></li>
+              <li><a data-activate="^\/about(\.html)?$" href="/about">About</a></li>
+              <li><a href="https://github.com/neocotic">Projects</a></li>
+            </ul>
+            <form action="/search" class="navbar-search pull-right">
+              <input name="q" type="text" class="search-query span2" placeholder="Search">
+            </form>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div><!--/.navbar-inner -->
+    </div><!--/.navbar -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="container">
+          <header class="page-header">
+            <h1>Error 404</h1>
+            <p class="lead">File Not Found</p>
+          </header>
+          <section>
             <p>The requested file could not be found but may be available again in the future.</p>
             <p>Sorry for any inconvenience caused.</p>
-          </div>
-        </div>
-      </div>
+          </section>
+        </div><!--/.container -->
+      </div><!--/.row-fluid -->
+      <hr>
       <footer>
         <div class="container">
           <p class="pull-right"><a href="#">Back to top</a></p>
           <p>&copy; Alasdair Mercer | <a href="/sitemap">Sitemap</a></p>
-        </div>
+        </div><!--/.container -->
       </footer>
-    </div>
-    {% include analytics.html %}
+    </div><!--/.container-fluid -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-27505414-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      }());
+    </script>
   </body>
 </html>

@@ -19,7 +19,9 @@
   {% else %}
     <li>
   {% endif %}
-    {% if i == 1 %}
+    {% if i == paginator.page %}
+      <a href="#">{{i}}</a>
+    {% elsif i == 1 %}
       <a href="/">{{i}}</a>
     {% else %}
       <a href="/page{{i}}">{{i}}</a>

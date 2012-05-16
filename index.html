@@ -1,36 +1,33 @@
 ---
+title: Home
 layout: page
-title:
 description: The personal blog of Alasdair Mercer (neocotic) and home to my many open source development projects
 keywords: web, developer, programmer, software, engineer, java, javascript, html5, css3, php, movies, games
 url: /
 ---
-<div class="span14 max posts">
-{% for post in paginator.posts %}
-  <article>
-    <header>
-      <h2>
-        <a href="{{post.url}}">{{post.title}}</a>
-        <small>
+<div class="posts">
+  {% for post in paginator.posts %}
+    <article class="post">
+      <header class="page-header">
+        <h2><a href="{{post.url}}">{{post.title}}</a></h2>
+        <p class="lead">
           by
           <a href="https://plus.google.com/114861910136746455630?rel=author" class="google-profile"><img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16"></a>
           <a href="/about" rel="author">Alasdair</a>
-          on {{post.date | date_to_string}}</small>
-      </h2>
-      <h6 class="comments">
-        <small><a href="{{post.url}}#disqus_thread" data-disqus-identifier="{{post.id}}">Comments</a></small>
-      <h6>
-    </header>
-    <section>
-      {{post.content}}
-    </section>
-  </article>
-{% endfor %}
+          on {{post.date | date_to_string}}
+        </p>
+        <h6 class="comments"><a href="{{post.url}}#disqus_thread" data-disqus-identifier="{{post.id}}">Comments</a></h6>
+      </header>
+      <div class="row-fluid">
+        {{post.content}}
+      </div>
+    </article>
+  {% endfor %}
   {% include pagination.html %}
 </div>
-<script type="text/javascript">
+<script>
   var disqus_shortname = 'neocotic';
-  (function () {
+  (function() {
     var s  = document.createElement('script'); s.async = true;
     s.type = 'text/javascript';
     s.src  = 'http://' + disqus_shortname + '.disqus.com/count.js';
