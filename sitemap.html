@@ -15,7 +15,7 @@ title: Sitemap
     <h2>Projects</h2>
     <ul class="unstyled">
     {% for project in site.projects %}
-      <li><a href="/{{project.name}}">{{project.name}}</a></li>
+      <li><a href="/{{project.name}}">{% if project.title %}{{project.title}}{% else %}{{project.name}}{% endif %}</a></li>
     {% endfor %}
     </ul>
   </div>

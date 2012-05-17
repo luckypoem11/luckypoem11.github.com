@@ -33,14 +33,17 @@ project:
     version: "1.1.0"
   jqueryconsole: &jqueryconsole
     name: jquery-console
+    title: jQuery Console
   jqueryjsonx: &jqueryjsonx
     name: jquery-jsonx
+    title: jQuery JSONX
     version: "1.0.0"
   jsonpjs: &jsonpjs
     name: jsonp.js
     version: "1.0.0"
   jsonx: &jsonx
     name: jsonx
+    title: JSONX
     version: "1.0.0"
   mediad: &mediad
     name: mediad
@@ -55,9 +58,11 @@ project:
     version: "1.0.3"
   template: &template
     name: template
+    title: Template
     version: "1.0.10"
   undowikipediablackout: &undowikipediablackout
     name: UndoWikipediaBlackout
+    title: Undo Wikipedia Blackout
     version: "1.0.2"
   yourlsapi: &yourlsapi
     name: yourls-api

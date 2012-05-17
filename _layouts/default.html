@@ -58,7 +58,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   {% for project in site.projects %}
-                    <li{% if project.name == page.topbar_sub_url %} class="active"{% endif %}><a href="/{{project.name}}">{{project.name}}</a></li>
+                    <li{% if project.name == page.topbar_sub_url %} class="active"{% endif %}><a href="/{{project.name}}">{% if project.title %}{{project.title}}{% else %}{{project.name}}{% endif %}</a></li>
                   {% endfor %}
                   <li class="divider"></li>
                   <li><a href="https://github.com/neocotic">View All</a></li>
