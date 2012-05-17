@@ -1,56 +1,59 @@
 ---
-title: yourls-api
-layout: full-width
+subtitle: JavaScript bindings for the YOURLS API
+layout: yourlsapi
+navbar_top_url: ""
 description: yourls-api is a pure JavaScript library for providing bindings for the YOURLS URL shortener service
 keywords: yourls, url, shortener, javascript, library, api, json, jsonp, download, open, source, neocotic, github
 share: true
 ---
-<p>
-  <a href="/yourls-api">yourls-api</a> is a JavaScript library that provides bindings
-  for the <a href="http://yourls.org/">YOURLS</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
-  using <abbr rel="twipsy" title="JavaScript Object Notation with Padding">JSONP</abbr>.
-</p>
-<div class="alert-message block-message warning">
+<div class="alert alert-block alert-warning fade in">
+  <button class="close" data-dismiss="alert">&times;</button>
+  <h4 class="alert-heading">Warning!</h4>
   <p>
     The current release of <a href="http://yourls.org">YOURLS</a> does not provide
-    official support for <abbr rel="twipsy" title="JavaScript Object Notation with Padding">JSONP</abbr>
-    so this <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+    official support for <abbr rel="tooltip" title="JavaScript Object Notation with Padding">JSONP</abbr>
+    so this <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
     cannot be used with it.
   </p>
   <p>
     However, I have provided a <a href="http://code.google.com/p/yourls/source/detail?r=659">patch</a>
-    which implements full support for <abbr rel="twipsy" title="JavaScript Object Notation with Padding">JSONP</abbr>
-    which <a href="http://planetozh.com/">Ozh</a> has applied so these changes should
-    be included in the next stable release. If you're impatient or are really keen
-    and you're comfortable changing <abbr rel="twipsy" title="Hypertext Preprocessor">PHP</abbr>
+    which implements full support for <abbr rel="tooltip" title="JavaScript Object Notation with Padding">JSONP</abbr>
+    which <a href="http://planetozh.com/">Ozh</a> has applied so these changes
+    should be included in the next stable release. If you're impatient or are really
+    keen and you're comfortable changing <abbr rel="tooltip" title="Hypertext Preprocessor">PHP</abbr>
     files you can attempt to make the change yourself (requires very few changes).
   </p>
 </div>
+<p>
+  <a href="/yourls-api">yourls-api</a> is a JavaScript library that provides bindings
+  for the <a href="http://yourls.org/">YOURLS</a> <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  using <abbr rel="tooltip" title="JavaScript Object Notation with Padding">JSONP</abbr>.
+</p>
 <h2><a name="connect"></a>Connecting</h2>
 {% highlight javascript %}
 yourls.connect(url[, credentials])
 {% endhighlight %}
 <p>
-  This is the first step and where you'll provide the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-  of the <a href="http://yourls.org/">YOURLS</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
-  you wish to connect to, baring in mind that the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  This is the first step and where you'll provide the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+  of the <a href="http://yourls.org/">YOURLS</a> <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  you wish to connect to, baring in mind that the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
   should point to the <code>yourls-api.php</code> file and not just its directory.
   If you're going to be connecting to a private <a href="http://yourls.org/">YOURLS</a>
-  installation you'll also need to provide either the username/password OR the signature
-  token if you're wanting to use <a href="http://code.google.com/p/yourls/wiki/PasswordlessAPI">passwordless API requests</a>
+  installation you'll also need to provide either the username/password <strong>or</strong>
+  the signature token if you're wanting to use <a href="http://code.google.com/p/yourls/wiki/PasswordlessAPI">passwordless API requests</a>
   (the signature token takes precedence here).
 </p>
 {% highlight javascript %}
 var exampl = yourls.connect('http://exam.pl/yourls-api.php', {
-  // username: 'admin',
-  // password: 'qwerty',
-  signature: '3002a61584'
-});
+//  username: 'admin'
+//, password: 'qwerty'
+  , signature: '3002a61584'
+})
 {% endhighlight %}
 <p>
   Despite the name no connection or authentication is carried out at this point
   and this initial method simply stores these values to prevent you from specifying
-  them with every <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  them with every <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   call.
 </p>
 <h2><a name="shorten"></a>Shortening</h2>
@@ -58,13 +61,13 @@ var exampl = yourls.connect('http://exam.pl/yourls-api.php', {
 yourls.shorten(url[, keyword], callback(data)[, context])
 {% endhighlight %}
 <p>
-  This method shortens the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  This method shortens the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
   provided optionally using a custom keyword/hash.
 </p>
 {% highlight javascript %}
-exampl.shorten('http://neocotic.com/yourls-api', 'yourls', function (data) {
-  console.log(data.shorturl); // http://exam.pl/yourls
-});
+exampl.shorten('http://neocotic.com/yourls-api', 'yourls', function(data) {
+  console.log(data.shorturl) // http://exam.pl/yourls
+})
 {% endhighlight %}
 <h2><a name="stats"></a>Statistics</h2>
 {% highlight javascript %}
@@ -75,33 +78,32 @@ yourls.stats([filter, ][limit, ]callback(data)[, context])
   and limit what is returned.
 </p>
 {% highlight javascript %}
-exampl.stats('last', 1, function (data) {
-  var myLink = data.links.link_1;
-  console.log(myLink.shorturl);         // http://exam.pl/yourls
-  console.log(myLink.url);              // http://neocotic.com/yourls-api
-  console.log(myLink.title);            // yourls-api ~ neocotic
-  console.log(myLink.clicks);           // 1987
+exampl.stats('last', 1, function(data) {
+  var myLink = data.links.link_1
+  console.log(myLink.shorturl)         // http://exam.pl/yourls
+  console.log(myLink.url)              // http://neocotic.com/yourls-api
+  console.log(myLink.title)            // yourls-api · neocotic
+  console.log(myLink.clicks)           // 1987
   // Overall statistics
-  console.log(data.stats.total_links);  // 12
-  console.log(data.stats.total_clicks); // 2011
-});
+  console.log(data.stats.total_links)  // 12
+  console.log(data.stats.total_clicks) // 2012
+})
 {% endhighlight %}
-<h2><a name="url"></a><abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> Information</h2>
+<h2><a name="url"></a>URL Information</h2>
 {% highlight javascript %}
 yourls.url(url)
 {% endhighlight %}
 <p>
-  Unlike the other <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
-  calls this constructs an instance of a <code>yourls.url</code> for the
-  <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> provided (which
-  should be a shortened <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>).
+  Unlike the other <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  calls this constructs an instance of a <code>yourls.url</code> for the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+  provided (which should be a shortened <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>).
 </p>
 {% highlight javascript %}
-var myUrl = exampl.url('http://exam.pl/yourls');
+var myUrl = exampl.url('http://exam.pl/yourls')
 {% endhighlight %}
 <p>
   Once you have this instance more operations become available that are applicable
-  only to the <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr> provided
+  only to the <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr> provided
   here.
 </p>
 <h3><a name="expand"></a>Expanding</h3>
@@ -109,15 +111,15 @@ var myUrl = exampl.url('http://exam.pl/yourls');
 yourls.url.expand(callback(data)[, context])
 {% endhighlight %}
 <p>
-  This method fetches the original long <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  This method fetches the original long <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
   for your link.
 </p>
 {% highlight javascript %}
 myUrl.expand(function (data) {
-    console.log(data.keyword);  // yourls
-    console.log(data.shorturl); // http://exam.pl/yourls
-    console.log(data.longurl);  // http://neocotic.com/yourls-api
-});
+    console.log(data.keyword)  // yourls
+    console.log(data.shorturl) // http://exam.pl/yourls
+    console.log(data.longurl)  // http://neocotic.com/yourls-api
+})
 {% endhighlight %}
 <h3><a name="url-stats"></a>Statistics</h3>
 {% highlight javascript %}
@@ -126,16 +128,17 @@ yourls.url.stats(callback(data)[, context])
 <p>This method fetches the statistics for your link.</p>
 {% highlight javascript %}
 myUrl.stats(function (data) {
-    console.log(data.link.shorturl); // http://exam.pl/yourls
-    console.log(data.link.url);      // http://neocotic.com/yourls-api
-    console.log(data.link.title);    // yourls-api ~ neocotic
-    console.log(data.link.clicks);   // 1987
-});
+    console.log(data.link.shorturl) // http://exam.pl/yourls
+    console.log(data.link.url)      // http://neocotic.com/yourls-api
+    console.log(data.link.title)    // yourls-api · neocotic
+    console.log(data.link.clicks)   // 1987
+})
 {% endhighlight %}
 <h2><a name="misc"></a>Miscellaneous</h2>
 <p>
-  The <abbr rel="twipsy" title="Application Programming Interface">API</abbr> exposes
-  some properties and methods which may only be useful to users in special cases.
+  The <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  exposes some properties and methods which may only be useful to users in special
+  cases.
 </p>
 {% highlight javascript %}
 yourls.noConflict()
@@ -163,7 +166,7 @@ yourls.VERSION
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/yourls-api/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/yourls-api" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+<div class="well">
+  <a href="https://github.com/neocotic/yourls-api/zipball/{{site.project.yourlsapi.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/yourls-api" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
 </div>
