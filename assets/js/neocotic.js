@@ -7,34 +7,31 @@ $(function() {
   $('[rel=tooltip]').tooltip();
 
   // Activate Chrome Web Store inline installations.
-  var chrome = window.chrome || 0;
-  if (chrome && chrome.app && chrome.webstore) {
-    var chromeBtn = $('.chrome_install_button');
-    if (chromeBtn.length) {
-      chromeBtn.bind('click.chrome', function (e) {
-        var $this = $(this);
-        if (!$this.hasClass('chrome_install_button')) {
-          $this.unbind('.chrome');
-          return;
-        }
-        chrome.webstore.install($this.attr('href'), function() {
-          $this.toggleClass('btn-primary disabled chrome_install_button')
-              .unbind('.chrome').html('Installed');
-        });
-        e.preventDefault();
+  var chrome = window.chrome || {};
+  if (chrome.app && chrome.webstore) {
+    $('.chrome_install_button').on('click.chrome', function(e) {
+      var $this = $(this);
+      if (!$this.hasClass('chrome_install_button')) {
+        $this.off('.chrome');
+        return;
+      }
+      chrome.webstore.install($this.attr('href'), function() {
+        $this.toggleClass('btn-primary disabled chrome_install_button')
+            .off('.chrome').html('Installed');
       });
+      e.preventDefault();
+    });
+  }
+
+  // Improve fragment/anchor accuracy.
+  function hashPrecision() {
+    var container = $('body .container-fluid').first();
+    if (container.length && window.location.hash) {
+      $window.scrollTop(container.offset().top - 40);
     }
   }
 
-  // Improves fragment/anchor accuracy, but only works when fragment changes.
-  function tuneFragment() {
-    var firstContainer = $('body .container-fluid').first();
-    if (firstContainer.length && window.location.hash) {
-      $window.scrollTop(firstContainer.offset().top - 40);
-    }
-  }
-
-  $window.on('hashchange', tuneFragment);
-  tuneFragment();
+  $window.on('hashchange', hashPrecision);
+  hashPrecision();
 
 });
