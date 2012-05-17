@@ -10,11 +10,11 @@
             {% if sub_item.divider %}
               <li class="divider"></li>
             {% else %}
-              <li{% if page.sidebar_active_urls and page.sidebar_active_urls contains sub_item.href %} class="active"{% endif %}><a href="{{page.sidebar_base_url}}/{{sub_item.href}}">{% if sub_item.badge %}<span class="badge pull-right{% if sub_item.badge.style %} badge-{{sub_item.badge.style}}{% endif %}">{{sub_item.badge.value}}</span>{% endif %}{% if sub_item.icon %}<i class="icon-{{sub_item.icon}}"></i> {% endif %}{{sub_item.text}}</a></li>
+              <li{% if sub_item.href == page.sidebar_url %} class="active"{% endif %}><a href="{{page.sidebar_base_url}}/{{sub_item.href}}">{% if sub_item.badge %}<span class="badge pull-right{% if sub_item.badge.style %} badge-{{sub_item.badge.style}}{% endif %}">{{sub_item.badge.value}}</span>{% endif %}{% if sub_item.icon %}<i class="icon-{{sub_item.icon}}"></i> {% endif %}{{sub_item.text}}</a></li>
             {% endif %}
           {% endfor %}
         {% else %}
-          <li{% if page.sidebar_active_urls and page.sidebar_active_urls contains item.href %} class="active"{% endif %}><a href="{{page.sidebar_base_url}}/{{item.href}}">{% if item.badge %}<span class="badge pull-right{% if item.badge.style %} badge-{{item.badge.style}}{% endif %}">{{item.badge.value}}</span>{% endif %}{% if item.icon %}<i class="icon-{{item.icon}}"></i> {% endif %}{{item.text}}</a></li>
+          <li{% if item.href == page.sidebar_url %} class="active"{% endif %}><a href="{{page.sidebar_base_url}}/{{item.href}}">{% if item.badge %}<span class="badge pull-right{% if item.badge.style %} badge-{{item.badge.style}}{% endif %}">{{item.badge.value}}</span>{% endif %}{% if item.icon %}<i class="icon-{{item.icon}}"></i> {% endif %}{{item.text}}</a></li>
         {% endif %}
       {% endfor %}
     </ul><!--/.nav-list -->

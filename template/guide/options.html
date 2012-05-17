@@ -3,8 +3,8 @@ title: Guide
 metatitle: Options &middot; Guide &middot; Template
 subtitle: Options
 layout: template-guide
-navbar_active_urls: [guide,guide/options]
-sidebar_active_urls: [options]
+navbar_sub_url: guide/options
+sidebar_url: options
 description: Get to grips with using options in the Template Google Chrome extension
 keywords: template, google, chrome, extension, addon, writing, editing, guide, documentation, help, options, download, open, source, neocotic, github
 ---
@@ -181,7 +181,7 @@ keywords: template, google, chrome, extension, addon, writing, editing, guide, d
           the corresponding option;
         </p>
 {% highlight html %}
-<a href="{% raw %}{{url}}{% endraw %}"{#anchorTitle} title="{% raw %}{{title}}{% endraw %}"{/anchorTitle}>This is a test!</a>
+<a href="{{ '{{url' }}}}"{#anchorTitle} title="{{ '{{title' }}}}"{/anchorTitle}>This is a test!</a>
 {% endhighlight %}
         <p>This would output the following if you've enabled the option;</p>
 {% highlight html %}

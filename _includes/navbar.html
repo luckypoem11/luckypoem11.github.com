@@ -5,20 +5,20 @@
         {% if item.divider %}
           <li class="divider-vertical"></li>
         {% elsif item.items %}
-          <li class="dropdown{% if page.navbar_active_urls and page.navbar_active_urls contains item.href %} active{% endif %}">
+          <li class="dropdown{% if item.href == page.navbar_top_url %} active{% endif %}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if item.icon %}<i class="icon-{{item.icon}}"></i> {% endif %}{{item.text}}{% if item.badge %} <span class="badge{% if item.badge.style %} badge-{{item.badge.style}}{% endif %}">{{item.badges.value}}</span>{% endif %} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               {% for sub_item in item.items %}
                 {% if sub_item.divider %}
                   <li class="divider"></li>
                 {% else %}
-                  <li{% if page.navbar_active_urls and page.navbar_active_urls contains sub_item.href %} class="active"{% endif %}><a href="{{page.navbar_base_url}}/{{sub_item.href}}">{% if sub_item.badge %}<span class="badge pull-right{% if sub_item.badge.style %} badge-{{sub_item.badge.style}}{% endif %}">{{sub_item.badge.value}}</span>{% endif %}{% if sub_item.icon %}<i class="icon-{{sub_item.icon}}"></i> {% endif %}{{sub_item.text}}</a></li>
+                  <li{% if sub_item.href == page.navbar_sub_url %} class="active"{% endif %}><a href="{{page.navbar_base_url}}/{{sub_item.href}}">{% if sub_item.badge %}<span class="badge pull-right{% if sub_item.badge.style %} badge-{{sub_item.badge.style}}{% endif %}">{{sub_item.badge.value}}</span>{% endif %}{% if sub_item.icon %}<i class="icon-{{sub_item.icon}}"></i> {% endif %}{{sub_item.text}}</a></li>
                 {% endif %}
               {% endfor %}
             </ul><!--/.dropdown-menu -->
           </li>
         {% else %}
-          <li{% if page.navbar_active_urls and page.navbar_active_urls contains item.href %} class="active"{% endif %}><a href="{{page.navbar_base_url}}/{{item.href}}">{% if item.badge %}<span class="badge pull-right{% if item.badge.style %} badge-{{item.badge.style}}{% endif %}">{{item.badge.value}}</span>{% endif %}{% if item.icon %}<i class="icon-{{item.icon}}"></i> {% endif %}{{item.text}}</a></li>
+          <li{% if item.href == page.navbar_top_url %} class="active"{% endif %}><a href="{{page.navbar_base_url}}/{{item.href}}">{% if item.badge %}<span class="badge pull-right{% if item.badge.style %} badge-{{item.badge.style}}{% endif %}">{{item.badge.value}}</span>{% endif %}{% if item.icon %}<i class="icon-{{item.icon}}"></i> {% endif %}{{item.text}}</a></li>
         {% endif %}
       {% endfor %}
     </ul><!--/.nav-pills -->
