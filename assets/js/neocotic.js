@@ -3,16 +3,6 @@ $(function() {
 
   var $window = $(window);
 
-  // Highlight navigation for active page.
-  $('[data-activate]').each(function() {
-    var $this = $(this)
-      , regex = $this.attr('data-activate');
-    $this.removeAttr('data-activate');
-    if (new RegExp(regex).test(document.location.pathname)) {
-      $this.addClass('active');
-    }
-  });
-
   // Activate styled tooltips.
   $('[rel=tooltip]').tooltip();
 

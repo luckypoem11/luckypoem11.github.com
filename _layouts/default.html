@@ -14,14 +14,14 @@
     {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
     <meta name="author" content="Alasdair Mercer">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/neocotic.css">
     <link rel="stylesheet" href="/assets/css/syntax.css">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/neocotic.js"></script>
     {% if page.share %}
       <script src="http://w.sharethis.com/button/buttons.js"></script>
       <script>
@@ -52,13 +52,13 @@
           <a class="brand" href="/">neocotic</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a data-activate="(^\/$|^\/(index(\.html)?|page[\d]+)$)" href="/">Home</a></li>
-              <li><a data-activate="^\/about(\.html)?$" href="/about">About</a></li>
-              <li class="dropdown">
+              <li{% if page.topbar_top_url == '' %} class="active"{% endif %}><a href="/">Home</a></li>
+              <li{% if page.topbar_top_url == 'about' %} class="active"{% endif %}><a href="/about">About</a></li>
+              <li class="dropdown{% if page.topbar_top_url == 'projects' %} active{% endif %}">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   {% for project in site.projects %}
-                    <li><a data-activate="^\/{{project.name}}$" href="/{{project.name}}">{{project.name}}</a></li>
+                    <li{% if project.name == page.topbar_sub_url %} class="active"{% endif %}><a href="/{{project.name}}">{{project.name}}</a></li>
                   {% endfor %}
                   <li class="divider"></li>
                   <li><a href="https://github.com/neocotic">View All</a></li>
