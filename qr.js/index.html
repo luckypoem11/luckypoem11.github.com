@@ -1,6 +1,7 @@
 ---
-title: qr.js
-layout: full-width
+subtitle: JavaScript library for generating QR codes
+layout: qrjs
+navbar_top_url: ""
 description: qr.js is a pure JavaScript library for generating QR codes using HTML5 technology
 keywords: qr, code, qrcode, generator, javascript, library, html5, canvas, image, url, ecc, api, encode, download, open, source, neocotic, github
 share: true
@@ -12,80 +13,87 @@ share: true
 <p>
   Originally based on <a href="http://code.google.com/p/jsqrencode/">jsqrencode</a>
   but with cleaner safer code and not to mention a new simple and understandable
-  <abbr rel="twipsy" title="Application Programming Interface">API</abbr>.
+  <abbr rel="tooltip" title="Application Programming Interface">API</abbr>.
 </p>
 <p>
-  This library requires <abbr rel="twipsy" title="Hypertext Markup Language">HTML5</abbr>
+  This library requires <abbr rel="tooltip" title="Hypertext Markup Language">HTML5</abbr>
   to work as its <a href="https://developer.mozilla.org/en/DOM/HTMLCanvasElement">&lt;canvas&gt;</a>
-  element is used to render the <abbr rel="twipsy" title="Quick Response">QR</abbr>
+  element is used to render the <abbr rel="tooltip" title="Quick Response">QR</abbr>
   code.
 </p>
-<h2><a name="instructions"></a>Handling <abbr rel="twipsy" title="Quick Response">QR</abbr> codes</h2>
+<h2><a name="instructions"></a>Handling QR codes</h2>
 <p>
   All the data used by <a href="/qr.js">qr.js</a> are <em>optional</em> and you
-  can choose to provide no information at all if you wish. The <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  can choose to provide no information at all if you wish. The <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   has two simple methods that take a single object argument that can contain the
   following values;
 </p>
 <ul>
-  <li><code>background</code> - The background colour to be used.</li>
+  <li><strong>background</strong> - The background colour to be used</li>
   <ul>
-    <li>White (<code>#fff</code>) is used if not specified.</li>
+    <li><em>Optional:</em> White (<code>#fff</code>) is used by default</li>
   </ul>
   <li>
-    <code>canvas</code> - A <code>&lt;canvas&gt;</code> element in which the <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code should be rendered.
-  </li>
-  <ul>
-    <li>Creates a new <code>&lt;canvas&gt;</code> element if not specified.</li>
-  </ul>
-  <li><code>foreground</code> - The foreground colour to be used.</li>
-  <ul>
-    <li>Black (<code>#000</code>) is used if not specified.</li>
-  </ul>
-  <li>
-    <code>image</code> - An <code>&lt;img&gt;</code> element in which the <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code should be rendered.
-  </li>
-  <ul>
-    <li>Creates a new <code>&lt;img&gt;</code> element if not specified.</li>
-    <li><em>Only</em> used by <a href="#image">qr.image</a>.</li>
-  </ul>
-  <li>
-    <code>level</code> - The <abbr rel="twipsy" title="Error Correction Capacity">ECC</abbr>
-    level to be applied (L, M, Q, H).
+    <strong>canvas</strong> - A <code>&lt;canvas&gt;</code> element in which the
+    <abbr rel="tooltip" title="Quick Response">QR</abbr> code should be rendered
   </li>
   <ul>
     <li>
-      The <code>L</code> <abbr rel="twipsy" title="Error Correction Capacity">ECC</abbr>
-      level is used if not specified.
+      <em>Optional:</em> Creates a new <code>&lt;canvas&gt;</code> element by default
     </li>
   </ul>
+  <li><strong>foreground</strong> - The foreground colour to be used</li>
+  <ul>
+    <li><em>Optional:</em> Black (<code>#000</code>) is used by default</li>
+  </ul>
   <li>
-    <code>path</code> - The path to which the <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code should be saved.
+    <strong>image</strong> - An <code>&lt;img&gt;</code> element in which the <abbr rel="tooltip" title="Quick Response">QR</abbr>
+    code should be rendered
   </li>
   <ul>
-    <li>This property is only used by <a href="#save">qr.save</a>.</li>
     <li>
-      This property is only required when running outside of a browser and is ingored
-      otherwise.
+      <em>Optional:</em> Creates a new <code>&lt;img&gt;</code> element by default
+    </li>
+    <li><em>Only</em> used by <a href="#image">qr.image</a></li>
+  </ul>
+  <li>
+    <strong>level</strong> - The <abbr rel="tooltip" title="Error Correction Capacity">ECC</abbr>
+    level to be applied (L, M, Q, H)
+  </li>
+  <ul>
+    <li>
+      <em>Optional:</em> The <code>L</code> <abbr rel="tooltip" title="Error Correction Capacity">ECC</abbr>
+      level is used by default
     </li>
   </ul>
   <li>
-    <code>size</code> - The module size of the generated <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code (1-10). This is the actual size of the <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code symbol and is scaled to 25 pixels (e.g. 1 = 25px, 3 = 75px).
+    <strong>path</strong> - The path to which the <abbr rel="tooltip" title="Quick Response">QR</abbr>
+    code should be saved
   </li>
   <ul>
-    <li>Uses a module size of <code>4</code> will be used if not specified.</li>
+    <li>This property is only used by <a href="#save">qr.save</a></li>
+    <li>
+      This property is only required when running outside of the browser environment
+      and is ingored otherwise
+    </li>
   </ul>
   <li>
-    <code>value</code> - The value to be encoded in the generated <abbr rel="twipsy" title="Quick Response">QR</abbr>
-    code.
+    <strong>size</strong> - The module size of the generated <abbr rel="tooltip" title="Quick Response">QR</abbr>
+    code (1-10)
   </li>
   <ul>
-    <li>Uses an empty string if not specified.</li>
+    <li><em>Optional:</em> <code>4</code> is used by default</li>
+    <li>
+      This is the actual size of the <abbr rel="tooltip" title="Quick Response">QR</abbr>
+      code symbol and is scaled to 25 pixels (e.g. 1 = 25px, 3 = 75px)
+    </li>
+  </ul>
+  <li>
+    <strong>value</strong> - The value to be encoded in the generated <abbr rel="tooltip" title="Quick Response">QR</abbr>
+    code
+  </li>
+  <ul>
+    <li><em>Optional:</em> An empty string is used by default</li>
   </ul>
 </ul>
 <h3><a name="image"></a>Using &lt;img&gt;</h3>
@@ -94,29 +102,29 @@ qr.image([data|value][, callback(error, image)])
 {% endhighlight %}
 <p>
   Returns either a new <code>&lt;img&gt;</code> element containing the generated
-  <abbr rel="twipsy" title="Quick Response">QR</abbr> code or the value of <code>data.image</code>
+  <abbr rel="tooltip" title="Quick Response">QR</abbr> code or the value of <code>data.image</code>
   if it was specified.
 </p>
 <h4><a name="image-example"></a>Example</h4>
 <p>
-  Add an image of a rendered <abbr rel="twipsy" title="Quick Response">QR</abbr>
+  Add an image of a rendered <abbr rel="tooltip" title="Quick Response">QR</abbr>
   code to a page.
 </p>
 {% highlight javascript %}
-window.onload = function () {
-  // Get image for rendered QR code.
+window.addEventListener('onload', function() {
+  // Get image for rendered QR code
   var image = qr.image({
-    level : 'H',
-    size  : 4,
-    value : 'http://neocotic.com/qr.js'
-  });
+      level: 'H'
+    , size: 4
+    , value: 'http://neocotic.com/qr.js'
+  })
   // Check image was returned (may not have been if browser doesn't support the
-  // HTML5 canvas element).
+  // HTML5 canvas element)
   if (image) {
-    // Add image to page.
-    document.body.appendChild(image);
+    // Add image to page
+    document.body.appendChild(image)
   }
-};
+})
 {% endhighlight %}
 <h3><a name="canvas"></a>Using &lt;canvas&gt;</h3>
 {% highlight javascript %}
@@ -124,87 +132,87 @@ qr.canvas([data|value][, callback(error, canvas)])
 {% endhighlight %}
 <p>
   Returns either a new <code>&lt;canvas&gt;</code> element containing the generated
-  <abbr rel="twipsy" title="Quick Response">QR</abbr> code or the value of <code>data.canvas</code>
+  <abbr rel="tooltip" title="Quick Response">QR</abbr> code or the value of <code>data.canvas</code>
   if it was specified.
 </p>
 <h4><a name="canvas-example"></a>Example</h4>
 <p>
-  Render the <abbr rel="twipsy" title="Quick Response">QR</abbr> code in an existing
+  Render the <abbr rel="tooltip" title="Quick Response">QR</abbr> code in an existing
   canvas on a page.
 </p>
 {% highlight javascript %}
-window.onload = function () {
-  // Render the QR code in <canvas id="qr"/>.
+window.addEventListener('onload', function() {
+  // Render the QR code in <canvas id="qr"/>
   qr.canvas({
-    canvas : document.getElementById('qr'),
-    level  : 'L',
-    size   : 4,
-    value  : 'http://neocotic.com/qr.js'
-  });
-};
+      canvas: document.getElementById('qr')
+    , level: 'L'
+    , size: 4
+    , value: 'http://neocotic.com/qr.js'
+  })
+})
 {% endhighlight %}
 <h3><a name="save"></a>Save As...</h3>
 {% highlight javascript %}
 qr.save([data|value][, path][, callback(error)])
 {% endhighlight %}
 <p>
-  Generates a <abbr rel="twipsy" title="Quick Response">QR</abbr> code and saves
+  Generates a <abbr rel="tooltip" title="Quick Response">QR</abbr> code and saves
   it to either the location specified, unless the script is running in the browser,
   in which case the user is prompted to specify a location and file name before
   it is downloaded.
 </p>
 <h4><a name="save-example"></a>Example</h4>
 <p>
-  Prompt the user to download the generated <abbr rel="twipsy" title="Quick Response">QR</abbr>
+  Prompt the user to download the generated <abbr rel="tooltip" title="Quick Response">QR</abbr>
   code.
 </p>
 {% highlight javascript %}
-window.onload = function () {
-  // Prompt user to save image as file.
-  qr.save('http://neocotic.com/qr.js');
-};
+window.addEventListener('onload', function() {
+  // Prompt user to save image as file
+  qr.save('http://neocotic.com/qr.js')
+})
 {% endhighlight %}
-<h3><a name="to-date-url"></a>Data <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr></h3>
+<h3><a name="to-date-url"></a>Data URL</h3>
 {% highlight javascript %}
 qr.toDataURL([data|value][, callback(error, url)])
 {% endhighlight %}
 <p>
-  Return the data <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-  for the generated <abbr rel="twipsy" title="Quick Response">QR</abbr> code.
+  Return the data <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+  for the generated <abbr rel="tooltip" title="Quick Response">QR</abbr> code.
 </p>
 <h4><a name="to-date-url-example"></a>Example</h4>
 <p>
-  Show an alert containing the data <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
-  for the generated <abbr rel="twipsy" title="Quick Response">QR</abbr> code.
+  Show an alert containing the data <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
+  for the generated <abbr rel="tooltip" title="Quick Response">QR</abbr> code.
 </p>
 {% highlight javascript %}
-window.onload = function () {
-  // Get data URL for QR code.
-  var url = qr.toDataURL('http://neocotic.com/qr.js');
+window.addEventListener('onload', function() {
+  // Get data URL for QR code
+  var url = qr.toDataURL('http://neocotic.com/qr.js')
   // Check URL was returned (may not have been if browser doesn't support the
-  // HTML5 canvas element).
+  // HTML5 canvas element)
   if (url) {
-    // Alert user with the URL.
-    alert(url);
+    // Alert user with the URL
+    alert(url)
   }
-};
+})
 {% endhighlight %}
-<h3><a name="ecc"></a>What is <abbr rel="twipsy" title="Error Correction Capacity">ECC</abbr>?</h3>
+<h3><a name="ecc"></a>What is ECC?</h3>
 <p>
-  ECC (Error Correction Capacity) levels represent the amount of data that can be
-  restored if the <abbr rel="twipsy" title="Quick Response">QR</abbr> code symbol
-  is smudged or damanged. There are four <abbr rel="twipsy" title="Error Correction Capacity">ECC</abbr>
+  ECC (Error Correction Capacity) levels represent the amount of data that can
+  be restored if the <abbr rel="tooltip" title="Quick Response">QR</abbr> code
+  symbol is smudged or damanged. There are four <abbr rel="tooltip" title="Error Correction Capacity">ECC</abbr>
   levels ranging from <code>L</code> (smallest) to <code>H</code> (best);
 </p>
 <ul>
-  <li><code>L</code> - Approx. 7% of codewords can be restored</li>
-  <li><code>M</code> - Approx. 15% of codewords can be restored</li>
-  <li><code>Q</code> - Approx. 25% of codewords can be restored</li>
-  <li><code>H</code> - Approx. 30% of codewords can be restored</li>
+  <li><strong>L</strong> - Approx. 7% of codewords can be restored</li>
+  <li><strong>M</strong> - Approx. 15% of codewords can be restored</li>
+  <li><strong>Q</strong> - Approx. 25% of codewords can be restored</li>
+  <li><strong>H</strong> - Approx. 30% of codewords can be restored</li>
 </ul>
 <h2><a name="misc"></a>Miscellaneous</h2>
 <p>
-  The <a href="/qr.js">qr.js</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  The <a href="/qr.js">qr.js</a> <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   exposes some properties and methods which may only be useful to users in special
   cases.
 </p>
@@ -212,16 +220,16 @@ window.onload = function () {
 qr.noConflict([callback(error)])
 {% endhighlight %}
 <p>
-  Relinquish <a href="/qr.js">qr.js'</a> control of the <code>qr</code> global variable.
-  If another library uses this variable calling this method will reassign it back
-  to that library.
+  Relinquish <a href="/qr.js">qr.js'</a> control of the <code>qr</code> global
+  variable. If another library uses this variable calling this method will reassign
+  it back to that library.
 </p>
 {% highlight javascript %}
 qr.VERSION
 {% endhighlight %}
 <p>The current version of <a href="/qr.js">qr.js</a>.</p>
 <h2><a name="changes"></a>Changes</h2>
-<h3>Version 1.0.3</h3>
+<h3>Version {{site.project.qrjs.version}}</h3>
 <ul>
   <li>
     <a href="https://github.com/neocotic/qr.js/issues/3">#3</a> Rename <code>QRCode</code>
@@ -236,12 +244,13 @@ qr.VERSION
     add additional, along with some original, code comments
   </li>
   <li>
-    <a href="https://github.com/neocotic/qr.js/issues/6">#6</a> Add support for <a href="http://nodejs.org">Node.js</a>,
-    <a href="http://commonjs.org">CommonJS</a> and <a href="http://ender.no.de">Ender</a>
+    <a href="https://github.com/neocotic/qr.js/issues/6">#6</a> Add support for
+    <a href="http://nodejs.org">Node.js</a>, <a href="http://commonjs.org">CommonJS</a>
+    and <a href="http://ender.no.de">Ender</a>
   </li>
   <li>
     <a href="https://github.com/neocotic/qr.js/issues/6">#6</a> Add optional <code>callback</code>
-    functionality to <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+    functionality to <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
     methods
   </li>
   <li>
@@ -250,11 +259,11 @@ qr.VERSION
   </li>
   <li>
     <a href="https://github.com/neocotic/qr.js/issues/8">#8</a> Add <code>VERSION</code>
-    property to the <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+    property to the <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   </li>
   <li>
     <a href="https://github.com/neocotic/qr.js/issues/8">#8</a> Add <code>toDataURL</code>,
-    <code>save</code> and <code>noConflict</code> methods to the <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+    <code>save</code> and <code>noConflict</code> methods to the <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   </li>
   <li>
     Now distributed under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a>
@@ -275,8 +284,9 @@ qr.VERSION
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/qr.js/zipball/1.0.3" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/qr.js" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
-  <a href="/qr.js/demo" class="btn large error">Demo</a>
+<div class="well">
+  <a href="https://github.com/neocotic/qr.js/zipball/{{site.project.qrjs.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/qr.js" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
+  <!-- TODO: Launch modal dialog containing demo -->
+  <a href="/qr.js/demo" class="btn btn-large btn-inverse">Demo</a>
 </div>

@@ -1,24 +1,27 @@
 ---
-title: Demo
-metatitle: Demo ~ qr.js
-layout: full-width
+subtitle: Interactive demo
+metatitle: Demo &middot; qr.js
+layout: qrjs
+navbar_top_url: ""
 description: Try out the interactive demo for qr.js
 keywords: qr, code, qrcode, generator, javascript, library, interactive, demo, example, download, open, source, neocotic, github
 ---
+<!-- TODO: Move into main page as a modal dialog -->
+<!-- TODO: Update style -->
 <p>Try out <a href="/qr.js">qr.js</a> right here to see its power.</p>
-<form id="demo">
+<form id="demo" class="form-horizontal">
   <fieldset>
-    <legend><abbr rel="twipsy" title="Quick Response">QR</abbr> Code Demo</legend>
-    <div class="clearfix">
-      <label for="demo-input">Input</label>
-      <div class="input">
-        <textarea class="xxlarge" id="demo-input" name="demo-input" rows="3" spellcheck="false">http://neocotic.com/qr.js</textarea>
+    <legend><abbr rel="tooltip" title="Quick Response">QR</abbr> Code Demo</legend>
+    <div class="control-group">
+      <label class="control-label" for="demo-input">Input</label>
+      <div class="controls">
+        <textarea class="input-xlarge" id="demo-input" name="demo-input" rows="3" spellcheck="false">http://neocotic.com/qr.js</textarea>
       </div>
     </div>
-    <div class="clearfix">
-      <label for="demo-ecc-level"><abbr rel="twipsy" title="Error Correction Capacity">ECC</abbr> Level</label>
-      <div class="input">
-        <select class="mini" name="demo-ecc-level" id="demo-ecc-level">
+    <div class="control-group">
+      <label class="control-label" for="demo-ecc-level"><abbr rel="tooltip" title="Error Correction Capacity">ECC</abbr> Level</label>
+      <div class="controls">
+        <select class="input-mini" name="demo-ecc-level" id="demo-ecc-level">
           <option>L</option>
           <option>M</option>
           <option>Q</option>
@@ -26,10 +29,10 @@ keywords: qr, code, qrcode, generator, javascript, library, interactive, demo, e
         </select>
       </div>
     </div>
-    <div class="clearfix">
-      <label for="demo-size">Size</label>
-      <div class="input">
-        <select class="mini" name="demo-size" id="demo-size">
+    <div class="control-group">
+      <label class="control-label" for="demo-size">Size</label>
+      <div class="controls">
+        <select class="input-mini" name="demo-size" id="demo-size">
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -44,45 +47,46 @@ keywords: qr, code, qrcode, generator, javascript, library, interactive, demo, e
       </div>
     </div>
     <hr>
-    <div class="clearfix">
-      <label for="demo-image">Image</label>
-      <div class="input">
-        <img id="demo-image" />
+    <div class="control-group">
+      <label class="control-label" for="demo-image">Image</label>
+      <div class="controls">
+        <img id="demo-image">
       </div>
     </div>
-    <div class="clearfix">
-      <label for="demo-data-url">Data <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr></label>
-      <div class="input">
-        <textarea class="xxlarge" id="demo-data-url" name="demo-data-url" rows="3" readonly></textarea>
+    <div class="control-group">
+      <label class="control-label" for="demo-data-url">Data <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr></label>
+      <div class="controls">
+        <textarea class="input-xlarge" id="demo-data-url" name="demo-data-url" rows="3" readonly></textarea>
       </div>
     </div>
-    <div class="actions">
-      <button type="submit" class="btn primary">Generate</button>
-      <button type="button" class="btn success" id="demo-save" disabled>Save</button>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Generate</button>
+      <button type="button" class="btn btn-success" id="demo-save" disabled>Save</button>
       <button type="reset" class="btn">Reset</button>
     </div>
   </fieldset>
 </form>
-<script src="https://raw.github.com/neocotic/qr.js/1.0.3/qr.min.js"></script>
-<script type="text/javascript">
-  $(function () {
+<script src="https://raw.github.com/neocotic/qr.js/{{site.project.qrjs.version}}/qr.min.js"></script>
+<script>
+  $(function() {
+
     // Setup demo.
-    var
-      canvas   = document.createElement('canvas'),
-      data,
-      dataUrl  = $('#demo-data-url'),
-      eccLevel = $('#demo-ecc-level'),
-      image    = $('#demo-image'),
-      input    = $('#demo-input'),
-      save     = $('#demo-save'),
-      size     = $('#demo-size');
-    $('#demo').submit(function () {
+    var canvas = document.createElement('canvas')
+      , data
+      , dataUrl = $('#demo-data-url')
+      , eccLevel = $('#demo-ecc-level')
+      , image = $('#demo-image')
+      , input = $('#demo-input')
+      , save = $('#demo-save')
+      , size = $('#demo-size');
+
+    $('#demo').on('submit', function() {
       data = {
-        canvas : canvas[0],
-        image  : image[0],
-        level  : eccLevel.val(),
-        size   : parseInt(size.val(), 10),
-        value  : input.val()
+          canvas: canvas[0]
+        , image: image[0]
+        , level: eccLevel.val()
+        , size: parseInt(size.val(), 10)
+        , value: input.val()
       };
       if (qr.image(data)) {
         dataUrl.val(canvas.toDataURL());
@@ -90,10 +94,13 @@ keywords: qr, code, qrcode, generator, javascript, library, interactive, demo, e
       }
       return false;
     });
-    save.click(function () {
+
+    save.on('click', function() {
       if (data) qr.save(data);
     });
-    // Try run it initially.
+
+    // Try run it initially
     $('#demo').submit();
+
   });
 </script>
