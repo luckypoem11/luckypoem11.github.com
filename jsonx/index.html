@@ -1,21 +1,22 @@
 ---
-title: jsonx
-layout: full-width
-description: jsonx is a JavaScript library that provides support for XML to JSON transformations and vice versa
+subtitle: JavaScript library providing XML to JSON two-way transformations
+layout: jsonx
+navbar_top_url: ""
+description: JSONX is a JavaScript library that provides support for XML to JSON transformations and vice versa
 keywords: jsonx, json, xml, javascript, library, transform, convert, download, open, source, neocotic, github
 share: true
 ---
 <p>
-  <a href="/jsonx">jsonx</a> is a JavaScript library which allows simple transformation
-  between <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr> and
-  <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr>.
+  <a href="/jsonx">JSONX</a> is a JavaScript library which allows simple transformation
+  between <abbr rel="tooltip" title="Extensible Markup Language">XML</abbr> and
+  <abbr rel="tooltip" title="JavaScript Object Notation">JSON</abbr>.
 </p>
 <p>More information is coming soon...</p>
-<h2><a name="json-xml"></a><abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr> to <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr></h2>
+<h2><a name="json-xml"></a>JSONX to XML</h2>
 {% highlight javascript %}
-JSONX.build(Object[]|String)
+JSONX.build(Array|String)
 {% endhighlight %}
-<h2><a name="xml-json"></a><abbr rel="twipsy" title="Extensible Markup Language">XML</abbr> to <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr></h2>
+<h2><a name="xml-json"></a>XML to JSON</h2>
 {% highlight javascript %}
 JSONX.parse(Node|Node[]|NodeList|String)
 {% endhighlight %}
@@ -25,53 +26,44 @@ JSONX.stringify(Node|Node[]|NodeList|String)
 {% endhighlight %}
 <h2><a name="grammar"></a>Grammar</h2>
 <p>
-  The following grammar (<abbr rel="twipsy" title="Backus–Naur Form">BNF</abbr>)
-  represents the <abbr rel="twipsy" title="Extensible Markup Language">XML</abbr>
-  to <abbr rel="twipsy" title="JavaScript Object Notation">JSON</abbr> transformation;
+  The following <abbr rel="tooltip" title="ANother Tool for Language Recognition">ANTLR</abbr>
+  grammar represents the <abbr rel="tooltip" title="Extensible Markup Language">XML</abbr>
+  to <abbr rel="tooltip" title="JavaScript Object Notation">JSON</abbr> transformation;
 </p>
-<div class="highlight"><pre><code>element
-  = '[' element-name ',' attributes ',' element-list ']'
-  | '[' element-name ',' attributes ']'
-  | '[' element-name ',' element-list ']'
-  | '[' element-name ']'
-  | string
+{% highlight antlr %}
+ELEMENT
+  : '[' ELEMENT_NAME (',' '{' ATTRIBUTE_LIST? '}')? (',' ELEMENT_LIST)? ']'
+  | STRING
   ;
-element-name
-  = string
+ELEMENT_NAME : STRING ;
+ATTRIBUTE_LIST
+  : ATTRIBUTE ',' ATTRIBUTE_LIST
+  | ATTRIBUTE
   ;
-attributes
-  = '{' attribute-list '}'
-  | '{' '}'
+ATTRIBUTE : ATTRIBUTE_NAME ':' ATTRIBUTE_VALUE ;
+ATTRIBUTE_NAME : STRING ;
+ATTRIBUTE_VALUE
+  : STRING
+  | NUMBER
+  | BOOLEAN
+  | NULL
   ;
-attribute-list
-  = attribute ',' attribute-list
-  | attribute
+ELEMENT_LIST
+  : ELEMENT ',' ELEMENT_LIST
+  | ELEMENT
   ;
-attribute
-  = attribute-name ':' attribute-value
-  ;
-attribute-name
-  = string
-  ;
-attribute-value
-  = string
-  | number
-  | 'true'
+BOOLEAN
+  : 'true'
   | 'false'
-  | 'null'
   ;
-element-list
-  = element ',' element-list
-  | element
-  ;</code></pre></div>
+NULL : 'null' ;
+NUMBER : '0'..'9'+ ;
+STRING : 'a'..'z'+ ;
+{% endhighlight %}
 <h2><a name="bugs"></a>Bugs</h2>
 <p>
   If you have any problems with this library or would like to see the changes currently
   in development <a href="https://github.com/neocotic/jsonx/issues">browse our issues</a>.
-</p>
-<p>
-  Developers should run all tests and ensure they pass before submitting a pull
-  request.
 </p>
 <h2><a name="questions"></a>Questions?</h2>
 <p>
@@ -82,7 +74,7 @@ element-list
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/jsonx/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/jsonx" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+<div class="well">
+  <a href="https://github.com/neocotic/jsonx/zipball/{{site.project.jsonx.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/jsonx" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
 </div>
