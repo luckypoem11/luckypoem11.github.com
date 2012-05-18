@@ -2,9 +2,7 @@
 layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://neocotic.com/</loc>
     <lastmod>{{site.time | date_to_xmlschema}}</lastmod>
@@ -13,12 +11,6 @@ layout: nil
   </url>
   <url>
     <loc>http://neocotic.com/about</loc>
-    <lastmod>{{site.time | date_to_xmlschema}}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>http://neocotic.com/search</loc>
     <lastmod>{{site.time | date_to_xmlschema}}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>

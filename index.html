@@ -9,14 +9,16 @@ url: /
   {% for post in paginator.posts %}
     <article class="post">
       <header class="page-header">
+        <div class="pull-right">
+          <a href="http://neocotic.com{{post.url}}#disqus_thread" class="btn" data-disqus-identifier="{{post.id}}" rel="tooltip" title="Comments"><i class="icon-comment"></i></a>
+        </div>
         <h2><a href="{{post.url}}">{{post.title}}</a></h2>
         <p class="lead">
           by
           <a href="https://plus.google.com/114861910136746455630?rel=author" class="google-profile"><img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16"></a>
           <a href="/about" rel="author">Alasdair</a>
-          on {{post.date | date_to_string}}
+          on {{post.date | date_to_long_string}}
         </p>
-        <h6 class="comments"><a href="{{post.url}}#disqus_thread" data-disqus-identifier="{{post.id}}">Comments</a></h6>
       </header>
       <div class="row-fluid">
         {{post.content}}

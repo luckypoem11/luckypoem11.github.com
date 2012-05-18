@@ -14,8 +14,8 @@ share: true
   Its <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   is extremely easy to use and exposes the simple translation functionality through
   the global variable, <code>phony</code>. The predefined phonetic alphabet is
-  based on the <a href="http://en.wikipedia.org/wiki/International_Telecommunication_Union">International Telecommunication Union</a>
-  (ITU) but <a href="/phony.js">Phony</a> allows this to be easily extended
+  based on the <a href="http://en.wikipedia.org/wiki/International_Telecommunication_Union" rel="tooltip" title="International Telecommunication Union">ITU</a>
+  but <a href="/phony.js">Phony</a> allows this to be easily extended
   by adding and/or modifying characters.
 </p>
 <h2><a name="instructions"></a>Translating messages</h2>
@@ -27,34 +27,38 @@ share: true
 </p>
 <ul>
   <li>
-    <code>[alphabet]</code> - The phonetic alphabet to be used to translate the
-    message.
+    <strong>alphabet</strong> - The phonetic alphabet to be used to translate the
+    message
   </li>
   <ul>
-    <li>Uses the <code>"ITU"</code> alphabet if not specified.</li>
-    <li><em>Only</em> used by <a href="#to">phony.to</a>.</li>
+    <li>
+      <em>Optional:</em> The <code>"ITU"</code> alphabet is used by default
+    </li>
+    <li>Only used by <a href="#to">phony.to</a></li>
   </ul>
   <li>
-    <code>[caseSensitive]</code> - Whether or not the translation should be case
-    sensitive.
+    <strong>caseSensitive</strong> - Whether or not the translation should be case
+    sensitive
   </li>
   <ul>
-    <li>Translation is case-sensitive if not specified.</li>
+    <li><em>Optional:</em> Translation is case-sensitive by default</li>
   </ul>
-  <li><code>message</code> - The string to be translated.</li>
+  <li><strong>message</strong> - The string to be translated</li>
   <li>
-    <code>[omitSpace]</code> - Whether or not words should be split up by &quot;Space&quot;.
+    <strong>omitSpace</strong> - Whether or not words should be split up by &quot;Space&quot;
   </li>
   <ul>
-    <li>&quot;Space&quot; is <em>not</em> omitted if not specified.</li>
-    <li><em>Only</em> used by <a href="#to">phony.to</a>.</li>
+    <li>
+      <em>Optional:</em> &quot;Space&quot; is not omitted by default
+    </li>
+    <li>Only used by <a href="#to">phony.to</a></li>
   </ul>
   <li>
-    <code>[round]</code> - Whether or not hundreds and thousands should be rounded
-    (e.g. &quot;100&quot; &#61;&gt; &quot;One Hundred&quot;).
+    <strong>round</strong> - Whether or not hundreds and thousands should be rounded
+    (e.g. &quot;100&quot; &#61;&gt; &quot;One Hundred&quot;)
   </li>
   <ul>
-    <li>Hundreds and thousands are rounded if not specified.</li>
+    <li><em>Optional:</em> Hundreds and thousands are rounded by default</li>
   </ul>
 </ul>
 <h3><a name="to"></a>To...</h3>

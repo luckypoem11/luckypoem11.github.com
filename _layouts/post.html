@@ -9,7 +9,7 @@ share: true
       by
       <a href="https://plus.google.com/114861910136746455630?rel=author" class="google-profile"><img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16"></a>
       <a href="/about" rel="author">Alasdair</a>
-      on {{page.date | date_to_string}}
+      on {{page.date | date_to_long_string}}
     </p>
   </header>
   <div class="row-fluid">
@@ -31,7 +31,7 @@ share: true
   var disqus_identifier = '{{page.id}}'
     , disqus_shortname = 'neocotic'
     , disqus_title = '{{page.title}}'
-    , disqus_url = window.location.origin + '{{page.id}}';
+    , disqus_url = 'http://neocotic.com{{page.id}}';
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';

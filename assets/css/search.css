@@ -1,0 +1,174 @@
+.gsc-control-cse {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  border: 0;
+  background-color: transparent;
+}
+.cse .gsc-control-cse,
+.gsc-control-cse {
+  padding: 0;
+}
+.gsc-tabHeader.gsc-tabhInactive {
+  border-color: #e9e9e9;
+  background-color: #e9e9e9;
+}
+.gsc-tabHeader.gsc-tabhActive {
+  border-top-color: #ff9900;
+  border-left-color: #e9e9e9;
+  border-right-color: #e9e9e9;
+  background-color: #fff;
+}
+.gsc-tabsArea {
+  border-color: #e9e9e9;
+}
+.gsc-webResult.gsc-result,
+.gsc-results .gsc-imageResult {
+  border-color: #fff;
+  background-color: #fff;
+}
+.gsc-webResult.gsc-result:hover,
+.gsc-imageResult:hover {
+  border-color: #fff;
+  background-color: #fff;
+}
+.gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link b,
+.gs-imageResult a.gs-title:link,
+.gs-imageResult a.gs-title:link b {
+  color: #08c;
+}
+.gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited b,
+.gs-imageResult a.gs-title:visited,
+.gs-imageResult a.gs-title:visited b {
+  color: #08c;
+}
+.gs-webResult.gs-result a.gs-title:hover,
+.gs-webResult.gs-result a.gs-title:hover b,
+.gs-imageResult a.gs-title:hover,
+.gs-imageResult a.gs-title:hover b {
+  color: #005580;
+}
+.gs-webResult.gs-result a.gs-title:active,
+.gs-webResult.gs-result a.gs-title:active b,
+.gs-imageResult a.gs-title:active,
+.gs-imageResult a.gs-title:active b {
+  color: #08c;
+}
+.gsc-cursor-page {
+  color: #08c;
+}
+a.gsc-trailing-more-results:link {
+  color: #08c;
+}
+.gs-webResult .gs-snippet,
+.gs-imageResult .gs-snippet,
+.gs-fileFormatType {
+  color: #404040;
+}
+.gs-webResult div.gs-visibleUrl,
+.gs-imageResult div.gs-visibleUrl {
+  color: #999;
+}
+.gs-webResult div.gs-visibleUrl-short {
+  color: #999;
+}
+.gs-webResult div.gs-visibleUrl-short {
+  display: none;
+}
+.gs-webResult div.gs-visibleUrl-long {
+  display: block;
+}
+.gsc-cursor-box {
+  border-color: #fff;
+}
+.gsc-results .gsc-cursor-box .gsc-cursor-page {
+  border-color: #e9e9e9;
+  background-color: #fff;
+  color: #08c;
+}
+.gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+  border-color: #ff9900;
+  background-color: #fff;
+  color: #08c;
+}
+.gs-promotion {
+  border-color: #336699;
+  background-color: #fff;
+}
+.gs-promotion a.gs-title:link,
+.gs-promotion a.gs-title:link *,
+.gs-promotion .gs-snippet a:link {
+  color: #0000cc;
+}
+.gs-promotion a.gs-title:visited,
+.gs-promotion a.gs-title:visited *,
+.gs-promotion .gs-snippet a:visited {
+  color: #0000cc;
+}
+.gs-promotion a.gs-title:hover,
+.gs-promotion a.gs-title:hover *,
+.gs-promotion .gs-snippet a:hover {
+  color: #0000cc;
+}
+.gs-promotion a.gs-title:active,
+.gs-promotion a.gs-title:active *,
+.gs-promotion .gs-snippet a:active {
+  color: #0000cc;
+}
+.gs-promotion .gs-snippet,
+.gs-promotion .gs-title .gs-promotion-title-right,
+.gs-promotion .gs-title .gs-promotion-title-right *  {
+  color: #000000;
+}
+.gs-promotion .gs-visibleUrl,
+.gs-promotion .gs-visibleUrl-short {
+  color: #008000;
+}
+.gs-result .gs-title,
+.gs-result .gs-title * {
+  text-decoration: none;
+}
+.gs-result .gs-title:hover,
+.gs-result .gs-title:hover *{
+  text-decoration: underline;
+}
+.gsc-adBlock {
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+.gsc-resultsHeader {
+  display: none;
+}
+.gsc-table-result {
+  margin-bottom: 0;
+}
+.gsc-webResult.gsc-result,
+.gsc-imageResult-column,
+.gsc-imageResult-classic {
+  margin-bottom: 0;
+}
+.gs-no-results-result .gs-snippet,
+.gs-error-result .gs-snippet {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  color:#c09853;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+.gsc-above-wrapper-area {
+  border-bottom-color: #eee;
+}
+.domainLink {
+  color: #999;
+}
+img.gsc-branding-img,
+img.gsc-branding-img-noclear,
+img.gcsc-branding-img,
+img.gcsc-branding-img-noclear {
+  max-width: inherit;
+  vertical-align: inherit;
+}
