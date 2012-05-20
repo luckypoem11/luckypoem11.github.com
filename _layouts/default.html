@@ -25,12 +25,15 @@
     {% if page.share %}
       <script>
         $(function() {
+
+          window.switchTo5x = true;
           $.getScript('http://w.sharethis.com/button/buttons.js', function() {
             stLight.options({
                 onhover: false
               , publisher: '22a034ba-ce1f-48fa-b612-d6ca2289060a'
             });
           });
+
         });
       </script>
     {% endif %}
