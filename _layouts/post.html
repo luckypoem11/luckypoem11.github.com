@@ -2,33 +2,40 @@
 layout: default
 share: true
 ---
-<div class="page-header">
-  <h1>
-    {{page.title}}
-    <small>
+<article class="post">
+  <header class="page-header">
+    <h1>{{page.title}}</h1>
+    <p class="lead">
       by
       <a href="https://plus.google.com/114861910136746455630?rel=author" class="google-profile"><img src="https://www.google.com/images/icons/ui/gprofile_button-16.png" width="16" height="16"></a>
       <a href="/about" rel="author">Alasdair</a>
-      on {{page.date | date_to_string}}
-    </small>
-  </h1>
-</div>
-<div class="post row">
-  <div class="span14">
+      on {{page.date | date_to_long_string}}
+    </p>
+  </header>
+  <div class="row-fluid">
     {{content}}
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var
-        disqus_identifier = '{{page.id}}',
-        disqus_shortname  = 'neocotic',
-        disqus_title      = '{{page.title}}',
-        disqus_url        = window.location.origin + '{{page.id}}';
-      (function () {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
   </div>
-</div>
+  {% if page.share %}
+    <div class="stContainer">
+      <span class="st_twitter_hcount" displayText="Tweet"></span>
+      <span class="st_plusone_hcount"></span>
+      <span class="st_fblike_hcount"></span>
+      <span class="st_linkedin_hcount" displayText="LinkedIn"></span>
+      <span class="st_email_button" displayText="Email"></span>
+      <span class="st_sharethis_button" displayText="Share"></span>
+    </div>
+  {% endif %}
+</article>
+<div id="disqus_thread"></div>
+<script>
+  var disqus_identifier = '{{page.id}}'
+    , disqus_shortname = 'neocotic'
+    , disqus_title = '{{page.title}}'
+    , disqus_url = 'http://neocotic.com{{page.id}}';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>

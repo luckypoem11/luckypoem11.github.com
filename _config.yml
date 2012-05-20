@@ -3,30 +3,88 @@ permalink: /:year/:month/:day/:title
 pygments: true
 paginate: 5
 exclude:
-- CNAME
-- Makefile
-- README.md
+  - CNAME
+  - Makefile
+  - README.md
 chrome_extensions:
-- dcjnfaoifoefmnbhhlbppaebgnccfddf
-- kflemogpkbophbipihnbcmlplbihbdhb
-- gbgogigdaibinioohdhejplmajgkkfdn
+  - dcjnfaoifoefmnbhhlbppaebgnccfddf
+  - kflemogpkbophbipihnbcmlplbihbdhb
+  - gbgogigdaibinioohdhejplmajgkkfdn
+project:
+  blingaer: &blingaer
+    name: blingaer
+  blingier: &blingier
+    name: blingier
+  cssutils: &cssutils
+    name: css-utils
+    version: "1.0.0"
+  dateext: &dateext
+    name: date-ext
+    version: "1.0.2"
+  gitant: &gitant
+    name: git-ant
+  gitpress: &gitpress
+    name: GitPress
+  htmlmd: &htmlmd
+    name: html.md
+    version: "1.0.0"
+  iorder: &iorder
+    name: iOrder
+    version: "1.1.0"
+  jqueryconsole: &jqueryconsole
+    name: jquery-console
+    title: jQuery Console
+  jqueryjsonx: &jqueryjsonx
+    name: jquery-jsonx
+    title: jQuery JSONX
+    version: "1.0.0"
+  jsonpjs: &jsonpjs
+    name: jsonp.js
+    version: "1.0.0"
+  jsonx: &jsonx
+    name: jsonx
+    title: JSONX
+    version: "1.0.0"
+  mediad: &mediad
+    name: mediad
+  morjs: &morjs
+    name: mor.js
+    version: "1.0.2"
+  phonyjs: &phonyjs
+    name: phony.js
+    title: Phony
+    version: "1.0.1"
+  qrjs: &qrjs
+    name: qr.js
+    version: "1.0.3"
+  template: &template
+    name: template
+    title: Template
+    version: "1.0.10"
+  undowikipediablackout: &undowikipediablackout
+    name: UndoWikipediaBlackout
+    title: Undo Wikipedia Blackout
+    version: "1.0.2"
+  yourlsapi: &yourlsapi
+    name: yourls-api
+    version: "1.0.0"
 projects:
-- blingaer
-- blingier
-- css-utils
-- date-ext
-- git-ant
-- GitPress
-- html.md
-- iOrder
-- jquery-console
-- jquery-jsonx
-- jsonp.js
-- jsonx
-- mediad
-- mor.js
-- phony.js
-- qr.js
-- template
-- UndoWikipediaBlackout
-- yourls-api
+  - *blingaer
+  - *blingier
+  - *cssutils
+  - *dateext
+  - *gitant
+  - *gitpress
+  - *htmlmd
+  - *iorder
+  - *jqueryconsole
+  - *jqueryjsonx
+  - *jsonpjs
+  - *jsonx
+  - *mediad
+  - *morjs
+  - *phonyjs
+  - *qrjs
+  - *template
+  - *undowikipediablackout
+  - *yourlsapi

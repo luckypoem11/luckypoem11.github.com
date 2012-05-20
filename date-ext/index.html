@@ -1,6 +1,7 @@
 ---
-title: date-ext
-layout: full-width
+subtitle: Extend JavaScript's Date object with lots of extremely useful functionality
+layout: dateext
+navbar_top_url: ""
 description: date-ext is a library for extending JavaScript dates
 keywords: date-ext, date, extend, javascript, library, extend, format, download, open, source, neocotic, github
 share: true
@@ -16,7 +17,7 @@ $ npm install date-ext
 {% endhighlight %}
 <h2><a name="formatting"></a>Formatting</h2>
 <p>
-  Formatting is now extremely simple and uses the same parameters as <abbr rel="twipsy" title="Hypertext Preprocessor">PHP</abbr>'s
+  Formatting is now extremely simple and uses the same parameters as <abbr rel="tooltip" title="Hypertext Preprocessor">PHP</abbr>'s
   <a href="http://php.net/manual/en/function.date.php">date function</a> as well
   as the escape sequence (backslash).
 </p>
@@ -24,27 +25,36 @@ $ npm install date-ext
 Date.format(date, formatStr)
 new Date().format(formatStr)
 {% endhighlight %}
-<form id="format-demo">
-  <fieldset>
-    <legend>Format Demo</legend>
-    <div class="clearfix">
-      <label for="format-demo-input">Input</label>
-      <div class="input">
-        <input class="xlarge" id="format-demo-input" name="format-demo-input" size="30" type="text" spellcheck="false" placeholder="D, j M Y H:i:s O" />
+<div id="format-demo" class="hide modal in">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Formatting Demo</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="format-demo-input">Input</label>
+        <div class="controls">
+          <input id="format-demo-input" type="text" class="input-xlarge" spellcheck="false" placeholder="D, j M Y H:i:s O">
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="format-demo-output">Output</label>
-      <div class="input">
-        <input class="xlarge" id="format-demo-output" name="format-demo-output" size="30" type="text" spellcheck="false" readonly />
+      <div class="control-group">
+        <label class="control-label" for="format-demo-output">Output</label>
+        <div class="controls">
+          <input id="format-demo-output" type="text" class="input-xlarge" readonly>
+        </div>
       </div>
-    </div>
-    <div class="actions">
-      <button type="submit" class="btn primary">Format</button>
-      <button type="reset" class="btn">Reset</button>
-    </div>
-  </fieldset>
-</form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn">Close</button>
+    <button class="btn btn-danger">Reset</button>
+    <button class="btn btn-primary">Run</button>
+  </div>
+</div>
+<p>
+  <button id="launch-format-demo" class="btn btn-large btn-inverse">Launch Demo</button>
+</p>
 <h2><a name="scheduling"></a>Scheduling</h2>
 <p>
   Want to schedule a function to be called at a certain time? Well, it couldn't
@@ -90,85 +100,94 @@ new Date().getYearOfWeek()
 new Date().isDaylightSavingTime()
 new Date().isLeapYear()
 {% endhighlight %}
-<form id="misc-demo">
-  <fieldset>
-    <legend>Misc. Demo</legend>
-    <div class="clearfix">
-      <label for="misc-demo-input-date">Date</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-input-date" name="misc-demo-input-date" type="text" maxlength="2" rel="twipsy" title="Date (dd)" style="text-align: center" placeholder="dd" />
-        /
-        <input class="mini" id="misc-demo-input-month" name="misc-demo-input-month" type="text" maxlength="2" rel="twipsy" title="Month (mm)" style="text-align: center" placeholder="mm" />
-        /
-        <input class="mini" id="misc-demo-input-year" name="misc-demo-input-year" type="text" maxlength="4" rel="twipsy" title="Year (yyyy)" style="text-align: center" placeholder="yyyy" />
+<div id="misc-demo" class="hide modal in">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Miscellaneous Demo</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-input-date">Date</label>
+        <div class="controls">
+          <input id="misc-demo-input-date" type="text" class="input-mini center" maxlength="2" placeholder="dd" rel="tooltip" title="Date (dd)">
+          /
+          <input id="misc-demo-input-month" type="text" class="input-mini center" maxlength="2" placeholder="mm" rel="tooltip" title="Month (mm)">
+          /
+          <input id="misc-demo-input-year" type="text" class="input-mini center" maxlength="4" placeholder="yyyy" rel="tooltip" title="Year (yyyy)">
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-clear">Clear Date/Time</label>
-      <div class="input">
-        <input class="xlarge" id="misc-demo-clear" name="misc-demo-clear" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-clear">Clear Date/Time</label>
+        <div class="controls">
+          <input id="misc-demo-clear" type="text" class="input-xlarge" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-clearDate">Clear Date</label>
-      <div class="input">
-        <input class="xlarge" id="misc-demo-clearDate" name="misc-demo-clearDate" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-clearDate">Clear Date</label>
+        <div class="controls">
+          <input id="misc-demo-clearDate" type="text" class="input-xlarge" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-clearTime">Clear Time</label>
-      <div class="input">
-        <input class="xlarge" id="misc-demo-clearTime" name="misc-demo-clearTime" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-clearTime">Clear Time</label>
+        <div class="controls">
+          <input id="misc-demo-clearTime" type="text" class="input-xlarge" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-getDayOfYear">Day of year</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-getDayOfYear" name="misc-demo-getDayOfYear" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-getDayOfYear">Day of year</label>
+        <div class="controls">
+          <input id="misc-demo-getDayOfYear" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-getDaysInMonth">Days in month</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-getDaysInMonth" name="misc-demo-getDaysInMonth" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-getDaysInMonth">Days in month</label>
+        <div class="controls">
+          <input id="misc-demo-getDaysInMonth" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-getWeekOfYear">Week of year</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-getWeekOfYear" name="misc-demo-getWeekOfYear" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-getWeekOfYear">Week of year</label>
+        <div class="controls">
+          <input id="misc-demo-getWeekOfYear" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-getYearOfWeek">Year of week</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-getYearOfWeek" name="misc-demo-getYearOfWeek" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-getYearOfWeek">Year of week</label>
+        <div class="controls">
+          <input id="misc-demo-getYearOfWeek" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-isDaylightSavingTime">In <abbr rel="twipsy" title="Daylight Saving Time">DST</abbr></label>
-      <div class="input">
-        <input class="mini" id="misc-demo-isDaylightSavingTime" name="misc-demo-isDaylightSavingTime" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-isDaylightSavingTime">In <abbr rel="tooltip" title="Daylight Saving Time">DST</abbr></label>
+        <div class="controls">
+          <input id="misc-demo-isDaylightSavingTime" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <label for="misc-demo-isLeapYear">Is leap year</label>
-      <div class="input">
-        <input class="mini" id="misc-demo-isLeapYear" name="misc-demo-isLeapYear" type="text" readonly />
+      <div class="control-group">
+        <label class="control-label" for="misc-demo-isLeapYear">Is leap year</label>
+        <div class="controls">
+          <input id="misc-demo-isLeapYear" type="text" class="input-mini" readonly>
+        </div>
       </div>
-    </div>
-    <div class="actions">
-      <button type="submit" class="btn primary">Run</button>
-      <button type="reset" class="btn">Reset</button>
-    </div>
-  </fieldset>
-</form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn">Close</button>
+    <button class="btn btn-danger">Reset</button>
+    <button class="btn btn-primary">Run</button>
+  </div>
+</div>
+<p>
+  <button id="launch-misc-demo" class="btn btn-large btn-inverse">Launch Demo</button>
+</p>
 <h2><a name="changes"></a>Changes</h2>
-<h3>Version 1.0.2</h3>
+<h3>Version {{site.project.dateext.version}}</h3>
 <ul>
   <li>
-    <a href="https://github.com/neocotic/date-ext/issues/3">#3</a>: Add guards to
-    method declarations to prevent overriding future additions
+    <a href="https://github.com/neocotic/date-ext/issues/3">#3</a>: Add guards
+    to method declarations to prevent overriding future additions
   </li>
   <li>
     <a href="https://github.com/neocotic/date-ext/issues/3">#3</a>: Rename project
@@ -194,70 +213,108 @@ new Date().isLeapYear()
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/date-ext/zipball/1.0.2" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/date-ext" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+<div class="well">
+  <a href="https://github.com/neocotic/date-ext/zipball/{{site.project.dateext.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/date-ext" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
 </div>
-<script src="https://raw.github.com/neocotic/date-ext/1.0.2/date-ext.min.js"></script>
-<script type="text/javascript">
+<script src="https://raw.github.com/neocotic/date-ext/{{site.project.dateext.version}}/date-ext.min.js"></script>
+<script>
   $(function() {
-    // Setup format demo.
-    var input = $('#format-demo-input')
+
+    // Setup format demo
+    var formatDemo = $('#format-demo')
+      , input = $('#format-demo-input')
       , output = $('#format-demo-output');
-    $('#format-demo').submit(function() {
-      var formatStr;
-      if (input.val()) formatStr = input.val();
-      output.val((new Date()).format(formatStr));
-      return false;
+
+    $('#launch-format-demo').on('click', function() {
+      formatDemo.modal('show');
     });
-    // Setup misc. demo.
+
+    formatDemo.find('.modal-footer .btn').first()
+      .on('click', function() {
+        formatDemo.modal('hide');
+      })
+      .next()
+      .on('click', function() {
+        formatDemo.find(':input').val('');
+      })
+      .next()
+      .on('click', function() {
+        var formatStr;
+        if (input.val()) formatStr = input.val();
+        output.val((new Date()).format(formatStr));
+      });
+
+    // Setup miscellaneous demo
     var date = $('#misc-demo-input-date')
+      , group = date.parents('.control-group').first()
+      , miscDemo = $('#misc-demo')
       , month = $('#misc-demo-input-month')
       , year = $('#misc-demo-input-year');
-    function isInputValid(input, regex, min, max) {
-      var num = input.val()
-        , parent = $(input.parents('.clearfix')[0])
+
+    function isInputValid(field, num, regex, min, max) {
+      var help = group.find('.help-block[data-field="' + field + '"]')
         , ret = regex.test(num);
-      parent.removeClass('error');
       if (ret && $.isNumeric(min) && $.isNumeric(max)) {
         ret = (num >= min && num <= max);
       }
       if (ret) {
-        date.removeClass('error');
+        help.remove();
       } else {
-        var $window = $(window)
-          , position = $('#misc-demo').offset().top;
-        if ($window.scrollTop() > position) $window.scrollTop(position);
-        date.addClass('error');
-        parent.addClass('error');
+        var message = field + ' must be valid';
+        if (help.length) {
+          help.text(message);
+        } else {
+          group.find('.controls').append($('<p/>', {
+              'class': 'help-block'
+            , 'data-field': field
+            , text: message
+          }));
+        }
       }
       return ret;
     }
-    $('#misc-demo').submit(function() {
-      var d  = new Date()
-        , dv = date.val()
-        , mv = month.val()
-        , yv = year.val();
-      if (!isInputValid(date, /^\d{2}$/, 1, 31)
-          || !isInputValid(month, /^\d{2}$/, 1, 12)
-          || !isInputValid(year, /^\d{4}$/)) {
-        return false;
-      }
-      d.setFullYear(yv, mv - 1, dv);
-      $('#misc-demo-clear').val((new Date(d)).clear().toString());
-      $('#misc-demo-clearDate').val((new Date(d)).clearDate().toString());
-      $('#misc-demo-clearTime').val((new Date(d)).clearTime().toString());
-      d.setHours(0, 0, 0, 0);
-      $('#misc-demo-getDayOfYear').val(d.getDayOfYear());
-      $('#misc-demo-getDaysInMonth').val(d.getDaysInMonth());
-      $('#misc-demo-getWeekOfYear').val(d.getWeekOfYear());
-      $('#misc-demo-getYearOfWeek').val(d.getYearOfWeek());
-      $('#misc-demo-isDaylightSavingTime').val(d.isDaylightSavingTime() ? 'Yes' : 'No');
-      $('#misc-demo-isLeapYear').val(d.isLeapYear() ? 'Yes' : 'No');
-      return false;
+
+    $('#launch-misc-demo').on('click', function() {
+      miscDemo.modal('show');
     });
-    $('#misc-demo .actions button[type="reset"]').click(function() {
-      $('#misc-demo .error').removeClass('error');
-    });
+
+    miscDemo.find('.modal-footer .btn').first()
+      .on('click', function() {
+        miscDemo.modal('hide');
+      })
+      .next()
+      .on('click', function() {
+        miscDemo.find('.error').removeClass('error').find('.help-block')
+          .remove().end().end().find(':input').val('');
+      })
+      .next()
+      .on('click', function() {
+        var d  = new Date()
+          , dv = date.val()
+          , mv = month.val()
+          , yv = year.val();
+        if (!isInputValid('Date', dv, /^\d{2}$/, 1, 31)
+            | !isInputValid('Month', mv, /^\d{2}$/, 1, 12)
+            | !isInputValid('Year', yv, /^\d{4}$/)) {
+          group.addClass('error');
+          return;
+        }
+        group.removeClass('error');
+        d.setFullYear(yv, mv - 1, dv);
+        $('#misc-demo-clear').val((new Date(d)).clear().toString());
+        $('#misc-demo-clearDate').val((new Date(d)).clearDate().toString());
+        $('#misc-demo-clearTime').val((new Date(d)).clearTime().toString());
+        d.setHours(0, 0, 0, 0);
+        $('#misc-demo-getDayOfYear').val(d.getDayOfYear());
+        $('#misc-demo-getDaysInMonth').val(d.getDaysInMonth());
+        $('#misc-demo-getWeekOfYear').val(d.getWeekOfYear());
+        $('#misc-demo-getYearOfWeek').val(d.getYearOfWeek());
+        $('#misc-demo-isDaylightSavingTime').val(d.isDaylightSavingTime()
+            ? 'Yes' : 'No');
+        $('#misc-demo-isLeapYear').val(d.isLeapYear() ? 'Yes' : 'No');
+      });
+
   });
+
 </script>

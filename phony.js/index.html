@@ -1,68 +1,71 @@
 ---
-title: phony.js
-layout: full-width
-description: phony.js is a pure JavaScript library for translating to/from the phonetic library
+subtitle: JavaScript library for translating the phonetic alphabet
+layout: phonyjs
+navbar_top_url: ""
+description: Phony is a pure JavaScript library for translating to/from the phonetic alphabet
 keywords: phonetic, alphabetic, phony, javascript, library, translate, download, open, source, neocotic, github
 share: true
 ---
 <p>
-  <a href="/phony.js">phony.js</a> is a pure JavaScript library for translating
-  messages to and from the <a href="http://en.wikipedia.org/wiki/NATO_phonetic_alphabet">NATO phonetic alphabet</a>.
+  <a href="/phony.js">Phony</a> is a pure JavaScript library for translating messages
+  to and from the <a href="http://en.wikipedia.org/wiki/NATO_phonetic_alphabet">NATO phonetic alphabet</a>.
 </p>
 <p>
-  Its <abbr rel="twipsy" title="Application Programming Interface">API</abbr> is
-  extremely easy to use and exposes the simple translation functionality through
-  the global variable, <code>phony</code>. The predefined phonetic alphabet is based
-  on the <a href="http://en.wikipedia.org/wiki/International_Telecommunication_Union">International Telecommunication Union</a>
-  (ITU) but <a href="/phony.js">phony.js</a> allows this to be easily extended by
-  adding and/or modifying characters.
+  Its <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  is extremely easy to use and exposes the simple translation functionality through
+  the global variable, <code>phony</code>. The predefined phonetic alphabet is
+  based on the <a href="http://en.wikipedia.org/wiki/International_Telecommunication_Union" rel="tooltip" title="International Telecommunication Union">ITU</a>
+  but <a href="/phony.js">Phony</a> allows this to be easily extended
+  by adding and/or modifying characters.
 </p>
 <h2><a name="instructions"></a>Translating messages</h2>
 <p>
-  The <abbr rel="twipsy" title="Application Programming Interface">API</abbr> allows
-  either a <code>data</code> object or string <code>message</code> to be passed
-  as the first argument. If a string is used all options will use their default
-  value; otherwise they can be set using the following properties;
+  The <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
+  allows either a <code>data</code> object or string <code>message</code> to be
+  passed as the first argument. If a string is used all options will use their
+  default value; otherwise they can be set using the following properties;
 </p>
 <ul>
   <li>
-    <code>[alphabet]</code> - The phonetic alphabet to be used to translate the
-    message.
+    <strong>alphabet</strong> - The phonetic alphabet to be used to translate the
+    message
   </li>
   <ul>
-    <li>Uses the <code>"ITU"</code> alphabet if not specified.</li>
-    <li><em>Only</em> used by <a href="#to">phony.to</a>.</li>
+    <li>
+      <em>Optional:</em> The <code>"ITU"</code> alphabet is used by default
+    </li>
+    <li>Only used by <a href="#to">phony.to</a></li>
   </ul>
   <li>
-    <code>[caseSensitive]</code> - Whether or not the translation should be case
-    sensitive.
+    <strong>caseSensitive</strong> - Whether or not the translation should be case
+    sensitive
   </li>
   <ul>
-    <li>Translation is case-sensitive if not specified.</li>
+    <li><em>Optional:</em> Translation is case-sensitive by default</li>
   </ul>
-  <li><code>message</code> - The string to be translated.</li>
+  <li><strong>message</strong> - The string to be translated</li>
   <li>
-    <code>[omitSpace]</code> - Whether or not words should be split up by &quot;Space&quot;.
+    <strong>omitSpace</strong> - Whether or not words should be split up by &quot;Space&quot;
   </li>
   <ul>
-    <li>&quot;Space&quot; is <em>not</em> omitted if not specified.</li>
-    <li><em>Only</em> used by <a href="#to">phony.to</a>.</li>
+    <li>
+      <em>Optional:</em> &quot;Space&quot; is not omitted by default
+    </li>
+    <li>Only used by <a href="#to">phony.to</a></li>
   </ul>
   <li>
-    <code>[round]</code> - Whether or not hundreds and thousands should be rounded
-    (e.g. &quot;100&quot; &#61;&gt; &quot;One Hundred&quot;).
+    <strong>round</strong> - Whether or not hundreds and thousands should be rounded
+    (e.g. &quot;100&quot; &#61;&gt; &quot;One Hundred&quot;)
   </li>
   <ul>
-    <li>Hundreds and thousands are rounded if not specified.</li>
+    <li><em>Optional:</em> Hundreds and thousands are rounded by default</li>
   </ul>
 </ul>
 <h3><a name="to"></a>To...</h3>
 {% highlight javascript %}
 phony.to([data|message][, callback(error, result)])
 {% endhighlight %}
-<p>
-  Returns the phonetic alphabet representation of the message provided.
-</p>
+<p>Returns the phonetic alphabet representation of the message provided.</p>
 <h3><a name="from"></a>From...</h3>
 {% highlight javascript %}
 phony.from([data|message][, callback(error, result)])
@@ -73,8 +76,8 @@ phony.from([data|message][, callback(error, result)])
 </p>
 <h2><a name="customize"></a>Customizing</h2>
 <p>
-  The full potential of <a href="/phony.js">phony.js</a> can be accessed by customizing
-  your interactions with the <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  The full potential of <a href="/phony.js">Phony</a> can be accessed by customizing
+  your interactions with the <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   via the exposed method which allows you to define (or redefine) supported characters.
 </p>
 <h3><a name="define-char"></a>Defining characters</h3>
@@ -83,25 +86,25 @@ phony.defineChar(character, translation[, callback(error)])
 {% endhighlight %}
 <p>
   Maps a phonetic alphabet translation for a supported character (existing/new).
-  When defining a character it's recommended (but not required) to specify its value
-  using a <a href="https://developer.mozilla.org/en/JavaScript/Guide/Values,_Variables,_and_Literals#Unicode_Escape_Sequences">Unicode escape sequence</a>
+  When defining a character it's recommended (but not required) to specify its
+  value using a <a href="https://developer.mozilla.org/en/JavaScript/Guide/Values,_Variables,_and_Literals#Unicode_Escape_Sequences">Unicode escape sequence</a>
   (codes can easily be found on <a href="http://en.wikipedia.org/wiki/List_of_Unicode_characters">Wikipedia</a>)
   and follow these guidelines when specifying the translation;
 </p>
 <ul>
     <li>Must be either a string or an array of strings.</li>
     <li>
-      The string (or strings) must contain only a single word, which should be in
-      title case (e.g. <code>Alfa</code>).
+      The string (or strings) must contain only a single word, which should be
+      in title case (e.g. <code>Alfa</code>).
     </li>
     <li>
-      May be a duplicate but not recommended as <a href="#from">phony.from</a> chooses
-      the character that matches the translation <em>first</em>.
+      May be a duplicate but not recommended as <a href="#from">phony.from</a>
+      chooses the character that matches the translation <em>first</em>.
     </li>
 </ul>
 <h2><a name="misc"></a>Miscellaneous</h2>
 <p>
-  The <a href="/phony.js">phony.js</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  The <a href="/phony.js">Phony</a> <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   exposes some properties and methods which may only be useful to users in special
   cases.
 </p>
@@ -109,7 +112,7 @@ phony.defineChar(character, translation[, callback(error)])
 phony.noConflict([callback(error)])
 {% endhighlight %}
 <p>
-  Relinquish <a href="/phony.js">phony.js'</a> control of the <code>phony</code>
+  Relinquish <a href="/phony.js">Phony's</a> control of the <code>phony</code>
   global variable. If another library uses this variable calling this method will
   reassign it back to that library.
 </p>
@@ -117,14 +120,14 @@ phony.noConflict([callback(error)])
 phony.ALPHABETS
 {% endhighlight %}
 <p>
-  The phonetic alphabet acronyms supported by <a href="/phony.js">phony.js</a>.
+  The phonetic alphabet acronyms supported by <a href="/phony.js">Phony</a>.
 </p>
 {% highlight javascript %}
 phony.VERSION
 {% endhighlight %}
-<p>The current version of <a href="/phony.js">phony.js</a>.</p>
+<p>The current version of <a href="/phony.js">Phony</a>.</p>
 <h2><a name="changes"></a>Changes</h1>
-<h3>Version 1.0.1</h3>
+<h3>Version {{site.project.phonyjs.version}}</h3>
 <ul>
   <li>
     Add documentation (generated using <a href="http://jashkenas.github.com/docco">docco</a>)
@@ -154,7 +157,7 @@ phony.VERSION
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/phony.js/zipball/1.0.1" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/phony.js" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+<div class="well">
+  <a href="https://github.com/neocotic/phony.js/zipball/{{site.project.phonyjs.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/phony.js" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
 </div>

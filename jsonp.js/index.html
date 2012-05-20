@@ -1,17 +1,18 @@
 ---
-title: jsonp.js
-layout: full-width
+subtitle: Simple JavaScript library for JSONP
+layout: jsonpjs
+navbar_top_url: ""
 description: jsonp.js is a simple JSONP JavaScript library
 keywords: jsonp, javascript, library, download, open, source, neocotic, github
 share: true
 ---
 <p>
-  <a href="/jsonp.js">jsonp.js</a> is a library that provides simple <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>
+  <a href="/jsonp.js">jsonp.js</a> is a library that provides simple <a href="http://en.wikipedia.org/wiki/JSONP" rel="tooltip" title="JavaScript Object Notation with Padding">JSONP</a>
   support for JavaScript.
 </p>
 <h2><a name="get"></a>Get</h2>
 <p>
-  Send the parameters to the provided <abbr rel="twipsy" title="Uniform Resource Locator">URL</abbr>
+  Send the parameters to the provided <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr>
   and then handle the response with a function which is called under a specific
   context.
 </p>
@@ -24,10 +25,11 @@ JSONP.get(url[, data][, callback][, context])
   to suit your needs or that of the web service you're calling.
 </p>
 {% highlight javascript %}
-JSONP.callbackName = "callback"
+JSONP.callbackName = 'callback'
 {% endhighlight %}
 <p>
-  Change the name of the callback parameter declaring the name of the callback function.
+  Change the name of the callback parameter declaring the name of the callback
+  function.
 </p>
 {% highlight javascript %}
 JSONP.timeout = 0
@@ -38,7 +40,7 @@ JSONP.timeout = 0
 </p>
 <h2><a name="misc"></a>Miscellaneous</h2>
 <p>
-  The <a href="/jsonp.js">jsonp.js</a> <abbr rel="twipsy" title="Application Programming Interface">API</abbr>
+  The <a href="/jsonp.js">jsonp.js</a> <abbr rel="tooltip" title="Application Programming Interface">API</abbr>
   exposes some properties and methods which may only be useful to users in special
   cases.
 </p>
@@ -68,7 +70,7 @@ JSONP.VERSION
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
-<div class="well bottom">
-  <a href="https://github.com/neocotic/jsonp.js/zipball/1.0.0" rel="twipsy" title="Hosted by GitHub" class="btn large success">Download</a>
-  <a href="https://github.com/neocotic/jsonp.js" rel="twipsy" title="Hosted by GitHub" class="btn large info">View Source</a>
+<div class="well">
+  <a href="https://github.com/neocotic/jsonp.js/zipball/{{site.project.jsonpjs.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
+  <a href="https://github.com/neocotic/jsonp.js" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
 </div>

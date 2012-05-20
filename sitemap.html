@@ -1,32 +1,33 @@
 ---
-layout: full-width
+layout: page
 title: Sitemap
+subtitle: Lost your way?
+description: Sitemap for the personal blog of Alasdair Mercer (neocotic)
+keywords: sitemap, pages, projects, posts, site, map
 ---
-<div class="span14 max">
-  <div class="row">
-    <div class="span3">
-      <h2>Pages</h2>
-      <ul class="unstyled">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/search">Search</a></li>
-      </ul>
-    </div>
-    <div class="span3">
-      <h2>Projects</h2>
-      <ul class="unstyled">
-      {% for project in site.projects %}
-        <li><a href="/{{project}}">{{project}}</a></li>
-      {% endfor %}
-      </ul>
-    </div>
-    <div class="span8">
-      <h2>Posts</h2>
-      <ul class="unstyled">
-      {% for post in site.posts %}
-        <li><a href="{{post.url}}">{{post.title}}</a></li>
-      {% endfor %}
-      </ul>
-    </div>
+<div class="row-fluid">
+  <div class="span3">
+    <h2>Pages</h2>
+    <ul class="unstyled">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/sitemap">Sitemap</a></li>
+    </ul>
+  </div>
+  <div class="span3">
+    <h2>Projects</h2>
+    <ul class="unstyled">
+    {% for project in site.projects %}
+      <li><a href="/{{project.name}}">{% if project.title %}{{project.title}}{% else %}{{project.name}}{% endif %}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="span6">
+    <h2>Posts</h2>
+    <ul class="unstyled">
+    {% for post in site.posts %}
+      <li><a href="{{post.url}}">{{post.title}}</a></li>
+    {% endfor %}
+    </ul>
   </div>
 </div>
