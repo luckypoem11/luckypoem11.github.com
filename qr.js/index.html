@@ -7,8 +7,9 @@ keywords: qr, code, qrcode, generator, javascript, library, html5, canvas, image
 share: true
 ---
 <p>
-  <a href="/qr.js">qr.js</a> is a pure JavaScript library for generating <a href="http://en.wikipedia.org/wiki/QR_code">QR codes</a>
-  utilising <a href="http://en.wikipedia.org/wiki/HTML5">HTML5</a> technology.
+  <a href="/qr.js">qr.js</a> is a pure JavaScript library for generating <a href="http://en.wikipedia.org/wiki/QR_code"><abbr rel="tooltip" title="Quick Response">QR</abbr> codes</a>
+  utilising <a href="http://en.wikipedia.org/wiki/HTML5" rel="tooltip" title="HyperText Markup Language">HTML5</a>
+  technology.
 </p>
 <p>
   Originally based on <a href="http://code.google.com/p/jsqrencode/">jsqrencode</a>
@@ -284,9 +285,115 @@ qr.VERSION
   If that doesn't help, feel free to follow me on <a href="https://twitter.com/">Twitter</a>,
   <a href="https://twitter.com/#!/neocotic" rel="me">@neocotic</a>.
 </p>
+<div id="demo" class="hide modal in">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Demo</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="demo-input">Input</label>
+        <div class="controls">
+          <textarea id="demo-input" class="input-xlarge" rows="2" spellcheck="false">http://neocotic.com/qr.js</textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="demo-ecc-level"><abbr rel="tooltip" title="Error Correction Capacity">ECC</abbr> Level</label>
+        <div class="controls">
+          <select id="demo-ecc-level" class="input-mini">
+            <option selected>L</option>
+            <option>M</option>
+            <option>Q</option>
+            <option>H</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="demo-size">Size</label>
+        <div class="controls">
+          <select id="demo-size" class="input-mini">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option selected>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="control-group">
+        <label class="control-label" for="demo-canvas">Canvas</label>
+        <div class="controls">
+          <canvas id="demo-canvas">
+            Your browser does not support HTML5 Canvas.
+          </canvas>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="demo-data-url">Data <abbr rel="tooltip" title="Uniform Resource Locator">URL</abbr></label>
+        <div class="controls">
+          <textarea id="demo-data-url" class="input-xlarge" rows="2" readonly></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn">Close</button>
+    <button class="btn btn-danger">Reset</button>
+    <button class="btn btn-primary">Run</button>
+  </div>
+</div>
 <div class="well">
   <a href="https://github.com/neocotic/qr.js/zipball/{{site.project.qrjs.version}}" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-success">Download</a>
   <a href="https://github.com/neocotic/qr.js" rel="tooltip" title="Hosted by GitHub" class="btn btn-large btn-info">View Source</a>
-  <!-- TODO: Launch modal dialog containing demo -->
-  <a href="/qr.js/demo" class="btn btn-large btn-inverse">Demo</a>
+  <button id="launch-demo" class="btn btn-large btn-inverse">Launch Demo</button>
 </div>
+<script src="https://raw.github.com/neocotic/qr.js/{{site.project.qrjs.version}}/qr.min.js"></script>
+<script>
+  $(function() {
+
+    // Setup demo
+    var canvas = $('#demo-canvas')[0]
+      , dataUrl = $('#demo-data-url')
+      , demo = $('#demo')
+      , eccLevel = $('#demo-ecc-level')
+      , input = $('#demo-input')
+      , size = $('#demo-size');
+
+    $('#launch-demo').on('click', function() {
+      demo.modal('show');
+    });
+
+    demo.find('.modal-footer .btn').first()
+      .on('click', function() {
+        demo.modal('hide');
+      })
+      .next()
+      .on('click', function() {
+        eccLevel.val('L');
+        input.val('http://neocotic.com/qr.js');
+        size.val('5');
+        $(this).next().click();
+      })
+      .next()
+      .on('click', function() {
+        var data = {
+            canvas: canvas
+          , level: eccLevel.val()
+          , size: parseInt(size.val(), 10)
+          , value: input.val()
+        };
+        if (qr.canvas(data)) {
+          dataUrl.val(canvas.toDataURL());
+        }
+      })
+      .click();
+
+  });
+</script>
