@@ -8,6 +8,9 @@ body {
 a {
   cursor: pointer;
 }
+a[href^="#ref-"]:hover {
+  text-decoration: none;
+}
 abbr[rel=tooltip] {
   border-bottom: 1px dotted #ddd;
   cursor: help;
