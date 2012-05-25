@@ -16,8 +16,8 @@ $(function() {
         return;
       }
       chrome.webstore.install($this.attr('href'), function() {
-        $this.toggleClass('btn-primary disabled chrome_install_button')
-            .off('.chrome').html('Installed');
+        $this.toggleClass('chrome_install_button disabled').off('.chrome')
+            .html('Installed');
       });
       e.preventDefault();
     });
