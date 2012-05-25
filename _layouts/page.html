@@ -3,7 +3,8 @@ layout: default
 ---
 {% if page.title or page.subtitle or page.navbar_items %}
   <header class="{% if page.header_jumbo %}jumbotron subhead{% else %}page-header{% endif %}">
-      {% if page.title %}<h1>{{page.title}}{% if page.title_addon %} <small>{{page.title_addon}}</small>{% endif %}</h1>{% endif %}
+      {% if page.logo %}<img src="{{page.logo.url}}" width="{{page.logo.width}}" height="{{page.logo.height}}"{% if page.logo.alt %} alt="{{page.logo.alt}}"{% endif %} class="pull-left">{% endif %}
+	  {% if page.title %}<h1>{{page.title}}{% if page.title_addon %} <small>{{page.title_addon}}</small>{% endif %}</h1>{% endif %}
 	  {% if page.subtitle %}<p class="lead">{{page.subtitle}}</p>{% endif %}
     {% include navbar.html %}
 	</header>

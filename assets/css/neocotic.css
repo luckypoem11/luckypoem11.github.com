@@ -147,6 +147,9 @@ th > .label {
   padding-bottom: 0;
   margin-bottom: 9px;
 }
+.subhead > img {
+  padding-right: 15px;
+}
 .subhead h1 {
   font-size: 54px;
 }
