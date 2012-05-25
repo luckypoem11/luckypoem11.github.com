@@ -60,7 +60,7 @@ project:
   template: &template
     name: template
     title: Template
-    version: "1.0.10"
+    version: "1.1.0"
   undowikipediablackout: &undowikipediablackout
     name: UndoWikipediaBlackout
     title: Undo Wikipedia Blackout
