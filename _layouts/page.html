@@ -3,12 +3,28 @@ layout: default
 ---
 {% if page.title or page.subtitle or page.navbar_items %}
   <header class="{% if page.header_jumbo %}jumbotron subhead{% else %}page-header{% endif %}">
-	  {% if page.title %}<h1>{{page.title}}</h1>{% endif %}
+      {% if page.title %}<h1>{{page.title}}{% if page.title_addon %} <small>{{page.title_addon}}</small>{% endif %}</h1>{% endif %}
 	  {% if page.subtitle %}<p class="lead">{{page.subtitle}}</p>{% endif %}
     {% include navbar.html %}
 	</header>
 {% endif %}
 <section>
+	{% if page.hero and page.hero.active %}
+	  <div class="row-fluid">
+	    <div class="span2"></div>
+	    <div class="hero-unit span8">
+	      <h1>{{page.hero.header}}</h1>
+	      <p>{{page.hero.content}}</p>
+	      {% if page.hero.buttons %}
+	        <p>
+	          {% for button in page.hero.buttons %}
+	            <a href="{{button.url}}" class="btn btn-large {{button.classes}}"{% if button.title %} rel="tooltip" title="{{button.title}}"{% endif %}>{{button.text}}</a>
+	          {% endfor %}
+	        </p>
+	      {% endif %}
+	    </div>
+	  </div>
+	{% endif %}
 	{{content}}
 	{% if page.share %}
 	  <div class="stContainer">

@@ -4,6 +4,28 @@ topbar_top_url: ""
 description: The personal blog of Alasdair Mercer (neocotic) and home to my many open source development projects
 keywords: web, developer, programmer, software, engineer, java, javascript, html5, css3, php, movies, games
 url: /
+hero:
+  active: true
+  header: Template 1.1.0
+  content: >
+    Packed full of UI enhancements, tweaks, bug fixes, and auto-paste functionality
+    for keyboard shortcuts
+  buttons:
+    - url: /template
+      classes: btn-inverse
+      text: Homepage
+    - url: https://chrome.google.com/webstore/detail/dcjnfaoifoefmnbhhlbppaebgnccfddf
+      classes: btn-primary chrome_install_button
+      text: Install
+      title: Chrome Web Store
+    - url: https://github.com/neocotic/template/zipball/v1.1.0
+      classes: btn-success
+      text: Download
+      title: Hosted by GitHub
+    - url: https://github.com/neocotic/template
+      classes: btn-info
+      text: View Source
+      title: Hosted by GitHub
 ---
 <div class="posts">
   {% for post in paginator.posts %}
