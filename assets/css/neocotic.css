@@ -116,6 +116,9 @@ th > .label {
   body {
     padding-top: 0;
   }
+  .hero-container {
+    display: none;
+  }
 }
 .jumbotron {
   position: relative;

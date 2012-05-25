@@ -1,0 +1,22 @@
+{% if page.carousel and page.carousel.images %}
+  <div class="row-fluid carousel-container">
+    {% if page.carousel.center %}<div class="span2"></div>{% endif %}
+    <div id="carousel" class="carousel slide span8">
+      <div class="carousel-inner">
+        {% for image in page.carousel.images %}
+          <div class="item{% if forloop.first %} active{% endif %}">
+            <img src="{{image.url}}"{% if image.title %} alt="{{image.title}}"{% endif %}>
+            {% if image.title or image.caption %}
+              <div class="carousel-caption">
+                {% if image.title %}<h4>{{image.title}}</h4>{% endif %}
+                {% if image.caption %}<p>{{image.caption}}</p>{% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <a class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
+    </div>
+  </div>
+{% endif %}
